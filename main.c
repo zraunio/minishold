@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/07/28 17:53:27 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/07/29 14:58:00 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,31 @@
 // • You can choose as a reference whatever shell you prefer.
 // • You must manage expansions $ and ˜
 
+char	**get_paths_to_array()
+{
+	extern char **environ;
+	int i;
+	char **path_array;
+
+	i = 0;
+	while (environ[i] != '\0')
+	{
+		if (environ[i][0] == 'P')
+		{
+			if (environ[i][1] == 'A' && environ[i][2] == 'T' && environ[i][3]
+				== 'H' && environ[i][5] != '\0')
+			{
+				path_array = ft_strsplit(*(environ + i) + 5, ':');
+				if (path_array != NULL)
+					return (path_array);
+				exit (1);
+			}
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 int main() 
 {
 	char buf[100];
@@ -48,7 +73,21 @@ int main()
 	int child_status;
 	pid_t tpid;
 	char **arr;
+	char **path_array;
 
+	path_array = NULL;
+	path_array = get_paths_to_array();
+	i = 0;
+	if (path_array != NULL)
+	{
+		while (path_array[i] != '\0')
+		{
+			ft_putstr(path_array[i]);
+			free((void*)path_array[i++]);
+			ft_putstr("\n");
+		}
+		free(path_array);
+	}
 	ft_putstr("myshell> ");
 	while (1)
 	{
@@ -64,6 +103,8 @@ int main()
 		}
 		buf[i - 1] = '\0';
 		arr = ft_strsplit(buf, ' ');
+		if (arr == NULL)
+			exit(1);
 		if (buf[0] == 'e')
 		{
 			if (ft_strcmp(buf, "exit") == 0)
@@ -97,6 +138,10 @@ int main()
 				write(1, "\n", 1);
 			}
 		}
+		i = 0;
+		while (arr[i] != '\0')
+			free(arr[i++]);
+		free(arr);
 		ft_putstr("myshell> ");
 	}
 	return (0);
