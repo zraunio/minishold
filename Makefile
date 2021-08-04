@@ -6,15 +6,15 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/07/28 14:16:32 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/08/04 16:59:13 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-SRCS = main.c
+SRCS = main.c read_input.c lexer.c
 
-OBJS = main.o
+OBJS = main.o read_input.o lexer.o
 
 CFLAGS = -g -Wall -Wextra -Werror
 
