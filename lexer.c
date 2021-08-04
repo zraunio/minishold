@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/04 17:04:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/04 17:13:02 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	split_input_to_array(char *buf)
 	while (buf_arr[i] != NULL)
 	{
 		write(1, "|", 1);
-		ft_putstr(buf_arr[i++]);
+		ft_putstr(buf_arr[i]);
+		free(buf_arr[i++]);
 		ft_putstr("|\n");
 	}
+	free(buf_arr);
 }
