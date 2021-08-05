@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/04 16:59:13 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/08/05 15:30:36 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,23 +14,32 @@ NAME = 21sh
 
 SRCS = main.c read_input.c lexer.c
 
-OBJS = main.o read_input.o lexer.o
+OBJS_DIR = objs
+
+OBJS = $(OBJS_DIR)/main.o $(OBJS_DIR)/read_input.o $(OBJS_DIR)/lexer.o
+
+INCLUDES = includes/minishell.h
 
 CFLAGS = -g -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS_DIR) $(OBJS)
 	make -C libft/
-	@gcc $(CFLAGS) -c $(SRCS) -I includes
 	@echo "Sources to objects done"
-	gcc $(CFLAGS) -o 21sh $(OBJS) libft/libft.a
+	gcc $(CFLAGS) -o $@ $(OBJS) -I $(INCLUDES) libft/libft.a
 	@echo "Compiling 21sh done"
+
+$(OBJS_DIR)/%.o: %.c
+	gcc $(CFLAGS) -c $< -o $@
+
+$(OBJS_DIR):
+	mkdir objs
 
 clean:
 	make clean -C libft/
 	@echo "Removing .o files"
-	@rm -f $(OBJS)
+	@rm -Rf $(OBJS_DIR)
 
 fclean: clean
 	make -C libft/ fclean

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/04 17:00:46 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/05 17:18:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include "../libft/includes/libft.h"
+# include "../libft/ft_printf/includes/ft_printf.h"
 # include <sys/stat.h>
 # include <stdio.h>
 
-char	**get_paths_to_array();
+char	**get_copy_of_environment_variables();
 
-void	read_input();
+char	**get_paths_to_array(char **environ);
 
-void	split_input_to_array(char *buf);
+void	fork_and_child(char **path_array, char **copy_of_environ);
+
+char	**split_input_to_array(char *buf);
 
 #endif

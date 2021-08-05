@@ -6,13 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/04 17:13:02 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/05 16:44:35 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	split_input_to_array(char *buf)
+char	**split_input_to_array(char *buf)
 {
 	char **buf_arr;
 	int i;
@@ -26,34 +26,47 @@ void	split_input_to_array(char *buf)
 	y = 0;
 	x = 0;
 	buf_arr[y] = (char *)malloc(sizeof(char) * 50);
+	while (buf[i] == ' ')
+		i++;
 	while (buf[i] != '\0')
 	{
-		while (buf[i] == ';')
-			i++;
 		buf_arr[y][x++] = buf[i++];
 		if (buf[i] == ';')
 		{
+			if (buf[i + 1] == ';' || buf[i + 1] == '|')
+			{
+				ft_printf("zsh: parse error near %.2s\n", buf + i);
+				x = 0;
+				while (x <= y)
+					free(buf_arr[x++]);
+				free(buf_arr);
+				return (NULL);
+			}
 			if (buf[i + 1] == '\0')
 				continue ;
 			else
 			{
-				buf_arr[y][x] = '\0';
-				y++;
-				i++;
+				buf_arr[y++][x] = '\0';
+				buf_arr[y] = (char *)malloc(sizeof(char) * 50);
+				buf_arr[y++][0] = buf[i++]; 
 				x = 0;
 				buf_arr[y] = (char *)malloc(sizeof(char) * 50);
+			}
+		}
+		else if (buf[i] == '|')
+		{
+			if (buf[i + 1] == ';' || buf[i + 1] == '|')
+			{
+				ft_printf("zsh: parse error near %.2s\n", buf + i);
+				x = 0;
+				while (x <= y)
+					free(buf_arr[x++]);
+				free(buf_arr);
+				return (NULL);
 			}
 		}
 	}
 	buf_arr[y++][x] = '\0';
 	buf_arr[y] = NULL;
-	i = 0;
-	while (buf_arr[i] != NULL)
-	{
-		write(1, "|", 1);
-		ft_putstr(buf_arr[i]);
-		free(buf_arr[i++]);
-		ft_putstr("|\n");
-	}
-	free(buf_arr);
+	return (buf_arr);
 }

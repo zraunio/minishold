@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 10:21:34 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/07/02 15:55:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/05 17:46:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strndup(const char *s1, size_t n)
 		n = len;
 	dup = (char *)malloc(sizeof(char) * (n + 1));
 	if (dup == NULL)
-		return (NULL);
+		exit (1);
 	i = 0;
 	while (i < n)
 	{
