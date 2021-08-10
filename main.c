@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/05 17:27:11 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:13:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**get_paths_to_array(char **environ)
 	char **path_array;
 
 	i = 0;
-	while (environ[i] != '\0')
+	while (environ[i] != NULL)
 	{
 		if (environ[i][0] == 'P')
 		{
