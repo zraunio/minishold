@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/14 18:09:49 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/16 12:57:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ void	my_echo(char *input)
 		i++;
 	input += i;
 	echo_arg = ft_strstr(input, " ");
-	echo_arg++;
-	if (echo_arg != NULL && (echo_arg[0] != ';' || echo_arg[0] != '|'))
-		ft_putstr(echo_arg);
+	if (echo_arg != NULL)
+	{
+		echo_arg++;
+		if (echo_arg[0] != '\0' && (echo_arg[0] != ';' || echo_arg[0] != '|'))
+			ft_putstr(echo_arg);
+	}
 	write(1, "\n", 1);
 	return ;	
 }
