@@ -6,17 +6,17 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/05 15:30:36 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/08/10 16:07:15 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-SRCS = main.c read_input.c lexer.c
+SRCS = main.c read_input.c lexer.c built_in.c
 
 OBJS_DIR = objs
 
-OBJS = $(OBJS_DIR)/main.o $(OBJS_DIR)/read_input.o $(OBJS_DIR)/lexer.o
+OBJS = $(OBJS_DIR)/main.o $(OBJS_DIR)/read_input.o $(OBJS_DIR)/lexer.o $(OBJS_DIR)/built_in.o
 
 INCLUDES = includes/minishell.h
 

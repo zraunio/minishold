@@ -6,17 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/10 12:14:42 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/14 16:05:23 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-
-/*
-** Read standard input to buffer (which is always size 500) character
-** by character. If it hits a newline, break the loop,
-** put null character in the end and return.
-*/
 
 char	*return_string_before_given_character(char *str, char c)
 {
@@ -36,7 +30,28 @@ char	*return_string_before_given_character(char *str, char c)
 	return (NULL);
 }
 
-char	*check_input_array(char **buf_arr, char **path_array)
+char	*check_if_built_in(char **buf_arr)
+{
+	int i;
+	char *built_ins[] = { "echo", "cd", "setenv", "unsetenv", "env", "exit"};
+	char *if_built_in;
+
+	i = 0;
+	if_built_in = return_string_before_given_character(buf_arr[0], ' ');
+	if (if_built_in == NULL)
+		if_built_in = ft_strdup(buf_arr[0]);
+	while (i < 6)
+	{
+		if (ft_strcmp(built_ins[i], if_built_in) == 0)
+			return (if_built_in);
+		i++;
+	}
+	free(if_built_in);
+	ft_printf("not a built in\n");
+	return (NULL);
+}
+
+char	*check_if_executable(char **buf_arr, char **path_array)
 {
 	char *tmp;
 	char *tmp2;
@@ -52,21 +67,22 @@ char	*check_input_array(char **buf_arr, char **path_array)
 	{
 		tmp = ft_strjoin(path_array[i], "/");
 		tmp2 = ft_strjoin(tmp, if_exec);
-//		ft_printf("tmp2 |%s|\n", tmp2);
 		if (lstat(tmp2, &buff) == 0)
 		{
-			free(if_exec);
-			free(tmp);
+			free_two(if_exec, tmp);
 			return (tmp2);
 		}
-		free(tmp);
-		free(tmp2);
+		free_two(tmp, tmp2);
 		i++;
 	}
+	ft_printf("zsh: command not found: |%s|\n", if_exec);
 	free(if_exec);
-	ft_printf("zsh: command not found: |%s|\n", buf_arr[0]);
 	return (NULL);
 }
+
+/*
+** Read input until it hits newline.
+*/
 
 void	loop_input_to_string(char *buf)
 {
@@ -86,7 +102,7 @@ void	loop_input_to_string(char *buf)
 	buf[i - 1] = '\0';
 }
 
-void	get_input(char *buf)
+void	set_buf_and_get_input(char *buf)
 {
 	ft_memset((void *)buf, 0, 500);
 	loop_input_to_string(buf);
@@ -110,22 +126,21 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 		exit (1);
 	while (1)
 	{
-		get_input(buf);
+		set_buf_and_get_input(buf);
 		buf_arr = split_input_to_array(buf);
 		if (buf_arr != NULL)
 		{
-			tmp = check_input_array(buf_arr, path_array);
+			tmp = check_if_built_in(buf_arr);
 			if (tmp != NULL)
 			{
-				ft_printf("WHAT IS IT |%s|\n", tmp);
-				if (tmp[0] == 'e')
-				{
-					if (ft_strcmp(tmp, "exit") == 0)
-						exit (0);
-				}
-				else
-				{
-					ft_putstr("here");
+				execute_built_in(tmp, copy_of_environ, buf_arr);
+				free(tmp);
+				tmp = NULL;
+			}
+			else
+				tmp = check_if_executable(buf_arr, path_array);
+			if (tmp != NULL)
+			{
 					child_pid = fork();
 					if (buf_arr[1] != NULL)
 						argv[1] = buf_arr[1];
@@ -139,11 +154,7 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 						if (path_array != NULL)
 						{
 							while (path_array[i] != NULL)
-							{
-								ft_putstr(path_array[i]);
 								free((void*)path_array[i++]);
-								ft_putstr("\n");
-							}
 							free(path_array);
 						}
 					}
@@ -157,7 +168,6 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 							tpid = waitpid(child_pid, &child_status, 0);
 	
 					}
-				}
 			}
 			i = 0;
 			while (buf_arr[i] != NULL)

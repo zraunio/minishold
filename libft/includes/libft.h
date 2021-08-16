@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:13:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/06/07 17:42:44 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/10 13:24:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,7 @@ int					get_next_line(const int fd, char **line);
 int					my_major(int x);
 
 int					my_minor(int x);
+
+void				free_two(void *ptr1, void *ptr2);
 
 #endif

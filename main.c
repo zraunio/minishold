@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/10 12:13:58 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:18:59 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ char	**get_paths_to_array(char **environ)
 	return (NULL);
 }
 
+/*
+** Here we get a copy of extern char **environ.
+*/
+
 char	**get_copy_of_environment_variables()
 {
 	extern char	**environ;
@@ -92,13 +96,22 @@ char	**get_copy_of_environment_variables()
 	return (copy_of_environ);
 }
 
+/*
+** In main we create two arrays by calling other functions: we get
+** copy of extern char **environ and all $PATH variables in array.
+** After that we write myshell> as a new command line to our shell,
+** and we continue to other function.
+*/
+
 int main() 
 {
 	char **copy_of_environ;
 	char **path_array;
 	
 	copy_of_environ = get_copy_of_environment_variables();
+	// REMEMBER TO FREE COPY OF ENVIRON
 	path_array = get_paths_to_array(copy_of_environ);
+	// REMEMBER TO FREE PATH ARRAY
 	write(1, "myshell> ", 9);
 	fork_and_child(path_array, copy_of_environ);
 	return (0);
