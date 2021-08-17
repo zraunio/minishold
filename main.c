@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/10 12:18:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:12:02 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 
 char	**get_paths_to_array(char **environ)
 {
-	int i;
-	char **path_array;
+	int		i;
+	char	**path_array;
 
 	i = 0;
 	while (environ[i] != NULL)
@@ -71,14 +71,14 @@ char	**get_paths_to_array(char **environ)
 ** Here we get a copy of extern char **environ.
 */
 
-char	**get_copy_of_environment_variables()
+char	**get_copy_of_environment_variables(void)
 {
 	extern char	**environ;
 	int			num_of_vars;
 	char		**path_array;
 	char		**copy_of_environ;
 	int			i;
-	
+
 	num_of_vars = 0;
 	i = 0;
 	path_array = NULL;
@@ -103,11 +103,11 @@ char	**get_copy_of_environment_variables()
 ** and we continue to other function.
 */
 
-int main() 
+int	main(void)
 {
-	char **copy_of_environ;
-	char **path_array;
-	
+	char	**copy_of_environ;
+	char	**path_array;
+
 	copy_of_environ = get_copy_of_environment_variables();
 	// REMEMBER TO FREE COPY OF ENVIRON
 	path_array = get_paths_to_array(copy_of_environ);

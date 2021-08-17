@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 15:27:01 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:27:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/stat.h>
 # include <stdio.h>
 
-char	**get_copy_of_environment_variables();
+char	**get_copy_of_environment_variables(void);
 
 char	**get_paths_to_array(char **environ);
 

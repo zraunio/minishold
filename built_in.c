@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 16:21:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:41:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*print_dollar(char **environ, char *echo_arg)
 	char *check;
 
 	i = 0;
-	echo_arg++;
 	if (echo_arg[i] == ' ')
 		return (echo_arg);
 	while (echo_arg[i] != ' ' && echo_arg[i] != '"' && echo_arg[i] != '\n'
@@ -69,37 +68,37 @@ char	*print_dollar(char **environ, char *echo_arg)
 			}
 			else
 				ft_putstr(environ[i] + ft_strlen(temp) + 1);
-			free(temp);
-			temp = NULL;
-			return (echo_arg + len + 1);
+			break ;
 		}
 		else
 			i++;
 	}
 	free(temp);
-	return (echo_arg + len + 1);	
+	temp = NULL;
+	if (echo_arg[len] == '"')
+		len++;
+	if (environ[i] == NULL && echo_arg[len - 1] == '"')
+		write(1, " ", 1);	
+	return (echo_arg + len);	
 }
 
 char	*print_double_quotes(char *echo_arg, char **copy_of_environ)
 {
 	int i;
-	int x;
 
 	i = 0;
-	if (echo_arg[1] == '"' && echo_arg[2] == '\0')
+	if (echo_arg[i] == '"' && echo_arg[i + 1] == '\0')
 	{
 		write(1, "\n", 1);
-		return (echo_arg + 2);
+		return (echo_arg + 1);
 	}
-	echo_arg++;
 	while (echo_arg[i] != '\0')
 	{
 		if (echo_arg[i] == '$')
 		{
 			if (i > 1)
 				write(1, echo_arg, i);
-			x = 0;
-			echo_arg = print_dollar(copy_of_environ, echo_arg + i);
+			echo_arg = print_dollar(copy_of_environ, echo_arg + i + 1);
 			if (echo_arg[0] == '\0')
 				return (echo_arg);
 			i = -1;
@@ -111,8 +110,6 @@ char	*print_double_quotes(char *echo_arg, char **copy_of_environ)
 	if (i == 0)
 		return (echo_arg);
 	write(1, echo_arg, i);
-	if (echo_arg + i + 1 != NULL)
-		write(1, " ", 1);
 	return (echo_arg + i + 1);
 }
 
@@ -155,12 +152,12 @@ void	my_echo(char *input, char **copy_of_environ)
 				i++;
 			if (echo_arg[i] == '$')
 			{
-				echo_arg = print_dollar(copy_of_environ, echo_arg + i);
+				echo_arg = print_dollar(copy_of_environ, echo_arg + i + 1);
 				i = 0;
 			}
 			else if (echo_arg[i] == '"')
 			{
-				echo_arg = print_double_quotes(echo_arg + i, copy_of_environ);
+				echo_arg = print_double_quotes(echo_arg + i + 1, copy_of_environ);
 				i = 0;
 			}
 			else if (echo_arg[i] != '|' || echo_arg[i] != ';')
