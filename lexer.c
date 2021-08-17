@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 17:23:15 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:24:22 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 		free(buf_arr);
 		return (-1);
 	}
+	// MUUTA TATA
 	if (buf[1] != '\0')
 	{
 		buf_arr[y++][x] = '\0';
@@ -55,6 +56,7 @@ char	**split_input_to_array(char *buf)
 	int		y;
 	int		x;
 
+	ft_printf("buf %s\n", buf);
 	buf_arr = (char **)malloc(sizeof(char *) * 3);
 	if (buf_arr == NULL)
 		exit(1);

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 17:27:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:18:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ void	loop_input_to_string(char *buf);
 
 char	**split_input_to_array(char *buf);
 
+char	*check_if_built_in(char **buf_arr);
+
+char	*check_if_executable(char **buf_arr, char **path_array);
+
 void	execute_built_in(char *built_in, char **copy_of_environ, char **args);
+
+void	change_to_uppercase(char *str);
+
+char	*return_string_before_given_character(char *str, char c);
+
+void	set_environment_variable(char **copy_of_environ, char *args);
+
+char	*print_text(char *echo_arg);
+
+char	*print_double_quotes(char *echo_arg, char **copy_of_environ);
+
+char	*print_dollar(char **environ, char *echo_arg);
 
 #endif
