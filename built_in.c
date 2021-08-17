@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/16 12:57:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 09:56:33 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
 /*
-**
+** echo needs to also write into FDs, more detail needed
+** could perhaps be a (char *input, ...) type of function?
 */
 
 void	my_echo(char *input)
