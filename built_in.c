@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 14:48:06 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 16:21:10 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*print_dollar(char **environ, char *echo_arg)
 	echo_arg++;
 	if (echo_arg[i] == ' ')
 		return (echo_arg);
-	while (echo_arg[i] != ' ' && echo_arg[i] != '"' && echo_arg[i] != '\0')
+	while (echo_arg[i] != ' ' && echo_arg[i] != '"' && echo_arg[i] != '\n'
+		&& echo_arg[i] != '\0')
 		i++;
 	temp = NULL;
 	temp = ft_strndup(echo_arg, i);
@@ -68,45 +69,37 @@ char	*print_dollar(char **environ, char *echo_arg)
 			}
 			else
 				ft_putstr(environ[i] + ft_strlen(temp) + 1);
-			if (echo_arg + len != NULL)
-				write(1, " ", 1);
 			free(temp);
 			temp = NULL;
-			return (echo_arg + len);
+			return (echo_arg + len + 1);
 		}
 		else
 			i++;
 	}
 	free(temp);
-	return (echo_arg + len);	
+	return (echo_arg + len + 1);	
 }
 
 char	*print_double_quotes(char *echo_arg, char **copy_of_environ)
 {
 	int i;
-	char *print_me;
 	int x;
-	char *tmp;
 
-	i = 1;
+	i = 0;
+	if (echo_arg[1] == '"' && echo_arg[2] == '\0')
+	{
+		write(1, "\n", 1);
+		return (echo_arg + 2);
+	}
+	echo_arg++;
 	while (echo_arg[i] != '\0')
 	{
 		if (echo_arg[i] == '$')
 		{
 			if (i > 1)
-				write(1, echo_arg + 1, i - 1);
-			tmp = ft_strchr(echo_arg, '$');
+				write(1, echo_arg, i);
 			x = 0;
-			while (tmp[x] != '\0')
-			{
-				if (tmp[x] == ' ')
-					break ;
-				x++;
-			}
-			print_me = ft_strndup(tmp, x);
-			echo_arg = print_dollar(copy_of_environ, print_me);
-			echo_arg = tmp + (ft_strlen(print_me));
-			free(print_me);
+			echo_arg = print_dollar(copy_of_environ, echo_arg + i);
 			if (echo_arg[0] == '\0')
 				return (echo_arg);
 			i = -1;
@@ -116,18 +109,11 @@ char	*print_double_quotes(char *echo_arg, char **copy_of_environ)
 		i++;
 	}
 	if (i == 0)
-		return (echo_arg + i);
-	if (i == 2)
-	{
+		return (echo_arg);
+	write(1, echo_arg, i);
+	if (echo_arg + i + 1 != NULL)
 		write(1, " ", 1);
-		return (echo_arg + i);
-	}
-	print_me = ft_strndup(echo_arg + 1, i - 1);
-	ft_putstr(print_me);
-	free(print_me);
-	if (echo_arg + i != NULL)
-		write(1, "  ", 1);
-	return (echo_arg + i);
+	return (echo_arg + i + 1);
 }
 
 char	*print_text(char *echo_arg)
@@ -188,9 +174,47 @@ void	my_echo(char *input, char **copy_of_environ)
 	return ;	
 }
 
+int	check_amount_of_quotes(char *args)
+{
+	int i;
+	int x;
+
+	i = 0;
+	x = 0;
+	while (args[i] != '\0')
+	{
+		if (args[i] == '"')
+			x++;
+		i++;
+	}
+	return (x);
+}
+
+void	loop_double_quotes(char *args, int am_of_quotes)
+{
+	char *buf;
+	char **buf_arr;
+
+	buf = (char *)malloc(sizeof(char) * 500);
+	if (buf == NULL)
+		exit (1);
+	while (am_of_quotes % 2 != 0)
+	{
+		write(1, "dquote> ", 8);
+		ft_memset((void *)buf, 0, 500);
+		buf[0] = '\n';
+		loop_input_to_string(buf + 1);
+		buf_arr = split_input_to_array(buf);
+		ft_strcat(args, buf_arr[0]);
+		am_of_quotes = check_amount_of_quotes(args);
+	}
+	free(buf);
+}
+
 void	execute_built_in(char *built_in, char **copy_of_environ, char **args)
 {
 	int i;
+	int am_of_quotes;
 
 	i = 0;
 	if (built_in[0] == 'e' && built_in[1] == 'x')
@@ -198,7 +222,12 @@ void	execute_built_in(char *built_in, char **copy_of_environ, char **args)
 	else if (built_in[0] == 'c')
 		ft_printf("--im cd |%s|\n", built_in);
 	else if (built_in[0] == 'e' && built_in[1] == 'c')
+	{
+		am_of_quotes = check_amount_of_quotes(args[0]);
+		if (am_of_quotes % 2 != 0)
+			loop_double_quotes(args[0], am_of_quotes);
 		my_echo(args[0], copy_of_environ);
+	}
 	else if (built_in[0] == 's')
 		ft_printf("--im setenv |%s|\n", built_in);
 	else if (built_in[0] == 'u')

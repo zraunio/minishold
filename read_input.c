@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/14 16:05:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 15:16:19 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*check_if_built_in(char **buf_arr)
 		i++;
 	}
 	free(if_built_in);
-	ft_printf("not a built in\n");
 	return (NULL);
 }
 
@@ -150,7 +149,9 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 					{
 						argv[0] = tmp;
 						if (execve(tmp, argv, copy_of_environ) == -1)
-					  		perror("childpid 0");
+						{
+				//	  		perror("childpid 0");
+						}
 						if (path_array != NULL)
 						{
 							while (path_array[i] != NULL)
@@ -159,10 +160,12 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 						}
 					}
 					else if (child_pid < 0)
-						perror("childpid <0");
+					{
+					//	perror("childpid <0");
+					}
 					else
 					{
-						ft_printf("child %i\n", child_pid);
+					//	ft_printf("child %i\n", child_pid);
 						tpid = waitpid(child_pid, &child_status, 0);
 						while (tpid > 0)
 							tpid = waitpid(child_pid, &child_status, 0);

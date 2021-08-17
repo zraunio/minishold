@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/14 15:57:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/17 15:27:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**get_copy_of_environment_variables();
 char	**get_paths_to_array(char **environ);
 
 void	fork_and_child(char **path_array, char **copy_of_environ);
+
+void	loop_input_to_string(char *buf);
 
 char	**split_input_to_array(char *buf);
 
