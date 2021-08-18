@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 17:48:39 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/18 13:46:34 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ char	*return_string_before_given_character(char *str, char c)
 	char	*new_str;
 
 	i = 0;
+	if (c == '\0')
+	{
+		new_str = ft_strdup(str);
+		return (new_str);
+	}
 	while (str[i] != '\0')
 	{
 		if (str[i] == c)

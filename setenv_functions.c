@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 18:20:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/18 13:47:22 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,24 @@ void	set_environment_variable(char **copy_of_environ, char *args)
 	char	*value;
 
 	i = 0;
-	ft_printf("copy_of_environ example %s args %s\n", copy_of_environ[0], args);
 	args += 7;
-	while (args[i] != ' ')
-		i++;
-	variable = ft_strndup(args, i);
-	if (args[i + 1] == '\0')
-		ft_printf("set var: %s to null\n", variable);
-	else
+	if (args[0] == '\0')
 	{
-		args += i;
+		ft_printf("print only env variables out %s\n", copy_of_environ[0]);
+		return ;
+	}
+	variable = return_string_before_given_character(args, ' ');
+	if (variable == NULL)
+		variable = ft_strdup(args);
+	if (args[(int)ft_strlen(variable)] != '\0')
+	{
+		args += (int)ft_strlen(variable);
 		args++;
 		i = 0;
 		while (args[i] != '\0')
 			i++;
 		value = ft_strndup(args, i);
-		ft_printf("value: %s\n", value);
+		ft_printf("variable: %s & value: %s\n", variable, value);
 		free(value);
 	}
 	free(variable);
