@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 18:18:40 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/20 15:48:30 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	change_to_uppercase(char *str);
 char	*return_string_before_given_character(char *str, char c);
 
 void	set_environment_variable(char **copy_of_environ, char *args);
+
+void	ft_putarr(char **arr);
 
 char	*print_text(char *echo_arg);
 

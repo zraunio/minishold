@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 18:24:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/20 16:02:49 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int	pipe_input(char *buf, char **buf_arr, int x, int y)
 	return (1);
 }
 
+/*
+** If next character after ';' is either ';' or '|', it is considered
+** parse error, we output error message, free the buf_arr and we return.
+** If there is anything else, we change row, malloc space, we put that 
+**
+*/
+
 int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 {
 	if (buf[1] == ';' || buf[1] == '|')
@@ -37,17 +44,25 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 		free(buf_arr);
 		return (-1);
 	}
-	// MUUTA TATA
 	if (buf[1] != '\0')
 	{
 		buf_arr[y++][x] = '\0';
-		buf_arr[y] = (char *)malloc(sizeof(char) * 50);
-		buf_arr[y++][0] = *buf++;
+		buf_arr[y] = (char *)malloc(sizeof(char) * 2);
+		buf_arr[y][0] = *buf++;
+		buf_arr[y++][1] = '\0';
 		x = 0;
 		buf_arr[y] = (char *)malloc(sizeof(char) * 50);
 	}
 	return (1);
 }
+
+/*
+** We have input, that has been read to char *buf.
+** Here we split that *buf to an array. First we skip
+** spaces. When we encounter either '|' or ';', we go
+** check what comes after that character to
+** different functions. 
+*/
 
 char	**split_input_to_array(char *buf)
 {
@@ -56,7 +71,6 @@ char	**split_input_to_array(char *buf)
 	int		y;
 	int		x;
 
-	ft_printf("buf %s\n", buf);
 	buf_arr = (char **)malloc(sizeof(char *) * 3);
 	if (buf_arr == NULL)
 		exit(1);

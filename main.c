@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 17:12:02 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/20 15:53:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ char	**get_paths_to_array(char **environ)
 }
 
 /*
-** Here we get a copy of extern char **environ.
+** Here we get a copy of extern char **environ to our own array.
+** Later it needs to be freed < keywords malloc free >.
 */
 
 char	**get_copy_of_environment_variables(void)

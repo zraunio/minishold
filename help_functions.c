@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/18 13:46:34 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/20 15:49:37 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 /*
 **
 */
+
+void	ft_putarr(char **arr)
+{
+	int i;
+	int x;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		x = 0;
+		while (arr[i][x] != '\0')
+			x++;
+		write(1, arr[i++], x);
+		write(1, "\n", 1);
+	}
+}
 
 char	*return_string_before_given_character(char *str, char c)
 {

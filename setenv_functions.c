@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/18 13:47:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/20 15:49:52 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_environment_variable(char **copy_of_environ, char *args)
 	args += 7;
 	if (args[0] == '\0')
 	{
-		ft_printf("print only env variables out %s\n", copy_of_environ[0]);
+		ft_putarr(copy_of_environ);
 		return ;
 	}
 	variable = return_string_before_given_character(args, ' ');
