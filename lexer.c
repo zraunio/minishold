@@ -6,11 +6,19 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/20 16:02:49 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/20 16:57:54 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+/*
+** If next character after '|' is either ';' or '|', it is considered
+** parse error, so we output error message, free the buf_arr and we return -1.
+** If there is anything else, we want to put that to same row, 'cause
+** pipe separation means that these commands need to be done "together".
+** And that's why we return 1, 'cause we just continue inside the while loop.
+*/
 
 int	pipe_input(char *buf, char **buf_arr, int x, int y)
 {
@@ -28,9 +36,13 @@ int	pipe_input(char *buf, char **buf_arr, int x, int y)
 
 /*
 ** If next character after ';' is either ';' or '|', it is considered
-** parse error, we output error message, free the buf_arr and we return.
-** If there is anything else, we change row, malloc space, we put that 
-**
+** parse error, we output error message, free the buf_arr and we return -1.
+** If there is anything else, we want to get that to the array.
+** ';' tells us, that we want to put things separately (different
+** commands).
+** And that's why now we change row, malloc space, we put that 
+** ';' to own row, then we again change row and malloc space for
+** next row and go back returning 1.
 */
 
 int	semicolon_input(char *buf, char **buf_arr, int x, int y)
