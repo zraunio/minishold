@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/20 16:57:54 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/23 16:14:51 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 		buf_arr[y++][1] = '\0';
 		x = 0;
 		buf_arr[y] = (char *)malloc(sizeof(char) * 50);
+		
 	}
-	return (1);
+	return (y);
 }
 
 /*
@@ -83,7 +84,8 @@ char	**split_input_to_array(char *buf)
 	int		y;
 	int		x;
 
-	buf_arr = (char **)malloc(sizeof(char *) * 3);
+//	trim char *buf already here?
+	buf_arr = (char **)malloc(sizeof(char *) * 50);
 	if (buf_arr == NULL)
 		exit(1);
 	i = 0;
@@ -96,8 +98,13 @@ char	**split_input_to_array(char *buf)
 	{
 		if (buf[i] == ';')
 		{
-			if (semicolon_input(buf + i, buf_arr, x, y) == -1)
+			y = semicolon_input(buf + i, buf_arr, x, y);
+			if (y == -1)
 				return (NULL);
+			x = 0;
+			i++;
+			while (buf[i] == ' ' && buf[i] != '\0')
+				i++;
 		}
 		else if (buf[i] == '|')
 		{
@@ -108,5 +115,6 @@ char	**split_input_to_array(char *buf)
 	}
 	buf_arr[y++][x] = '\0';
 	buf_arr[y] = NULL;
+	ft_putarr(buf_arr);
 	return (buf_arr);
 }

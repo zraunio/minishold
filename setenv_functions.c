@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/20 15:49:52 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/23 15:05:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,22 @@
 ** setenv VAR [VALUE]
 **
 */
+/*
+void	check_if_env_variable(char *variable, char **copy_of_environ)
+{
+	int i;
 
+	i = 0;
+	change_to_uppercase(variable);
+	while (copy_of_environ[i] != NULL)
+	{
+		if (ft_strstr(copy_of_environ, variable) != NULL)
+		{
+			
+		}
+	}
+}
+*/
 void	set_environment_variable(char **copy_of_environ, char *args)
 {
 	int		i;

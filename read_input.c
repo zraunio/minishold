@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 17:49:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/23 16:11:50 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 	pid_t	tpid;
 	int		i;
 	char	*tmp;
+	char	*arg_for_ex;
 	char	*argv[] = {NULL, NULL, NULL};
 
 	i = 0;
@@ -74,8 +75,12 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 			if (tmp != NULL)
 			{
 				child_pid = fork();
-				if (buf_arr[1] != NULL)
-					argv[1] = buf_arr[1];
+				arg_for_ex = ft_strchr(buf_arr[0], ' ');
+				if (arg_for_ex != NULL)
+				{
+					arg_for_ex++;
+					argv[1] = arg_for_ex;
+				}
 				else
 					argv[1] = NULL;
 				if (child_pid == 0)
