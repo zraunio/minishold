@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/20 15:53:46 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/24 18:15:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**get_copy_of_environment_variables(void)
 	path_array = NULL;
 	while (environ[num_of_vars] != NULL)
 		num_of_vars++;
-	copy_of_environ = (char **)malloc(sizeof(char *) * (num_of_vars + 1));
+	copy_of_environ = (char **)malloc(sizeof(char *) * (200 + 1));
 	if (copy_of_environ == NULL)
 		exit(1);
 	while (i < num_of_vars)
@@ -93,7 +93,7 @@ char	**get_copy_of_environment_variables(void)
 		copy_of_environ[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	copy_of_environ[i] = NULL;
+	copy_of_environ[num_of_vars] = NULL;
 	return (copy_of_environ);
 }
 

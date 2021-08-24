@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/20 15:49:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/24 18:12:32 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 /*
 **
 */
+
+void	remove_one_string_in_array(char **array, int row)
+{
+	while (array[row + 1] != NULL)
+	{
+		free(array[row]);
+		array[row] = ft_strnew(500);
+		ft_strcpy(array[row], array[row + 1]);
+		row++;
+	}
+	free(array[row]);
+	array[row] = NULL;
+}
 
 void	ft_putarr(char **arr)
 {

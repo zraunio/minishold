@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/20 15:48:30 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/24 17:41:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ char	*return_string_before_given_character(char *str, char c);
 
 void	set_environment_variable(char **copy_of_environ, char *args);
 
+void	unset_environment_variable(char **copy_of_environ, char *args);
+
+int	check_if_var_is_in_array(char *variable, char **copy_of_environ);
+
 void	ft_putarr(char **arr);
 
 char	*print_text(char *echo_arg);
@@ -48,5 +52,7 @@ char	*print_text(char *echo_arg);
 char	*print_double_quotes(char *echo_arg, char **copy_of_environ);
 
 char	*print_dollar(char **environ, char *echo_arg);
+
+void	remove_one_string_in_array(char **array, int row);
 
 #endif

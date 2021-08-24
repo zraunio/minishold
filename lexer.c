@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/23 16:14:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/24 14:30:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 		buf_arr[y] = (char *)malloc(sizeof(char) * 2);
 		buf_arr[y][0] = *buf++;
 		buf_arr[y++][1] = '\0';
-		x = 0;
-		buf_arr[y] = (char *)malloc(sizeof(char) * 50);
+		buf_arr[y] = (char *)malloc(sizeof(char) * 500);
 		
 	}
 	return (y);
@@ -77,6 +76,19 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 ** different functions. 
 */
 
+char	**allocate_array(void)
+{
+	char **array;
+
+	array = (char **)malloc(sizeof(char *) * 50);
+	if (array == NULL)
+		exit (1);
+	array[0] = (char *)malloc(sizeof(char) * 500);
+	if (array[0] == NULL)
+		exit(1);
+	return(array);
+}
+
 char	**split_input_to_array(char *buf)
 {
 	char	**buf_arr;
@@ -84,15 +96,11 @@ char	**split_input_to_array(char *buf)
 	int		y;
 	int		x;
 
-//	trim char *buf already here?
-	buf_arr = (char **)malloc(sizeof(char *) * 50);
-	if (buf_arr == NULL)
-		exit(1);
+	buf_arr = allocate_array();
 	i = 0;
-	y = 0;
 	x = 0;
-	buf_arr[y] = (char *)malloc(sizeof(char) * 500);
-	while (buf[i] == ' ')
+	y = 0;
+	while (buf[i] == ' ' && buf[i] != '\0')
 		i++;
 	while (buf[i] != '\0')
 	{
@@ -115,6 +123,5 @@ char	**split_input_to_array(char *buf)
 	}
 	buf_arr[y++][x] = '\0';
 	buf_arr[y] = NULL;
-	ft_putarr(buf_arr);
 	return (buf_arr);
 }
