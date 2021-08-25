@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/10 12:18:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/24 18:15:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 
 char	**get_paths_to_array(char **environ)
 {
-	int i;
-	char **path_array;
+	int		i;
+	char	**path_array;
 
 	i = 0;
 	while (environ[i] != NULL)
@@ -68,23 +68,24 @@ char	**get_paths_to_array(char **environ)
 }
 
 /*
-** Here we get a copy of extern char **environ.
+** Here we get a copy of extern char **environ to our own array.
+** Later it needs to be freed < keywords malloc free >.
 */
 
-char	**get_copy_of_environment_variables()
+char	**get_copy_of_environment_variables(void)
 {
 	extern char	**environ;
 	int			num_of_vars;
 	char		**path_array;
 	char		**copy_of_environ;
 	int			i;
-	
+
 	num_of_vars = 0;
 	i = 0;
 	path_array = NULL;
 	while (environ[num_of_vars] != NULL)
 		num_of_vars++;
-	copy_of_environ = (char **)malloc(sizeof(char *) * (num_of_vars + 1));
+	copy_of_environ = (char **)malloc(sizeof(char *) * (200 + 1));
 	if (copy_of_environ == NULL)
 		exit(1);
 	while (i < num_of_vars)
@@ -92,7 +93,7 @@ char	**get_copy_of_environment_variables()
 		copy_of_environ[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	copy_of_environ[i] = NULL;
+	copy_of_environ[num_of_vars] = NULL;
 	return (copy_of_environ);
 }
 
@@ -103,11 +104,11 @@ char	**get_copy_of_environment_variables()
 ** and we continue to other function.
 */
 
-int main() 
+int	main(void)
 {
-	char **copy_of_environ;
-	char **path_array;
-	
+	char	**copy_of_environ;
+	char	**path_array;
+
 	copy_of_environ = get_copy_of_environment_variables();
 	// REMEMBER TO FREE COPY OF ENVIRON
 	path_array = get_paths_to_array(copy_of_environ);
