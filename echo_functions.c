@@ -6,11 +6,48 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/17 17:46:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/25 16:48:18 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+void	write_echo_output(char *echo_arg, int output_len, int in_or_out)
+{
+	int i;
+
+	i = 0;
+	while (echo_arg[i] != '\0' && i < output_len)
+	{
+		while (echo_arg[i] == '\\')
+		{
+			if (in_or_out == 2 && (echo_arg[i + 1] == 'n' || echo_arg[i + 1] == 't'))
+			{
+				if (echo_arg[i + 1] == 'n')
+					write(1, "\n", 1);
+				else if (echo_arg[i + 1] == 't')
+					write(1, "\t", 1);
+				i += 2;
+			}
+			else if (in_or_out == 0)
+			{
+				if (echo_arg[i + 1] == '\\' && (echo_arg[i + 2] == 'n'
+					|| echo_arg[i + 2] == 't'))
+				{
+					if (echo_arg[i + 2] == 'n')
+						write(1, "\n", 1);
+					else if (echo_arg[i + 2] == 't')
+						write(1, "\t", 1);
+					i += 3;
+				}
+				i++;
+			}
+		}
+		if (echo_arg[i] == '"' || echo_arg[i] == '\0')
+			break ;
+		write(1, &echo_arg[i++], 1);
+	}
+}
 
 char	*print_dollar(char **environ, char *echo_arg)
 {
@@ -80,7 +117,7 @@ char	*print_double_quotes(char *echo_arg, char **copy_of_environ)
 		if (echo_arg[i] == '$')
 		{
 			if (i > 1)
-				write(1, echo_arg, i);
+				write_echo_output(echo_arg, i, 2);
 			echo_arg = print_dollar(copy_of_environ, echo_arg + i + 1);
 			if (echo_arg[0] == '\0')
 				return (echo_arg);
@@ -92,11 +129,11 @@ char	*print_double_quotes(char *echo_arg, char **copy_of_environ)
 	}
 	if (i == 0)
 		return (echo_arg);
-	write(1, echo_arg, i);
+	write_echo_output(echo_arg, i, 2);
 	return (echo_arg + i + 1);
 }
 
-char	*print_text(char *echo_arg)
+char	*print_text_after_pipe_or_semicolon(char *echo_arg)
 {
 	int i;
 
@@ -107,9 +144,6 @@ char	*print_text(char *echo_arg)
 			break ;
 		i++;
 	}
-	if (i < (int)ft_strlen(echo_arg))
-		write(1, echo_arg, i);
-	else
-		ft_putstr(echo_arg);
+	write_echo_output(echo_arg, i, 0);
 	return (echo_arg + i);
 }

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/24 18:12:32 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/25 19:03:59 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,12 @@ void	remove_one_string_in_array(char **array, int row)
 	while (array[row + 1] != NULL)
 	{
 		free(array[row]);
-		array[row] = ft_strnew(500);
+		array[row] = ft_strnew((int)ft_strlen(array[row + 1]));
 		ft_strcpy(array[row], array[row + 1]);
 		row++;
 	}
 	free(array[row]);
 	array[row] = NULL;
-}
-
-void	ft_putarr(char **arr)
-{
-	int i;
-	int x;
-
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		x = 0;
-		while (arr[i][x] != '\0')
-			x++;
-		write(1, arr[i++], x);
-		write(1, "\n", 1);
-	}
 }
 
 char	*return_string_before_given_character(char *str, char c)

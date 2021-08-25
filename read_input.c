@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/23 16:11:50 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:17:39 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	set_buf_and_get_input(char *buf)
 	loop_input_to_string(buf);
 }
 
-void	fork_and_child(char **path_array, char **copy_of_environ)
+void	fork_and_child(char **path_array, t_shell *data)
 {
 	char	*buf;
 	char	**buf_arr;
@@ -66,7 +66,7 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 			tmp = check_if_built_in(buf_arr);
 			if (tmp != NULL)
 			{
-				execute_built_in(tmp, copy_of_environ, buf_arr);
+				execute_built_in(tmp, data, buf_arr);
 				free(tmp);
 				tmp = NULL;
 			}
@@ -86,7 +86,7 @@ void	fork_and_child(char **path_array, char **copy_of_environ)
 				if (child_pid == 0)
 				{
 					argv[0] = tmp;
-					if (execve(tmp, argv, copy_of_environ) == -1)
+					if (execve(tmp, argv, data->copy_of_environ) == -1)
 					{
 				//  		perror("childpid 0");
 					}
