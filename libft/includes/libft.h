@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:13:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 12:18:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:24:47 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,7 @@ void				ft_putarr(char **arr);
 char				**ft_arrdup(char **arr);
 
 char				**ft_arrnew(size_t rows, size_t first_row_len);
+
+char				*ft_strstr_after(const char *haystack, const char *needle);
 
 #endif

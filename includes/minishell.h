@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 15:22:07 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:13:43 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include "../libft/includes/libft.h"
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <sys/stat.h>
-# include <stdio.h>
 
 typedef	struct	s_shell
 {
 		char	**copy_of_environ;
 		int		num_of_variables;
 		int		quote;
+		char	**prev_dirs;
 }				t_shell;
 
 
@@ -56,6 +56,10 @@ void	check_given_directory(char *args, t_shell *data);
 void	set_environment_variable(t_shell *data, char *args);
 
 void	unset_environment_variable(t_shell *data, char *args);
+
+void	add_new_var_to_environ(t_shell *data, char *var, char *value);
+
+void	change_old_var_value(t_shell *data, char *var, char *value, int i);
 
 int	check_if_var_is_in_array(char *variable, char **copy_of_environ);
 
