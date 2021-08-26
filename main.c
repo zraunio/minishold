@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/25 18:35:00 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/26 12:09:19 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**get_paths_to_array(t_shell *data)
 				== 'H' && data->copy_of_environ[i][5] != '\0')
 			{
 				path_array = ft_strsplit(*(data->copy_of_environ + i) + 5,
-				':');
+						':');
 				if (path_array != NULL)
 					return (path_array);
 				exit (1);

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:13:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/10 13:24:40 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/26 12:18:18 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,11 @@ int					my_major(int x);
 int					my_minor(int x);
 
 void				free_two(void *ptr1, void *ptr2);
+
+void				ft_putarr(char **arr);
+
+char				**ft_arrdup(char **arr);
+
+char				**ft_arrnew(size_t rows, size_t first_row_len);
 
 #endif

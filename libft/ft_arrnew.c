@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrdup.c                                        :+:      :+:    :+:   */
+/*   ft_arrnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/25 19:02:36 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 12:10:19 by ehelmine         ###   ########.fr       */
+/*   Created: 2021/08/26 12:13:22 by ehelmine          #+#    #+#             */
+/*   Updated: 2021/08/26 12:16:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-char	**ft_arrdup(char **arr)
+char	**ft_arrnew(size_t rows, size_t first_row_len)
 {
-	int		rows;
-	int		i;
-	char	**copy_of_arr;
+	char	**array;
 
-	rows = 0;
-	while (arr[rows] != NULL)
-		rows++;
-	copy_of_arr = (char **)malloc(sizeof(char *) * (rows + 1));
-	if (copy_of_arr == NULL)
+	array = (char **)malloc(sizeof(char *) * (rows + 1));
+	if (array == NULL)
 		exit (1);
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		copy_of_arr[i] = ft_strdup(arr[i]);
-		if (copy_of_arr[i] == NULL)
-			exit (1);
-		free(arr[i++]);
-	}
-	free(arr);
-	copy_of_arr[i] = NULL;
-	return (copy_of_arr);
+	array[0] = (char *)malloc(sizeof(char) * (first_row_len + 1));
+	if (array[0] == NULL)
+		exit(1);
+	return (array);
 }
