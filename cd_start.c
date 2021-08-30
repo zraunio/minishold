@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 18:37:38 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 18:40:19 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ char	*get_current_dir(void)
 	getcwd(current_dir, 4096);
 	return (current_dir);
 }
+
+/*
+** Returns the dir where we want to enter depending on what was given as input.
+**
+*/
 
 char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 {
