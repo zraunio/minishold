@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:13:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 16:30:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:39:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ char				**ft_arrnew(size_t rows, size_t first_row_len);
 
 char				*ft_strstr_after(const char *haystack, const char *needle);
 
-char				*ft_strjoin_three(char const *s1, char const *s2, char const *s3);
+char				*ft_strjoin_three(char const *s1, char const *s2,
+						char const *s3);
 
 void				free_arr(void **arr);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_3.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin_three.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:56:50 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 13:00:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:40:24 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 	size_t	ii;
 
 	nwstr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)
-			+ ft_strlen(s3) + 1));
+				+ ft_strlen(s3) + 1));
 	if (nwstr == NULL)
 		exit (1);
 	i = 0;

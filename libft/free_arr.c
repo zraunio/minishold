@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:28:05 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 16:28:54 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:39:57 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_arr(void **arr)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (arr[i] != NULL)

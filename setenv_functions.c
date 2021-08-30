@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/25 19:01:43 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:45:32 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 void	change_old_var_value(t_shell *data, char *var, char *value,
 		int i)
 {
-	int		ii;
-	int		x;
+	int	ii;
+	int	x;
 
 	if (ft_strcmp(value, "NULL") == 0)
 	{
@@ -37,7 +37,7 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 	}
 	free(data->copy_of_environ[i]);
 	data->copy_of_environ[i] = ft_strnew((size_t)ft_strlen(var)
-		+ (size_t)ft_strlen(value) + 1 + 1);
+			+ (size_t)ft_strlen(value) + 1 + 1);
 	ii = 0;
 	x = 0;
 	while (var[ii] != '\0')
@@ -74,11 +74,11 @@ char	**new_arr_with_extra_line(char **old_arr, int rows)
 
 void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 {
-	int	y;
-	int	x;
-	int	i;
-	int	len;
-	char **new_arr;
+	int		y;
+	int		x;
+	int		i;
+	int		len;
+	char	**new_arr;
 
 	y = data->num_of_variables + 1;
 	new_arr = new_arr_with_extra_line(data->copy_of_environ, y);
@@ -108,7 +108,7 @@ void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 
 int	check_if_var_is_in_array(char *variable, char **copy_of_environ)
 {
-	int i;
+	int	i;
 
 	change_to_uppercase(variable);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/25 19:03:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:47:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*return_string_before_given_character(char *str, char c)
 
 void	change_to_uppercase(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')

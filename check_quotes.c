@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:15:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 15:15:31 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:46:02 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	check_amount_of_quotes(char *args, t_shell *data)
 
 void	loop_double_quotes(char *args, int am_of_quotes, t_shell *data)
 {
-	char *buf;
-	char **buf_arr;
+	char	*buf;
+	char	**buf_arr;
 
 	buf = (char *)malloc(sizeof(char) * 500);
 	if (buf == NULL)

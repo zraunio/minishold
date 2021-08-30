@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 18:40:19 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 22:00:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,8 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		i = check_if_var_is_in_array("HOME", data->copy_of_environ);
 		if (i == -1)
 			return (NULL);
-		else
-		{
-			new_dir = ft_strstr_after(data->copy_of_environ[i], "HOME=");
-			return (ft_strdup(new_dir));
-		}
+		new_dir = ft_strstr_after(data->copy_of_environ[i], "HOME=");
+		return (ft_strdup(new_dir));
 	}
 	else if (ft_strequ(dir_name, "."))
 		return (ft_strdup(current_dir));
@@ -106,11 +103,8 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		i = check_if_var_is_in_array("OLDPWD", data->copy_of_environ);
 		if (i == -1)
 			return (NULL);
-		else
-		{
-			new_dir = ft_strstr_after(data->copy_of_environ[i], "PWD=");
-			return (ft_strdup(new_dir));
-		}
+		new_dir = ft_strstr_after(data->copy_of_environ[i], "PWD=");
+		return (ft_strdup(new_dir));
 	}
 	else
 		return (ft_strdup(dir_name));
@@ -150,13 +144,13 @@ void	cd_function_start(char *args, t_shell *data)
 	if (current_dir == NULL)
 	{
 		ft_printf("current directory fail\n");
-		free_arr((void **)cd_args_arr);
-		return ;
+		return (free_arr((void **)cd_args_arr));
 	}
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
 	change_directories(data, new_dir, current_dir);
 	free_arr((void **)cd_args_arr);
-	// ADD THESE:
+}
+// ADD THESE:
 	// IF WE GO ../something FOR EXAMPLE, WE NEED TO ADD
 	// BEFORE THAT OUR HOME PATH SO BASICALLY /USERS/EHELMINE/../SOMETHING
 	// IT HAS TO USE THAT AND PUT THAT TO PWD ALSO
@@ -170,11 +164,8 @@ void	cd_function_start(char *args, t_shell *data)
 	// --->> LSTAT TO CHECK IF ITS A LINK OR NOT
 	// IF YES, THEN WE CHECK IF -P FLAG IS THERE AND IF YES,
 	// WE USE LINKNAME TO ENTER THAT
-	
 	/*
-
        The following options shall be supported by the implementation:
-
        -L        Handle the operand dot-dot logically; symbolic link
                  components shall not be resolved before dot-dot
                  components are processed (see steps 8.  and 9. in the
@@ -183,11 +174,8 @@ void	cd_function_start(char *args, t_shell *data)
        -P        Handle the operand dot-dot physically; symbolic link
                  components shall be resolved before dot-dot components
                  are processed (see step 7. in the DESCRIPTION).
-
        If both -L and -P options are specified, the last of these
        options shall be used and all others ignored. If neither -L nor
        -P is specified, the operand shall be handled dot-dot logically;
        see the DESCRIPTION.
-
 	*/
-}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_function_input_check.c                          :+:      :+:    :+:   */
+/*   cd_input_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:59:34 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 17:00:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:57:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	check_cd_arguments(char *args, t_shell *data)
 				break ;
 		}
 		if (args[data->i] == ' ')
-				break ;
+			break ;
 	}
 	if (args[data->i] == ' ')
 		check_cd_last_space(args, data);
