@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 15:16:57 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:04:00 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 	if (built_in[0] == 'e' && built_in[1] == 'x')
 		exit (0);
 	else if (built_in[0] == 'c')
-		check_given_directory(args[0], data);
+		cd_function_start(args[0], data);
 	else if (built_in[0] == 'e' && built_in[1] == 'c')
 	{
 		data->quote = 0;

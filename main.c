@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 12:09:19 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/30 14:56:18 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	**get_paths_to_array(t_shell *data)
 /*
 ** Here we get a copy of extern char **environ to our own array.
 ** Later it needs to be freed < keywords malloc free >.
+** Also we set prev_dirs array to NULL.
 */
 
 void	get_copy_of_environment_variables(t_shell *data)
@@ -97,6 +98,7 @@ void	get_copy_of_environment_variables(t_shell *data)
 	}
 	data->copy_of_environ[num_of_vars] = NULL;
 	data->num_of_variables = num_of_vars;
+	data->prev_dirs = NULL;
 }
 
 /*
