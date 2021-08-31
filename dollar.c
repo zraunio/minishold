@@ -1,48 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/25 09:44:25 by zraunio           #+#    #+#             */
-/*   Updated: 2021/08/31 15:52:46 by zraunio          ###   ########.fr       */
+/*   Created: 2021/08/31 15:52:29 by zraunio           #+#    #+#             */
+/*   Updated: 2021/08/31 15:56:57 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-
-static char	*echo_write(char *out)
+static char	*dollar_write(char *out, char **env)
 {
-
-}
-
-void	ft_echo(char *str, char **env)
-{
-	char	*out;
 	size_t	i;
+	size_t	j;
+	char	*tmp;
+	char	*cmp;
 
 	i = 0;
-	while (ft_isspace(str[i]) == 1)
+	if (ft_isspace(out[i]) == 1)
+		return (out);
+	while (ft_isspace(out[i]) == 0 && out[i] != '"' && out[i] != '\0')
 		i++;
-	out = ft_strstr(&out[i], " ");
-	if (out != NULL)
+	tmp = ft_strsub(out, 0, i);
+	i = 0;
+	while (tmp[i++])
+		if (tmp[i] >= 97 || tmp[i] <= 122)
+			tmp[i] = ft_toupper(tmp[i]);
+	i = 0;
+	j = ft_strlen(tmp);
+	while (**env != NULL)
 	{
-		i = 0;
-		while (ft_isspace(out[i]) == 1)
-			i++;
-		if (out[i] == '$')
+		cmp = ft_strstr(*env, tmp);
+		if (cmp != NULL)
 		{
-			out = dollar_write(&out[i + 1], env);
-			i = 0;
-		}
-		else if (out[i] != '|' || out[i] != ';')
-		{
-			out = echo_write(&out[i]);
-			i = 0;
+			
 		}
 	}
-	write(1, "\n", 1);
-	return ;
 }
