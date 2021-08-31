@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_two.c                                         :+:      :+:    :+:   */
+/*   ft_arrnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/10 13:23:20 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 12:09:37 by ehelmine         ###   ########.fr       */
+/*   Created: 2021/08/26 12:13:22 by ehelmine          #+#    #+#             */
+/*   Updated: 2021/08/30 21:39:44 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-void	free_two(void *ptr1, void *ptr2)
+char	**ft_arrnew(size_t rows, size_t first_row_len)
 {
-	if (ptr1 != NULL)
-		free(ptr1);
-	if (ptr2 != NULL)
-		free(ptr2);
+	char	**array;
+
+	array = (char **)malloc(sizeof(char *) * (rows + 1));
+	if (array == NULL)
+		exit (1);
+	array[0] = (char *)malloc(sizeof(char) * (first_row_len + 1));
+	if (array[0] == NULL)
+		exit(1);
+	return (array);
 }
