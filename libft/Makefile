@@ -1,57 +1,167 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/06/09 13:01:03 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/10 13:24:55 by ehelmine         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libft.a
 
-SRCS = ft_putchar.c ft_putstr.c ft_atoi.c ft_strlen.c ft_strcmp.c ft_putnbr.c \
-	ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strclr.c ft_strcat.c ft_strncmp.c \
-	ft_putendl.c ft_strlcat.c ft_bzero.c ft_strncat.c ft_strchr.c ft_strrchr.c \
-	ft_isalpha.c ft_isdigit.c ft_isascii.c ft_isprint.c ft_strstr.c ft_strnstr.c \
-	ft_tolower.c ft_toupper.c ft_isalnum.c ft_memset.c ft_memcpy.c ft_memccpy.c \
-	ft_memchr.c ft_memcmp.c ft_memmove.c ft_strequ.c ft_strnequ.c ft_memalloc.c \
-	ft_memdel.c ft_strnew.c ft_strdel.c ft_strtrim.c ft_strjoin.c ft_striter.c \
-	ft_striteri.c ft_strsplit.c ft_strsub.c ft_strmap.c ft_strmapi.c ft_itoa.c \
-	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c \
-	ft_lstadd.c ft_lstdelone.c ft_lstdel.c ft_lstiter.c ft_lstmap.c \
-	ft_check_int_len.c ft_islower.c ft_isupper.c ft_isspace.c ft_strndup.c \
-	get_next_line.c major_bit.c minor_bit.c free_two.c
+FT_PRINTF = libftprintf.a
 
-PRINTF_SRCS = $(addprefix ft_printf/srcs/, handle_input.c check_flags_one.c check_flags_second.c \
-write_c_and_ints.c help_functions.c write_signed_ints.c write_string.c \
-write_p.c write_unsigned_ints.c write_zero.c convert_int.c write_float_1.c \
-write_float_2.c write_float_3.c write_no_flags.c)
+CC = gcc
 
-PRINTF_OBJS = handle_input.o check_flags_one.o check_flags_second.o \
-write_c_and_ints.o help_functions.o write_signed_ints.o write_string.o \
-write_p.o write_unsigned_ints.o write_zero.o convert_int.o write_float_1.o \
-write_float_2.o write_float_3.o write_no_flags.o
+CFLAGS = -Wall -Wextra -Werror -g -I$(HDR_SRC)
 
-OBJS = $(SRCS:%.c=%.o)
+# ASCII_DIR = ./ascii/ 
+# CONV_DIR = ./convert/
+# LIST_DIR = ./list/
+# MATH_DIR = ./math/
+# MEM_DIR = ./mem/
+# PRINT_DIR = ./print/
+# PRINTF_DIR = ./ft_printf/
+# STR_DIR = ./src/
+# BIT_DIR = ./bits
 
-PRINT_H = ft_printf/includes/
+# ASCII = $(addprefix $(ASCII_DIR), $(_ASCII_SRC)) 
+# CONV = $(addprefix $(CONV_DIR), $(_CONV_SRC))
+# LIST = $(addprefix $(LIST_DIR), $(_LIST_SRC)) 
+# MATH = $(addprefix $(MATH_DIR, $(_MATH_SRC))
+# MEM = $(addprefix $(MEM_DIR, $(_MEM_SRC))
+# PRINT = $(addprefix $(PRINT_DIR), $(_PRINT_SRC)) 
+# STR = $(addprefix $(STR_DIR), $(_STR_SRC))
 
-LIB_H = includes/libft.h
+_ASCII_SRC =  ascii/ft_isalnum.c \
+		ascii/ft_isalpha.c \
+		ascii/ft_isascii.c \
+		ascii/ft_isprint.c \
+		ascii/ft_ispunct.c \
+		ascii/ft_isdigit.c \
+		ascii/ft_isspace.c \
+
+_CONV_SRC = convert/ft_atoi.c \
+		convert/ft_itoa_base.c \
+		convert/ft_itoa.c \
+		convert/ft_lutoa_base.c \
+		convert/ft_lutoa.c \
+		convert/ft_tolower.c \
+		convert/ft_toupper.c \
+		convert/ft_utoa_base.c \
+		convert/ft_utoa.c \
+		convert/ft_atof.c \
+		convert/ft_litoa.c \
+		convert/ft_ftoa.c \
+		convert/ft_sizetoa.c \
+
+_LIST_SRC = list/ft_listnew.c \
+			list/ft_addlstelem.c \
+			list/ft_freelst.c \
+
+_MATH_SRC = math/dig_count_base.c \
+		math/dig_count.c \
+		math/ft_abs.c \
+		math/ft_float_abs.c \
+		math/ft_llmax.c \
+		math/ft_max.c \
+		math/ft_wdcounter.c \
+		math/ft_strstr_start.c \
+		math/ft_long_abs.c \
+
+_MEM_SRC = mem/ft_bzero.c \
+		mem/ft_memalloc.c \
+		mem/ft_memccpy.c \
+		mem/ft_memchr.c \
+		mem/ft_memcmp.c \
+		mem/ft_memcpy.c \
+		mem/ft_memdel.c \
+		mem/ft_memmove.c \
+		mem/ft_memset.c \
+		mem/ft_realloc.c \
+		mem/ft_arrfree.c \
+
+_PRINT_SRC = print/ft_putchar_fd.c \
+		print/ft_putchar.c \
+		print/ft_putendl_fd.c \
+		print/ft_putendl.c \
+		print/ft_putnbr_fd.c \
+		print/ft_putnbr.c \
+		print/ft_putstr_fd.c \
+		print/ft_putstr.c \
+		print/ft_putlong.c \
+		print/ft_putdouble.c \
+		print/ft_putshort.c \
+		print/ft_print_bits.c \
+
+_BIT_SRC = bits/ft_oradd_bit.c \
+		bits/ft_orfill_bit.c
+
+_STR_SRC = str/ft_strcat.c \
+		str/ft_strchr.c \
+		str/ft_strclr.c \
+		str/ft_strcmp.c \
+		str/ft_strcpy.c \
+		str/ft_strctrim.c \
+		str/ft_strdel.c \
+		str/ft_strdup.c \
+		str/ft_strequ.c \
+		str/ft_striter.c \
+		str/ft_striteri.c \
+		str/ft_strjoin.c \
+		str/ft_strjoin_free.c \
+		str/ft_strlcat.c \
+		str/ft_strlen.c \
+		str/ft_strilen.c \
+		str/ft_strmap.c \
+		str/ft_strmapi.c \
+		str/ft_strncat.c \
+		str/ft_strmapi.c \
+		str/ft_strncat.c \
+		str/ft_strncmp.c \
+		str/ft_strnequ.c \
+		str/ft_strnew.c \
+		str/ft_strcnew.c \
+		str/ft_strnstr.c \
+		str/ft_strnstr.c \
+		str/ft_strrchr.c \
+		str/ft_strsplit.c \
+		str/ft_strstr.c \
+		str/ft_strsub.c \
+		str/ft_strtrim.c \
+		str/ft_strtrim_top.c \
+		str/ft_strtrim_end.c \
+		str/ft_strrev.c \
+
+_TREE_SRC = trees/ft_add_node.c \
+		trees/ft_new_node.c \
+
+OBJ = $(LIBFT_OBJ)
+OBJ_DIR = obj
+LIBFT_SRCS = $(_STR_SRC) $(_PRINT_SRC) $(_MEM_SRC) $(_MATH_SRC) $(_LIST_SRC) $(_CONV_SRC) $(_ASCII_SRC) $(_TREE_SRC) $(_BIT_SRC)
+LIBFT_OBJ = $(_ASCII_SRC:.c=.o) $(_CONV_SRC:.c=.o) $(_LIST_SRC:.c=.o) $(_MATH_SRC:.c=.o) $(_MEM_SRC:.c=.o) $(_PRINT_SRC:.c=.o) $(_STR_SRC:.c=.o) $(_BIT_SRC:.c=.o) $(_TREE_SRC:.c=.o)
+PRINTF_OBJ = ft_printf/obj/*.o ft_printf/obj/sub/*.o
+
+HDR_SRC= ./incl
 
 all: $(NAME)
 
-$(NAME):
-		@gcc -g -Wall -Wextra -Werror -c  $(PRINTF_SRCS) -I $(PRINT_H)
-		@gcc -g -Wall -Wextra -Werror -c  $(SRCS) -I $(LIB_H)
-		@ar rcs libft.a $(OBJS) $(PRINTF_OBJS)
+$(NAME): $(OBJ_DIR) $(OBJ)
+	@echo "\\n\033[32;1mLIBFT DONE\033[0m \\n"
+	@make -C ft_printf
+	@ $(CC) $(CFLAGS) -c $(LIBFT_SRCS)
+	@mv *.o $(OBJ_DIR)
+	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ)
+	@ranlib $(NAME)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-		@rm -f $(OBJS) $(PRINTF_OBJS)
+	@make clean -C ft_printf
+	@rm -f $(OBJS)
+	@rm -f $(LIBFT_OBJ)
+	@find . -type f -name '*.o' -print -delete -o -name '#*#' -print -delete
+	@find . -type f -name '*~' -print -delete -o -name '#*#' -print -delete
+	@find . -type f -name '.DS_Store' -print -delete
+	@echo "deleted some stuff"
 
 fclean: clean
-		@rm -f $(NAME)
+	@rm -f $(NAME)
+	@rm -rf $(OBJ_DIR)
+	@echo "deleted rest of the stuff"
 
 re: fclean all
+
+.PHONY: all clean fclean re

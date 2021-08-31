@@ -1,69 +1,93 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/19 13:31:46 by ehelmine          #+#    #+#              #
-#    Updated: 2021/06/08 15:16:31 by ehelmine         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = libprint.a
 
-NAME = libftprintf.a
+OBJ_DIR = obj
+SRC_DIR = src
+DEP_DIR = .deps
 
-SRCS = srcs/handle_input.c srcs/check_flags_one.c srcs/check_flags_second.c \
-srcs/write_c_and_ints.c srcs/help_functions.c srcs/write_signed_ints.c \
-srcs/write_string.c srcs/write_p.c srcs/write_unsigned_ints.c \
-srcs/write_zero.c srcs/convert_int.c srcs/write_float_1.c \
-srcs/write_float_2.c srcs/write_float_3.c srcs/write_no_flags.c
+MATH_SRC = $(addprefix sub/, \
+	_dpow.c \
+	_abs.c \
+	_fabs.c \
+	_modf.c \
+	_uintmax_pow.c \
+)
 
-LIBFT_SRCS = $(addprefix ../, ft_putchar.c ft_putstr.c ft_atoi.c \
-ft_strlen.c ft_strcmp.c ft_putnbr.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
-ft_strclr.c ft_strcat.c ft_strncmp.c ft_putendl.c ft_strlcat.c ft_bzero.c \
-ft_strncat.c ft_strchr.c ft_strrchr.c ft_isalpha.c ft_isdigit.c ft_isascii.c \
-ft_isprint.c ft_strstr.c ft_strnstr.c ft_tolower.c ft_toupper.c ft_isalnum.c \
-ft_memset.c ft_memcpy.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memmove.c \
-ft_strequ.c ft_strnequ.c ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c \
-ft_strtrim.c ft_strjoin.c ft_striter.c ft_striteri.c ft_strsplit.c \
-ft_strsub.c ft_strmap.c ft_strmapi.c ft_itoa.c ft_putchar_fd.c \
-ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstadd.c \
-ft_lstdelone.c ft_lstdel.c ft_lstiter.c ft_lstmap.c ft_check_int_len.c \
-ft_islower.c ft_isupper.c ft_isspace.c ft_strndup.c get_next_line.c \
-major_bit.c minor_bit.c)
+MEM_SRC = $(addprefix sub/, \
+	_realloc.c \
+)
 
-OBJS = handle_input.o check_flags_one.o check_flags_second.o \
-write_c_and_ints.o help_functions.o write_signed_ints.o write_string.o \
-write_p.o write_unsigned_ints.o write_zero.o convert_int.o write_float_1.o \
-write_float_2.o write_float_3.o write_no_flags.o
+STR_SRC = $(addprefix sub/, \
+	_atoi.c \
+	_intmax_itoa_base.c \
+	_uintmax_itoa_base.c \
+)
 
-LIB = ../../libft/
+OTHER_SRC = $(addprefix sub/, \
+	_vasprint.c \
+	_get_conversion_specs.c \
+	parse_chars.c \
+	_parse_doubles.c \
+	_parse_pointer.c \
+	_parse_signed_ints.c \
+	_parse_unsigned_ints.c \
+	parse_helpers.c \
+	_parse.c \
+	_dtoa.c \
+	_round_double.c \
+	_rounds_half_to_even.c \
+	is_negf.c \
+	is_posinf.c \
+	is_neginf.c \
+	is_nan.c \
+)
 
-LIB_A = ../libft.a
+PRINT_SRC = \
+	print.c \
+	print_file.c \
+	print_fd.c \
+	format.c
 
-LIBFT_OBJS = $(LIBFT_SRCS:%.c=%.o)
+SRC = $(addprefix src/, \
+	$(MATH_SRC) \
+	$(MEM_SRC) \
+	$(STR_SRC) \
+	$(OTHER_SRC) \
+	$(PRINT_SRC) \
+)
 
-INCLUDES = includes/ft_printf.h
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror  #-fsanitize=address
+CPPFLAGS = -I . -I ../inc -I inc
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEP_DIR)/$*.d
+COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CPPFLAGS) -c
 
-CFLAGS = -g -Wall -Wextra -Werror
+.PHONY: all re clean fclean
 
 all: $(NAME)
 
-$(NAME):
-	make -C ../
-	@gcc $(CFLAGS) -c $(SRCS) -I ../
-	@echo "Libftprintf sources to objects done"
-	@ar rcs libftprintf.a $(OBJS) $(LIBFT_OBJS)
-	@echo "Compiling libftprintf.a done"
+$(NAME): $(subst $(SRC_DIR), $(OBJ_DIR), $(SRC:.c=.o))
+	@echo "\\n\033[32;1mPRINT FUNCTIONS COMPILED\033[0m \\n"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/sub/%.c | $(OBJ_DIR) $(DEP_DIR)
+	@$(COMPILE.c) -o $@ $<
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR) $(DEP_DIR)
+	@$(COMPILE.c) -o $@ $<
+	@echo $@
+
+$(OBJ_DIR): ; @mkdir -p $@/sub
+
+$(DEP_DIR): ; @mkdir -p $@/sub
+
+DEPFILES = $(addprefix $(DEP_DIR)/, $(SRC:.c=.d))
+$(DEPFILES):
 
 clean:
-	make clean -C ../
-	@echo "Libftprintf removing .o files"
-	@rm -f $(OBJS)
+	@rm -rf $(OBJ_DIR) $(DEP_DIR)
 
 fclean: clean
-	make -C ../ fclean
-	@echo "Libftprintf removing .a files"
 	@rm -f $(NAME)
 
 re: fclean all
+
+include $(wildcard $(DEPFILES))
