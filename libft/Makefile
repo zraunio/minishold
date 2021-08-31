@@ -82,7 +82,6 @@ _MEM_SRC = mem/ft_bzero.c \
 		mem/ft_memmove.c \
 		mem/ft_memset.c \
 		mem/ft_realloc.c \
-		mem/ft_arrfree.c \
 
 _PRINT_SRC = print/ft_putchar_fd.c \
 		print/ft_putchar.c \
@@ -139,10 +138,14 @@ _STR_SRC = str/ft_strcat.c \
 _TREE_SRC = trees/ft_add_node.c \
 		trees/ft_new_node.c \
 
+_2DARR_SRC = array2d/ft_arrfree.c \
+			array2d/ft_arrdup.c \
+			array2d/ft_arrnew.c \
+
 OBJ = $(LIBFT_OBJ)
 OBJ_DIR = obj
-LIBFT_SRCS = $(_STR_SRC) $(_PRINT_SRC) $(_MEM_SRC) $(_MATH_SRC) $(_LIST_SRC) $(_CONV_SRC) $(_ASCII_SRC) $(_TREE_SRC) $(_BIT_SRC)
-LIBFT_OBJ = $(_ASCII_SRC:.c=.o) $(_CONV_SRC:.c=.o) $(_LIST_SRC:.c=.o) $(_MATH_SRC:.c=.o) $(_MEM_SRC:.c=.o) $(_PRINT_SRC:.c=.o) $(_STR_SRC:.c=.o) $(_BIT_SRC:.c=.o) $(_TREE_SRC:.c=.o)
+LIBFT_SRCS = $(_STR_SRC) $(_PRINT_SRC) $(_MEM_SRC) $(_MATH_SRC) $(_LIST_SRC) $(_CONV_SRC) $(_ASCII_SRC) $(_TREE_SRC) $(_BIT_SRC) $(_2DARR_SRC)
+LIBFT_OBJ = $(_ASCII_SRC:.c=.o) $(_CONV_SRC:.c=.o) $(_LIST_SRC:.c=.o) $(_MATH_SRC:.c=.o) $(_MEM_SRC:.c=.o) $(_PRINT_SRC:.c=.o) $(_STR_SRC:.c=.o) $(_BIT_SRC:.c=.o) $(_TREE_SRC:.c=.o) $(_2DARR_SRC:.c=.o)
 PRINTF_OBJ = ft_printf/obj/*.o ft_printf/obj/sub/*.o
 
 HDR_SRC= ./incl

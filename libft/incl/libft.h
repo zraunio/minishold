@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:01:21 by zraunio           #+#    #+#             */
-/*   Updated: 2021/05/18 17:16:09 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/08/31 16:09:39 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void				*ft_memccpy(void *dest, const void *src, int c,
 						size_t n);
 void				*ft_realloc(void *ptr, size_t size);
 void				ft_bzero(void *s, size_t n);
-void				ft_arr_free(char **arr);
 /*
 ** print
 */
@@ -175,5 +174,10 @@ int					ft_tree_height(t_bitree *root);
 */
 size_t				ft_orfill_bit(size_t nb, size_t *arr);
 size_t				ft_oradd_bit(size_t nb, size_t arr);
-
+/*
+** two-dimentional arrays
+*/
+void				ft_arr_free(char **arr);
+char				**ft_arrnew(size_t rows, size_t len);
+char				**ft_arrdup(char **arr);
 #endif
