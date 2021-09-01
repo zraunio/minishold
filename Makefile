@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
+#    By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/30 17:01:59 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/01 15:46:31 by zraunio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS_DIR) $(OBJS)
 	make -C libft/
-	@echo "Sources to objects done"
+	@echo "\\n\033[32;1mOBJECT FILES CREATED\033[0m \\n""
 	gcc $(CFLAGS) -o $@ $(OBJS) -I $(INCLUDES) libft/libft.a
-	@echo "Compiling 21sh done"
+	@echo "\\n\033[32;1mCOMPILED SHELL\033[0m \\n"
 
 $(OBJS_DIR)/%.o: %.c
 	gcc $(CFLAGS) -c $< -o $@
