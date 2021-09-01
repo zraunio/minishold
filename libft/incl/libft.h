@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:01:21 by zraunio           #+#    #+#             */
-/*   Updated: 2021/08/31 16:09:39 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/01 15:52:02 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void				ft_putlong(long int nb);
 void				ft_putdouble(long double f, int decimal);
 void				ft_putshort(short nb);
 void				ft_print_bits(size_t nb, size_t size);
+void				ft_putarr(char **arr);
 /*
 ** string manipulation
 */

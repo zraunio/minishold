@@ -95,6 +95,7 @@ _PRINT_SRC = print/ft_putchar_fd.c \
 		print/ft_putdouble.c \
 		print/ft_putshort.c \
 		print/ft_print_bits.c \
+		print/ft_putarr.c \
 
 _BIT_SRC = bits/ft_oradd_bit.c \
 		bits/ft_orfill_bit.c
