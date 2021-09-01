@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 21:47:29 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/01 15:11:35 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define MINISHELL_H
 # include <unistd.h>
 # include <sys/types.h>
-# include "../libft/includes/libft.h"
-# include "../libft/ft_printf/includes/ft_printf.h"
+# include "../libft/incl/libft.h"
 # include <sys/stat.h>
 
 typedef struct s_shell
