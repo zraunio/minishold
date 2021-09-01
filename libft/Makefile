@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
+#    By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 13:01:03 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/30 16:30:03 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/01 15:06:06 by zraunio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
