@@ -6,11 +6,26 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 21:47:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/31 11:45:10 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+/*
+** MAX_LEN of dir is 4096. Allocate memory, get current directory & return it.
+*/
+
+char	*get_current_dir(void)
+{
+	char	*current_dir;
+
+	current_dir = (char *)malloc(sizeof(char) * 4096);
+	if (current_dir == NULL)
+		exit (1);
+	getcwd(current_dir, 4096);
+	return (current_dir);
+}
 
 /*
 **

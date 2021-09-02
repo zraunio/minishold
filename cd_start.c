@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 22:00:01 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/01 17:01:31 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,27 @@
 ** values).
 */
 
-void	change_directories(t_shell *data, char *new_dir, char *current_dir)
+void	change_directories(t_shell *data, char *new_dir, char *current_dir, char *org_input)
 {
 	int		i;
 	char	*var;
 	int		ret;
 
+	if (new_dir == NULL)
+	{
+		var = ft_strdup("OLDPWD");
+		i = check_if_var_is_in_array(var, data->copy_of_environ);
+		if (i == -1)
+			add_new_var_to_environ(data, var, current_dir);
+		else
+			change_old_var_value(data, var, current_dir, i);
+		return ;
+	}
 	ret = chdir(new_dir);
 	if (ret == -1)
 	{
 		free_two((void *)new_dir, (void *)current_dir);
-		ft_printf("cd: no such file or directory: %s\n", new_dir);
+		ft_printf("cd: no such file or directory: %s\n", org_input);
 		return ;
 	}
 	var = ft_strdup("OLDPWD");
@@ -63,19 +73,47 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir)
 		change_old_var_value(data, var, new_dir, i);
 }
 
-/*
-** MAX_LEN of dir is 4096. Allocate memory, get current directory & return it.
-*/
-
-char	*get_current_dir(void)
+void	clean_quotes_from_dir_name(char *d)
 {
-	char	*current_dir;
+	int		i;
+	size_t	len;
+	char	*tmp;
 
-	current_dir = (char *)malloc(sizeof(char) * 4096);
-	if (current_dir == NULL)
-		exit (1);
-	getcwd(current_dir, 4096);
-	return (current_dir);
+	tmp = NULL;
+	if (d == NULL)
+		return ;
+	i = 0;
+	len = ft_strlen(d);
+	if ((d[0] == '"' && d[len - 1] == '"') || (d[0] == '\'' && d[len - 1] == '\''))
+	{
+		tmp = ft_strndup(d + 1, len - 2);
+		ft_memset((void *)d, 0, len);
+		ft_strcpy(d, tmp);
+		free(tmp);
+	}
+}
+
+char	*tilde_dir_name(char *dir_name, t_shell *data)
+{
+	int		i;
+	char	*new_dir;
+	char	*home;
+	char	*end;
+
+	i = check_if_var_is_in_array("HOME", data->copy_of_environ);
+	if (i == -1)
+		return (NULL);
+	home = ft_strstr_after(data->copy_of_environ[i], "HOME=");
+	if (ft_strequ(dir_name, "~"))
+		return (ft_strdup(home));
+	else
+	{
+		end = ft_strdup(dir_name + 1);
+		new_dir = ft_strjoin(home, end);
+		free(end);
+		return (new_dir);
+	}
+	return (NULL);
 }
 
 /*
@@ -96,14 +134,22 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		new_dir = ft_strstr_after(data->copy_of_environ[i], "HOME=");
 		return (ft_strdup(new_dir));
 	}
-	else if (ft_strequ(dir_name, "."))
+	else if (ft_strequ(dir_name, "~") || dir_name[0] == '~')
+		return(tilde_dir_name(dir_name, data));
+	else if (ft_strequ(dir_name, ".") || ft_strequ(dir_name, ""))
 		return (ft_strdup(current_dir));
 	else if (ft_strequ(dir_name, ".."))
+	{
+		i = ft_return_char_index(current_dir, '/', 'e');
+		new_dir = ft_strndup(current_dir, i);
+		return (new_dir);
+	}
+	else if (ft_strequ(dir_name, "-"))
 	{
 		i = check_if_var_is_in_array("OLDPWD", data->copy_of_environ);
 		if (i == -1)
 			return (NULL);
-		new_dir = ft_strstr_after(data->copy_of_environ[i], "PWD=");
+		new_dir = ft_strstr_after(data->copy_of_environ[i], "OLDPWD=");
 		return (ft_strdup(new_dir));
 	}
 	else
@@ -146,8 +192,9 @@ void	cd_function_start(char *args, t_shell *data)
 		ft_printf("current directory fail\n");
 		return (free_arr((void **)cd_args_arr));
 	}
+	clean_quotes_from_dir_name(cd_args_arr[i]);
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
-	change_directories(data, new_dir, current_dir);
+	cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);
 	free_arr((void **)cd_args_arr);
 }
 // ADD THESE:

@@ -6,13 +6,14 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 13:51:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/31 14:44:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	write_echo_output(char *echo_arg, int output_len, int in_or_out, int quote)
+void	write_echo_output(char *echo_arg, int output_len, int in_or_out,
+	int quote)
 {
 	int i;
 
@@ -21,12 +22,18 @@ void	write_echo_output(char *echo_arg, int output_len, int in_or_out, int quote)
 	{
 		while (echo_arg[i] == '\\')
 		{
-			if (in_or_out == 2 && (echo_arg[i + 1] == 'n' || echo_arg[i + 1] == 't'))
+			if (in_or_out == 2 && (echo_arg[i + 1]
+				== 'n' || (echo_arg[i + 1] == '\\' && echo_arg[i + 2] == 'n')
+				|| echo_arg[i + 1] == 't' || (echo_arg[i + 1] == '\\' 
+					&& echo_arg[i + 2] == 't')))
 			{
-				if (echo_arg[i + 1] == 'n')
+				if (echo_arg[i + 1] == 'n' || echo_arg[i + 2] == 'n')
 					write(1, "\n", 1);
-				else if (echo_arg[i + 1] == 't')
+				else if (echo_arg[i + 1] == 't' || echo_arg[i + 2] == 't')
 					write(1, "\t", 1);
+				if (echo_arg[i + 1] == '\\' && (echo_arg[i + 2] == 'n'
+					|| echo_arg[i + 2] == 't'))
+					i++;
 				i += 2;
 			}
 			else if (in_or_out == 0)
@@ -41,6 +48,12 @@ void	write_echo_output(char *echo_arg, int output_len, int in_or_out, int quote)
 					i += 3;
 				}
 				i++;
+			}
+			else if (in_or_out == 2)
+			{
+				i++;
+				if (echo_arg[i + 1] == ' ')
+					write(1, &echo_arg[i++], 1);
 			}
 		}
 		if ((echo_arg[i] == '"' && (quote == 2 || quote == 0)) || (echo_arg[i] == '\''
@@ -126,7 +139,7 @@ char	*print_quotes(char *echo_arg, char **copy_of_environ, int q_num, char quote
 				return (echo_arg);
 			i = -1;
 		}
-		else if ((quote == '"' && echo_arg[i] == '"' && q_num == 2)
+		else if ((quote == '"' && echo_arg[i] == '"' && q_num == 2 && echo_arg[i - 1] != '\\')
 			|| (quote == '\'' && echo_arg[i] == '\'' && q_num == 1))
 			break ;
 		i++;

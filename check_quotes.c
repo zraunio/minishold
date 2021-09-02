@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:15:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 21:46:02 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/01 17:37:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,21 @@ int	check_amount_of_quotes(char *args, t_shell *data)
 	single_q = 0;
 	while (args[i] != '\0')
 	{
-		if (args[i] == '"' && single_q == 0 && data->quote != 1)
+		if (args[i] == '"' && single_q == 0 && data->quote != 1
+			&& args[i - 1] != '\\')
 		{
 			double_q++;
 			data->quote = 2;
 		}
-		else if (args[i] == '\'' && double_q == 0 && data->quote != 2)
+		else if (args[i] == '\'' && double_q == 0 && data->quote != 2
+			&& args[i - 1] != '\\')
 		{
 			single_q++;
 			data->quote = 1;
 		}
 		i++;
 	}
-	if (double_q > 0)
+	if (data->quote == 2)
 		return (double_q);
 	return (single_q);
 }

@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/30 17:01:59 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/08/31 11:49:09 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = 21sh
 SRCS = main.c read_input.c lexer.c built_in.c echo_functions.c \
 	help_functions.c check_if_something_functions.c setenv_functions.c \
 	unsetenv_functions.c check_quotes.c cd_start.c \
-	cd_input_check.c
+	cd_input_check.c cd_finish.c
 
 OBJS_DIR = objs
 
@@ -24,7 +24,7 @@ OBJS = $(OBJS_DIR)/main.o $(OBJS_DIR)/read_input.o $(OBJS_DIR)/lexer.o \
 	$(OBJS_DIR)/help_functions.o $(OBJS_DIR)/check_if_something_functions.o \
 	$(OBJS_DIR)/setenv_functions.o $(OBJS_DIR)/unsetenv_functions.o \
 	$(OBJS_DIR)/check_quotes.o $(OBJS_DIR)/cd_start.o \
-	$(OBJS_DIR)/cd_input_check.o
+	$(OBJS_DIR)/cd_input_check.o $(OBJS_DIR)/cd_finish.o
 	
 
 INCLUDES = includes/minishell.h
