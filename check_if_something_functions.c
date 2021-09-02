@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 21:57:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/01 14:49:07 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,29 @@ char	*check_if_built_in(char **buf_arr)
 		|| ft_strequ("unsetenv", tmp) || ft_strequ("setenv", tmp)
 		|| ft_strequ("echo", tmp))
 		return (tmp);
+	free(tmp);
 	return (NULL);
+}
+
+int		only_slashes_and_dots(char *command)
+{
+	int i;
+
+	i = 0;
+	if (ft_strequ(command, "."))
+	{
+		ft_printf(".: not enough arguments\n");
+		free(command);
+		return (-1);
+	}
+	while (command[i] != '\0')
+	{
+		if (command[i] != '.' && command[i] != '/')
+			return (1);
+		i++;
+	}
+	free(command);
+	return (-1);
 }
 
 char	*check_if_executable(char **buf_arr, char **path_array)
@@ -46,6 +68,8 @@ char	*check_if_executable(char **buf_arr, char **path_array)
 	if_exec = return_string_before_given_character(buf_arr[0], ' ');
 	if (if_exec == NULL)
 		if_exec = ft_strdup(buf_arr[0]);
+	if (only_slashes_and_dots(if_exec) == -1)
+		return (NULL);
 	while (path_array[i] != NULL)
 	{
 		tmp = ft_strjoin(path_array[i], "/");

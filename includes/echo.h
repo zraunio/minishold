@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   echo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/25 09:44:25 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/02 16:29:39 by zraunio          ###   ########.fr       */
+/*   Created: 2021/09/02 16:09:22 by zraunio           #+#    #+#             */
+/*   Updated: 2021/09/02 16:28:19 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#ifndef ECHO_H
+#define ECHO_H
 
-void	ft_echo(char *str, char **env)
-{
-	char	*out;
-	size_t	i;
+#include "../libft/incl/libft.h"
 
-	i = 0;
-	while (ft_isspace(str[i]) == 1)
-		i++;
-	out = ft_strstr(&out[i], " ");
-	if (out != NULL)
-	{
-		i = 0;
-		while (ft_isspace(out[i]) == 1)
-			i++;
-		if (out[i] == '$')
-		{
-			out = dollar_write(&out[i + 1], env);
-			i = 0;
-		}
+/*
+** helper functions for different functionalities
+*/
+char	*dollar_write(char *out, char **env);
+char	*quote_write(char *out, char **env, size_t n, char q);
+char	*echo_write(char *out, size_t len, size_t in_or_out, size_t n);
 /*
 ** rewrite of the echo command:
 ** handles Dollar $, quotes, and ~
 */
-	}
-	write(1, "\n", 1);
-	return ;
-}
+void	ft_echo(char *str, char **env);
+#endif

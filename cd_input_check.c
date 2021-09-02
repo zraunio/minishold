@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:59:34 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 21:57:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/08/31 17:07:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,14 @@ static int	check_cd_last_space(char *args, t_shell *data)
 
 static int	check_cd_flags(char *args, t_shell *data)
 {
-	while (args[data->i] == '-')
+	while (args[data->i] == '-' && args[data->i] != '\0')
 		data->i++;
+	if (args[data->i] == '\0')
+	{
+		if (data->i > 2)
+			return (-1);
+		return (1);
+	}
 	while (args[data->i] != ' ' && args[data->i] != '\0')
 	{
 		if (args[data->i] == 'L')
