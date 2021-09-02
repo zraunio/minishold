@@ -135,6 +135,8 @@ _STR_SRC = str/ft_strcat.c \
 		str/ft_strtrim_top.c \
 		str/ft_strtrim_end.c \
 		str/ft_strrev.c \
+		str/ft_strndup.c \
+		str/ft_strchrstr.c \
 
 _TREE_SRC = trees/ft_add_node.c \
 		trees/ft_new_node.c \
@@ -142,6 +144,7 @@ _TREE_SRC = trees/ft_add_node.c \
 _2DARR_SRC = array2d/ft_arrfree.c \
 			array2d/ft_arrdup.c \
 			array2d/ft_arrnew.c \
+			array2d/free_two.c \
 
 OBJ = $(LIBFT_OBJ)
 OBJ_DIR = obj

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:01:21 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/01 15:52:02 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:06:58 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ char				*ft_strcpy(char *dest, const char *src);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strtrim_end(const char *s, char c);
 char				*ft_strrev(char *str);
+char				*ft_strndup(const char *s1, size_t n);
+int					ft_strchrstr(char *str, char c, char start);
 /*
 ** binary trees
 */
@@ -181,4 +183,5 @@ size_t				ft_oradd_bit(size_t nb, size_t arr);
 void				ft_arr_free(char **arr);
 char				**ft_arrnew(size_t rows, size_t len);
 char				**ft_arrdup(char **arr);
+void				free_two(void *ptr1, void *ptr2);
 #endif

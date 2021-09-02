@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/31 14:44:58 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/02 17:13:04 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,91 +63,112 @@ void	write_echo_output(char *echo_arg, int output_len, int in_or_out,
 	}
 }
 
-char	*print_dollar(char **environ, char *echo_arg)
+
+static void	path_write(char *tmp, char *env)
 {
-	int i;
-	int len;
-	char *temp;
-	int x;
-	char *check;
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(tmp);
+	i = 0;
+	ft_memdel((void *)&tmp);
+	tmp = ft_strdup(&env[len + 1]);
+	while (tmp[i] != '\0')
+	{
+		if (tmp[i] == ':')
+			tmp[i] = ' ';
+		i++;
+	}
+	ft_putstr(tmp);
+}
+
+static char *find_start(char *out)
+{
+	size_t	i;
+	char *tmp;
 
 	i = 0;
-	if (echo_arg[i] == ' ')
-		return (echo_arg);
-	while (echo_arg[i] != ' ' && echo_arg[i] != '"' && echo_arg[i] != '\n'
-		&& echo_arg[i] != '\0')
+	if (ft_isspace(out[i]) == 1)
+		return (out);
+	while (ft_isspace(out[i]) == 0 && out[i] != '"' && out[i] != '\0')
 		i++;
-	temp = NULL;
-	temp = ft_strndup(echo_arg, i);
-	change_to_uppercase(temp);
-	i = 0;
-	len = ft_strlen(temp);
-	while (environ[i] != NULL)
+	tmp = ft_strsub(out, 0, i);
+	if (!tmp)
 	{
-		check = ft_strstr(environ[i], temp);
-		if (check != NULL)
+		write (1, "find_start", 11);
+		exit (1);
+	}
+	i = 0;
+	while (tmp[i++])
+		if (tmp[i] >= 97 || tmp[i] <= 122)
+			tmp[i] = ft_toupper(tmp[i]);
+	return (tmp);
+}
+
+char	*print_dollar(char **env, char *out)
+{
+	size_t	i;
+	size_t	j;
+	char	*tmp;
+	char	*cmp;
+
+	i = 0;
+	tmp = find_start(out);
+	j = ft_strlen(tmp);
+	while (env[i] != NULL)
+	{
+		cmp = ft_strstr(env[i], tmp);
+		if (cmp != NULL)
 		{
-			x = 0;
-			if (ft_strcmp(temp, "PATH") == 0)
-			{
-				free(temp);
-				temp = ft_strdup(environ[i] + (ft_strlen(temp) + 1));
-				while (temp[x] != '\0')
-				{
-					if (temp[x] == ':')
-						temp[x] = ' ';
-					x++;
-				}
-				ft_putstr(temp);
-			}
+			if (ft_strcmp(tmp, "PATH") == 0)
+				path_write(tmp, env[i]);
 			else
-				ft_putstr(environ[i] + ft_strlen(temp) + 1);
+				ft_putstr(&env[i][j + 1]);
 			break ;
 		}
 		else
 			i++;
 	}
-	free(temp);
-	temp = NULL;
-	if (echo_arg[len] == '"')
-		len++;
-	if (environ[i] == NULL && echo_arg[len - 1] == '"')
-		write(1, " ", 1);	
-	return (echo_arg + len);	
+	ft_memdel((void *)&tmp);
+	if (out[j] == '"')
+		j++;
+	if (env[i] == NULL && out[j - 1] == '"')
+		write(1, " ", 1);
+	return (out + j);
 }
 
-char	*print_quotes(char *echo_arg, char **copy_of_environ, int q_num, char quote)
+char	*print_quotes(char *out, char **env, int n, char q)
 {
-	int i;
+		size_t	i;
 
 	i = 0;
-	if (echo_arg[i + 1] == '\0')
+	if (out[1] == '\0')
 	{
-		if ((quote == '"' && echo_arg[i] == '"' && q_num != 1) || (quote == '\'' && echo_arg[i] == '\''
-			&& q_num != 2))
+		if ((q == '"' && out[i] == '"' && n != 1) || (q == '\''
+		&& out[i] == '\'' && n != 2))
 			write(1, "\n", 1);
-		return (echo_arg + 1);
+		return (out + 1);
 	}
-	while (echo_arg[i] != '\0')
+	while (out[i] != '\0')
 	{
-		if (echo_arg[i] == '$')
+		if (out[i] == '$')
 		{
 			if (i > 1)
-				write_echo_output(echo_arg, i, 2, q_num);
-			echo_arg = print_dollar(copy_of_environ, echo_arg + i + 1);
-			if (echo_arg[0] == '\0')
-				return (echo_arg);
-			i = -1;
+				write_echo_output(out, i, 2, n);
+			out = print_dollar(env, &out[i + 1]);
+			if (out[0] == '\0')
+				return (out);
+			i--;
 		}
-		else if ((quote == '"' && echo_arg[i] == '"' && q_num == 2 && echo_arg[i - 1] != '\\')
-			|| (quote == '\'' && echo_arg[i] == '\'' && q_num == 1))
+		else if ((q == '"' && out[i] == '"' && n == 2 && out[i - 1] != '\\')
+		|| (q == '\'' && out[i] == '\'' && n == 1))
 			break ;
 		i++;
 	}
 	if (i == 0)
-		return (echo_arg);
-	write_echo_output(echo_arg, i, 2, q_num);
-	return (echo_arg + i + 1);
+		return (out);
+	write_echo_output(out, i, 2, n);
+	return (&out[i + 1]);
 }
 
 char	*print_text_after_pipe_or_semicolon(char *echo_arg, int quote)

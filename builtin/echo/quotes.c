@@ -6,11 +6,11 @@
 /*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 15:58:28 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/02 16:45:44 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/02 16:47:55 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*quote_write(char *out, char **env, size_t n, char q)
 {

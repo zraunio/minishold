@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/01 17:01:31 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/02 17:08:41 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*tilde_dir_name(char *dir_name, t_shell *data)
 	i = check_if_var_is_in_array("HOME", data->copy_of_environ);
 	if (i == -1)
 		return (NULL);
-	home = ft_strstr_after(data->copy_of_environ[i], "HOME=");
+	home = ft_strstr(data->copy_of_environ[i], "HOME=") + ft_strlen("HOME=");
 	if (ft_strequ(dir_name, "~"))
 		return (ft_strdup(home));
 	else
@@ -131,7 +131,7 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		i = check_if_var_is_in_array("HOME", data->copy_of_environ);
 		if (i == -1)
 			return (NULL);
-		new_dir = ft_strstr_after(data->copy_of_environ[i], "HOME=");
+		new_dir = ft_strstr(data->copy_of_environ[i], "HOME=") + ft_strlen("HOME=");
 		return (ft_strdup(new_dir));
 	}
 	else if (ft_strequ(dir_name, "~") || dir_name[0] == '~')
@@ -140,7 +140,7 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		return (ft_strdup(current_dir));
 	else if (ft_strequ(dir_name, ".."))
 	{
-		i = ft_return_char_index(current_dir, '/', 'e');
+		i = ft_strchrstr(current_dir, '/', 'e');
 		new_dir = ft_strndup(current_dir, i);
 		return (new_dir);
 	}
@@ -149,7 +149,7 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		i = check_if_var_is_in_array("OLDPWD", data->copy_of_environ);
 		if (i == -1)
 			return (NULL);
-		new_dir = ft_strstr_after(data->copy_of_environ[i], "OLDPWD=");
+		new_dir = ft_strstr(data->copy_of_environ[i], "OLDPWD=") + ft_strlen("OLDPWD=");
 		return (ft_strdup(new_dir));
 	}
 	else
@@ -190,12 +190,12 @@ void	cd_function_start(char *args, t_shell *data)
 	if (current_dir == NULL)
 	{
 		ft_printf("current directory fail\n");
-		return (free_arr((void **)cd_args_arr));
+		return (ft_arr_free(cd_args_arr));
 	}
 	clean_quotes_from_dir_name(cd_args_arr[i]);
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
 	cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);
-	free_arr((void **)cd_args_arr);
+	ft_arr_free(cd_args_arr);
 }
 // ADD THESE:
 	// IF WE GO ../something FOR EXAMPLE, WE NEED TO ADD

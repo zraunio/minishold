@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/31 11:45:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/02 16:57:49 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	change_to_uppercase(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_islower(str[i]))
+		if (str[i] >= 65 && str[i] <= 90)
 			str[i] -= 32;
 		i++;
 	}

@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/25 09:44:25 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/02 16:29:39 by zraunio          ###   ########.fr       */
+/*   Created: 2020/07/09 10:21:34 by ehelmine          #+#    #+#             */
+/*   Updated: 2021/09/02 16:55:52 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../incl/libft.h"
 
-void	ft_echo(char *str, char **env)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	char	*out;
+	size_t	len;
+	char	*dup;
 	size_t	i;
 
+	len = 0;
+	while (s1[len] != '\0')
+		len++;
+	if (n >= len)
+		n = len;
+	dup = (char *)malloc(sizeof(char) * (n + 1));
+	if (dup == NULL)
+		exit (1);
 	i = 0;
-	while (ft_isspace(str[i]) == 1)
-		i++;
-	out = ft_strstr(&out[i], " ");
-	if (out != NULL)
+	while (i < n)
 	{
-		i = 0;
-		while (ft_isspace(out[i]) == 1)
-			i++;
-		if (out[i] == '$')
-		{
-			out = dollar_write(&out[i + 1], env);
-			i = 0;
-		}
-/*
-** rewrite of the echo command:
-** handles Dollar $, quotes, and ~
-*/
+		dup[i] = s1[i];
+		i++;
 	}
-	write(1, "\n", 1);
-	return ;
+	dup[i] = '\0';
+	return (dup);
 }

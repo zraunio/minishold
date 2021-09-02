@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/02 15:23:27 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:10:36 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*find_dot_dot(char *new_dir)
 		if (new_dir[i] == '/' && new_dir[i + 1] == '.' && new_dir[i + 2] == '.')
 		{
 			tmp_new = ft_strndup(new_dir, i);
-			last_slash_index = ft_return_char_index(tmp_new, '/', 'e');
+			last_slash_index = ft_strchrstr(tmp_new, '/', 'e');
 			if (last_slash_index == 0)
 			{
 				free_two((void *)tmp_new, (void *)new_dir);
@@ -67,7 +67,10 @@ char	*check_new_dir_slash(char *current_dir, char *new_dir,
 		if (i == -1)
 		{
 			if (current_dir[((int)ft_strlen(current_dir) - 1)] != '/')
-				tmp = ft_strjoin_three(current_dir, "/", new_dir);
+			{
+				tmp = ft_strjoin(current_dir, "/");
+				tmp = ft_strjoin_free(tmp, new_dir, 1);
+			}
 			else
 				tmp = ft_strjoin(current_dir, new_dir);
 			free(new_dir);
