@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/01 14:49:07 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/02 16:15:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ char	*check_if_executable(char **buf_arr, char **path_array)
 		if_exec = ft_strdup(buf_arr[0]);
 	if (only_slashes_and_dots(if_exec) == -1)
 		return (NULL);
+	if (lstat(if_exec, &buff) == 0 && buff.st_mode & S_IXUSR
+		&& S_ISREG(buff.st_mode))
+		return (if_exec);
 	while (path_array[i] != NULL)
 	{
 		tmp = ft_strjoin(path_array[i], "/");

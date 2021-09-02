@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/01 17:01:31 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/02 17:03:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir, char *o
 		add_new_var_to_environ(data, var, new_dir);
 	else
 		change_old_var_value(data, var, new_dir, i);
+	if (data->previous_dir_in_cd)
+	{
+		var = ft_strdup("PWD");
+		i = check_if_var_is_in_array(var, data->copy_of_environ);
+		ft_printf("%s\n", data->copy_of_environ[i] + 4);
+		data->previous_dir_in_cd = 0;
+		free(var);
+	}
 }
 
 void	clean_quotes_from_dir_name(char *d)
@@ -150,6 +158,7 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		if (i == -1)
 			return (NULL);
 		new_dir = ft_strstr_after(data->copy_of_environ[i], "OLDPWD=");
+		data->previous_dir_in_cd = 1;
 		return (ft_strdup(new_dir));
 	}
 	else
@@ -193,8 +202,12 @@ void	cd_function_start(char *args, t_shell *data)
 		return (free_arr((void **)cd_args_arr));
 	}
 	clean_quotes_from_dir_name(cd_args_arr[i]);
+	data->previous_dir_in_cd = 0;
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
-	cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);
+	if (new_dir !=  NULL)
+		cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);
+	else
+		free(current_dir);
 	free_arr((void **)cd_args_arr);
 }
 // ADD THESE:
