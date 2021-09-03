@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 12:14:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 13:54:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	pipe_input(char *buf, char **buf_arr, int x, int y)
 {
 	if (buf[1] == ';' || buf[1] == '|')
 	{
-		ft_printf("zsh: parse error near %.2s\n", buf);
+		ft_printf("zsh: parse error near `%.2s'\n", buf);
 		x = 0;
 		while (x <= y)
 			free(buf_arr[x++]);
@@ -49,7 +49,7 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 {
 	if (buf[1] == ';' || buf[1] == '|')
 	{
-		ft_printf("zsh: parse error near %.2s\n", buf);
+		ft_printf("zsh: parse error near `%.2s'\n", buf);
 		x = 0;
 		while (x <= y)
 			free(buf_arr[x++]);

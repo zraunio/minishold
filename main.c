@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/30 14:56:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:30:37 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@
 ** be found with the paths (for example command ls would be found in /bin/).
 */
 
-char	**get_paths_to_array(t_shell *data)
+void get_paths_to_array(t_shell *data)
 {
 	int		i;
-	char	**path_array;
 
 	i = 0;
 	while (data->copy_of_environ[i] != NULL)
@@ -58,16 +57,16 @@ char	**get_paths_to_array(t_shell *data)
 				&& data->copy_of_environ[i][3]
 				== 'H' && data->copy_of_environ[i][5] != '\0')
 			{
-				path_array = ft_strsplit(*(data->copy_of_environ + i) + 5,
+				data->path_array = ft_strsplit(*(data->copy_of_environ + i) + 5,
 						':');
-				if (path_array != NULL)
-					return (path_array);
+				if (data->path_array != NULL)
+					return ;
 				exit (1);
 			}
 		}
 		i++;
 	}
-	return (NULL);
+	return ;
 }
 
 /*
@@ -110,14 +109,13 @@ void	get_copy_of_environment_variables(t_shell *data)
 
 int	main(void)
 {
-	char	**path_array;
 	t_shell	data;
 
 	get_copy_of_environment_variables(&data);
 	// REMEMBER TO FREE COPY OF ENVIRON
-	path_array = get_paths_to_array(&data);
+	get_paths_to_array(&data);
 	// REMEMBER TO FREE PATH ARRAY
 	write(1, "myshell> ", 9);
-	fork_and_child(path_array, &data);
+	fork_and_child(&data);
 	return (0);
 }

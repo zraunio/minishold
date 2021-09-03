@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/02 16:54:30 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:55:05 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	set_buf_and_get_input(char *buf)
 		loop_more_quotes(buf, quote);
 }
 
-void	fork_and_child(char **path_array, t_shell *data)
+void	fork_and_child(t_shell *data)
 {
 	char	*buf;
 	char	**buf_arr;
@@ -66,9 +66,9 @@ void	fork_and_child(char **path_array, t_shell *data)
 	{
 		set_buf_and_get_input(buf);
 		buf_arr = split_input_to_array(buf);
-		check_input_array(buf_arr);
 		if (buf_arr != NULL)
 		{
+			check_input_array(buf_arr);
 			tmp = check_if_built_in(buf_arr);
 			if (tmp != NULL)
 			{
@@ -77,7 +77,7 @@ void	fork_and_child(char **path_array, t_shell *data)
 				tmp = NULL;
 			}
 			else
-				tmp = check_if_executable(buf_arr, path_array);
+				tmp = check_if_executable(buf_arr, data);
 //			ft_printf("what is here |%s|\n", tmp);
 			if (tmp != NULL)
 			{
@@ -96,12 +96,6 @@ void	fork_and_child(char **path_array, t_shell *data)
 					if (execve(tmp, argv, data->copy_of_environ) == -1)
 					{
 				//  		perror("childpid 0");
-					}
-					if (path_array != NULL)
-					{
-						while (path_array[i] != NULL)
-							free((void *)path_array[i++]);
-						free(path_array);
 					}
 				}
 				else if (child_pid < 0)

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 10:21:39 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:52:44 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	write_echo_output(char *echo_arg, int output_len, int in_or_out,
 						write(1, "\t", 1);
 					i += 3;
 				}
-				i++;
 			}
 			else if (in_or_out == 2)
 			{

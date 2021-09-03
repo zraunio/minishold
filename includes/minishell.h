@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/02 16:54:24 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:28:11 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 typedef struct s_shell
 {
 	char	**copy_of_environ;
+	char	**path_array;
 	int		num_of_variables;
 	int		quote;
 	char	**prev_dirs;
 	int		l_flag;
 	int		p_flag;
+	int		n_flag;
 	int		i;
 	int		x;
 	int		len_of_dir;
@@ -33,9 +35,9 @@ typedef struct s_shell
 }				t_shell;
 
 void	get_copy_of_environment_variables(t_shell *data);
-char	**get_paths_to_array(t_shell *data);
+void	get_paths_to_array(t_shell *data);
 
-void	fork_and_child(char **path_array, t_shell *data);
+void	fork_and_child(t_shell *data);
 
 void	loop_input_to_string(char *buf);
 char	check_quotes_for_input(char *buf);
@@ -44,7 +46,8 @@ char	**split_input_to_array(char *buf);
 void	check_input_array(char **buf_arr);
 
 char	*check_if_built_in(char **buf_arr);
-char	*check_if_executable(char **buf_arr, char **path_array);
+char	*check_if_executable(char **buf_arr, t_shell *data);
+char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
 

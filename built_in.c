@@ -6,36 +6,16 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/01 17:18:44 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:53:12 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	my_echo(char *input, t_shell *data)
+void	my_echo(char *echo_arg, t_shell *data)
 {
 	int		i;
-	char	*echo_arg;
-	int		n_flag;
 
-	i = 0;
-	n_flag = 0;
-	while (input[i] == ' ' && input[i] != '\0')
-		i++;
-	input += i;
-	echo_arg = ft_strstr(input, " ");
-	if (echo_arg == NULL && input[4] == '\0')
-		return ((void)write(1, "\n", 1));
-	if (echo_arg[1] == '-' && echo_arg[2] == 'n')
-	{
-		if (echo_arg[3] == '\0')
-			return ;
-		if (echo_arg[3] == ' ')
-		{
-			n_flag = 1;
-			echo_arg = ft_strstr(input + 5, " ");
-		}
-	}
 	if (echo_arg != NULL)
 	{
 		i = 0;
@@ -57,7 +37,7 @@ void	my_echo(char *input, t_shell *data)
 			i = 0;
 		}
 	}
-	if (!n_flag)
+	if (!data->n_flag)
 		write(1, "\n", 1);
 	return ;
 }
@@ -72,10 +52,9 @@ void	my_echo(char *input, t_shell *data)
 
 void	execute_built_in(char *built_in, t_shell *data, char **args)
 {
-	int	i;
-	int	am_of_quotes;
+	int		am_of_quotes;
+	char	*tmp;
 
-	i = 0;
 	if (built_in[0] == 'e' && built_in[1] == 'x')
 		exit (0);
 	else if (built_in[0] == 'c')
@@ -86,7 +65,10 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 		am_of_quotes = check_amount_of_quotes(args[0], data);
 		if (am_of_quotes % 2 != 0)
 			loop_double_quotes(args[0], am_of_quotes, data);
-		my_echo(args[0], data);
+		data->n_flag = 0;	
+		tmp = check_echo_flags_and_skip_whitespaces(args[0], data);
+		if (tmp != NULL)
+			my_echo(tmp, data);
 	}
 	else if (built_in[0] == 's')
 		set_environment_variable(data, args[0]);

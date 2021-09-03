@@ -6,11 +6,45 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/02 16:54:54 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:57:35 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data)
+{
+	int i;
+
+	i = 0;
+	while (ft_isspace(input[0]) && input[0] != '\0')
+		input++;
+	input += 4;
+	if (input[0] == '\0')
+	{
+		write(1, "\n", 1);
+		return (NULL);
+	}
+	i = 0;
+	while (input[i] == ' ' && input[i] != '\0')
+		i++;
+	if (input[i] == '-' && input[i + 1] == 'n')
+	{
+		input += i + 1;
+		i = 0;
+		while (input[0] == 'n' && input[0] != '\0')
+			input++;
+		if (input[0] == '\0' || ft_isspace(input[0]))
+		{
+			data->n_flag = 1;
+			if (input[0] == '\0')
+				return (NULL);
+			while (ft_isspace(input[0]) && input[0] != '\0')
+				input++;
+		}
+	}
+	return (input + i);
+}
 
 static void	change_input_row(char **buf_arr, int y, int x, char quote)
 {
