@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:54:43 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:12:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,13 @@ void	set_environment_variable(t_shell *data, char *args)
 	change_flag = 1;
 	if (args[0] == '\0')
 		return (ft_putarr(data->copy_of_environ));
-	variable = return_string_before_given_character(args, ' ');
+	variable = return_string_before_given_char(args, ' ');
 	if (variable == NULL)
 		return ;
 	if (ft_strchr(variable, '=') != NULL)
 		return (free(variable));
 	args += (int)ft_strlen(variable) + 1;
-	value = return_string_before_given_character(args, ' ');
+	value = return_string_before_given_char(args, ' ');
 	if (value == NULL)
 		value = ft_strdup(args);
 	else

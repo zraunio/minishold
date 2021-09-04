@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/02 17:03:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:09:52 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 ** values).
 */
 
-void	change_directories(t_shell *data, char *new_dir, char *current_dir, char *org_input)
+void	change_directories(t_shell *data, char *new_dir, char *current_dir,
+		char *org_input)
 {
 	int		i;
 	char	*var;
@@ -92,7 +93,8 @@ void	clean_quotes_from_dir_name(char *d)
 		return ;
 	i = 0;
 	len = ft_strlen(d);
-	if ((d[0] == '"' && d[len - 1] == '"') || (d[0] == '\'' && d[len - 1] == '\''))
+	if ((d[0] == '"' && d[len - 1] == '"') || (d[0] == '\'' && d[len - 1]
+			== '\''))
 	{
 		tmp = ft_strndup(d + 1, len - 2);
 		ft_memset((void *)d, 0, len);
@@ -143,12 +145,14 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 		return (ft_strdup(new_dir));
 	}
 	else if (ft_strequ(dir_name, "~") || dir_name[0] == '~')
-		return(tilde_dir_name(dir_name, data));
+		return (tilde_dir_name(dir_name, data));
 	else if (ft_strequ(dir_name, ".") || ft_strequ(dir_name, ""))
 		return (ft_strdup(current_dir));
 	else if (ft_strequ(dir_name, ".."))
 	{
 		i = ft_return_char_index(current_dir, '/', 'e');
+		if (i == 0)
+			return (ft_strdup("/"));
 		new_dir = ft_strndup(current_dir, i);
 		return (new_dir);
 	}
@@ -204,7 +208,7 @@ void	cd_function_start(char *args, t_shell *data)
 	clean_quotes_from_dir_name(cd_args_arr[i]);
 	data->previous_dir_in_cd = 0;
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
-	if (new_dir !=  NULL)
+	if (new_dir != NULL)
 		cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);
 	else
 		free(current_dir);

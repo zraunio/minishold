@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:53:12 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/04 15:36:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 void	my_echo(char *echo_arg, t_shell *data)
 {
-	int		i;
-
 	if (echo_arg != NULL)
 	{
-		i = 0;
-		while (echo_arg[i] != '\0')
+		data->i = 0;
+		while (echo_arg[data->i] != '\0')
 		{
-			while (echo_arg[i] == ' ')
-				i++;
-			if (echo_arg[i] == '$')
-				echo_arg = print_dollar(data->copy_of_environ, echo_arg + i
-						+ 1);
-			else if ((echo_arg[i] == '"' && (data->quote == 2 || data->quote
-						== 0)) || (echo_arg[i] == '\'' && (data->quote == 1
-						|| data->quote == 0)))
-				echo_arg = print_quotes(echo_arg + i + 1,
-						data->copy_of_environ, data->quote, echo_arg[i]);
-			else if (echo_arg[i] != '|' || echo_arg[i] != ';')
-				echo_arg = print_text_after_pipe_or_semicolon(echo_arg + i,
-						data->quote);
-			i = 0;
+			while (echo_arg[data->i] == ' ')
+				data->i++;
+			if (echo_arg[data->i] == '$')
+				echo_arg = print_dollar(data->copy_of_environ, echo_arg
+						+ data->i + 1);
+			else if ((echo_arg[data->i] == '"' && (data->quote == 2
+						|| data->quote == 0)) || (echo_arg[data->i] == '\''
+					&& (data->quote == 1 || data->quote == 0)))
+				echo_arg = print_quotes(echo_arg + data->i + 1,
+						data->copy_of_environ, data->quote, echo_arg[data->i]);
+			else if (echo_arg[data->i] != '|' || echo_arg[data->i] != ';')
+				echo_arg = print_text_after_pipe_or_semicolon(echo_arg
+						+ data->i, data->quote);
+			data->i = 0;
 		}
 	}
 	if (!data->n_flag)
@@ -65,7 +63,7 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 		am_of_quotes = check_amount_of_quotes(args[0], data);
 		if (am_of_quotes % 2 != 0)
 			loop_double_quotes(args[0], am_of_quotes, data);
-		data->n_flag = 0;	
+		data->n_flag = 0;
 		tmp = check_echo_flags_and_skip_whitespaces(args[0], data);
 		if (tmp != NULL)
 			my_echo(tmp, data);

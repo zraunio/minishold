@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:28:11 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:12:32 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_shell
 
 void	get_copy_of_environment_variables(t_shell *data);
 void	get_paths_to_array(t_shell *data);
+void	update_path_array(t_shell *data);
 
 void	fork_and_child(t_shell *data);
 
@@ -56,9 +57,11 @@ void	loop_double_quotes(char *args, int am_of_quotes, t_shell *data);
 
 void	cd_function_start(char *args, t_shell *data);
 int		check_cd_arguments(char *args, t_shell *data);
-void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data, char *org_input);
+void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
+			char *org_input);
 char	*get_current_dir(void);
-void	change_directories(t_shell *data, char *new_dir, char *current_dir, char *org_input);
+void	change_directories(t_shell *data, char *new_dir, char *current_dir,
+			char *org_input);
 
 void	set_environment_variable(t_shell *data, char *args);
 void	unset_environment_variable(t_shell *data, char *args);
@@ -72,7 +75,7 @@ char	*print_quotes(char *echo_arg, char **copy_of_environ, int q_num,
 char	*print_dollar(char **environ, char *echo_arg);
 
 void	remove_one_string_in_array(char **array, int row);
-char	*return_string_before_given_character(char *str, char c);
+char	*return_string_before_given_char(char *str, char c);
 void	change_to_uppercase(char *str);
 
 #endif

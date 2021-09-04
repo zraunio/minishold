@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:57:11 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:12:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*check_if_built_in(char **buf_arr)
 	len = 0;
 	while (!ft_isspace(buf_arr[0][i + len]) && buf_arr[0][i + len] != '\0')
 		len++;
-	if_built_in = return_string_before_given_character(buf_arr[0] + i,
-		buf_arr[0][i + len]);
+	if_built_in = return_string_before_given_char(buf_arr[0] + i,
+			buf_arr[0][i + len]);
 	if (if_built_in == NULL)
 	{
 		ft_printf("didnt find character\n");
@@ -39,9 +39,9 @@ char	*check_if_built_in(char **buf_arr)
 	return (NULL);
 }
 
-int		only_slashes_and_dots(char *command)
+int	only_slashes_and_dots(char *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_strequ(command, "."))
@@ -60,46 +60,54 @@ int		only_slashes_and_dots(char *command)
 	return (-1);
 }
 
-char	*check_if_executable(char **buf_arr, t_shell *data)
+char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 {
-	char		*tmp;
-	char		*tmp2;
-	int			i;
+	char	*path;
+	char	*path_and_exec;
+
+	data->i = 0;
+	while (data->path_array[data->i] != NULL)
+	{
+		path = ft_strjoin(data->path_array[data->i], "/");
+		path_and_exec = ft_strjoin(path, if_exec);
+		if (lstat(path_and_exec, &b) == 0 && b.st_mode & S_IXUSR
+			&& S_ISREG(b.st_mode))
+		{
+			free_two(if_exec, path);
+			return (path_and_exec);
+		}
+		free_two(path, path_and_exec);
+		data->i++;
+	}
+	return (NULL);
+}
+
+char	*check_if_executable(char **arr, t_shell *data)
+{
 	struct stat	b;
 	char		*if_exec;
 	int			len;
+	char		*path_and_exec;
 
-	i = 0;
-	while (ft_isspace(buf_arr[0][i]) && buf_arr[0][i] != '\0')
-		i++;
+	data->i = 0;
+	update_path_array(data);
+	while (ft_isspace(arr[0][data->i]) && arr[0][data->i] != '\0')
+		data->i++;
 	len = 0;
-	while (!ft_isspace(buf_arr[0][i + len]) && buf_arr[0][i + len] != '\0')
+	while (!ft_isspace(arr[0][data->i + len]) && arr[0][data->i + len] != '\0')
 		len++;
-	if_exec = return_string_before_given_character(buf_arr[0] + i,
-		buf_arr[0][i + len]);
-	if (if_exec == NULL)
-	{
-		ft_printf("didnt find character\n");
-		if_exec = ft_strdup(buf_arr[0]);
-	}
+	if_exec = return_string_before_given_char(arr[0] + data->i,
+			arr[0][data->i + len]);
 	if (only_slashes_and_dots(if_exec) == -1)
 		return (NULL);
 	if (lstat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
 		return (if_exec);
-	i = 0;
-	while (data->path_array[i] != NULL)
+	path_and_exec = pair_path_and_exec(if_exec, data, b);
+	if (path_and_exec == NULL)
 	{
-		tmp = ft_strjoin(data->path_array[i], "/");
-		tmp2 = ft_strjoin(tmp, if_exec);
-		if (lstat(tmp2, &b) == 0)
-		{
-			free_two(if_exec, tmp);
-			return (tmp2);
-		}
-		free_two(tmp, tmp2);
-		i++;
+		ft_printf("zsh: command not found: %s\n", if_exec);
+		free(if_exec);
+		return (NULL);
 	}
-	ft_printf("zsh: command not found: %s\n", if_exec);
-	free(if_exec);
-	return (NULL);
+	return (path_and_exec);
 }
