@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:12:32 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 13:19:51 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ typedef struct s_shell
 	int		x;
 	int		len_of_dir;
 	int		previous_dir_in_cd;
+	char	*original_exec;
 }				t_shell;
 
 void	get_copy_of_environment_variables(t_shell *data);
 void	get_paths_to_array(t_shell *data);
 void	update_path_array(t_shell *data);
 
-void	fork_and_child(t_shell *data);
+void	while_loop_input(t_shell *data);
+void	fork_and_child(t_shell *data, char *executable, char **buf_arr);
+char	**add_exec_to_arr(char **arr, char *executable);
 
 void	loop_input_to_string(char *buf);
 char	check_quotes_for_input(char *buf);

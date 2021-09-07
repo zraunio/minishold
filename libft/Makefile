@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 13:01:03 by ehelmine          #+#    #+#              #
-#    Updated: 2021/08/31 16:42:36 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/07 12:04:22 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ LIB_H = includes/libft.h
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): 
 		@gcc -g -Wall -Wextra -Werror -c  $(PRINTF_SRCS) -I $(PRINT_H)
 		@gcc -g -Wall -Wextra -Werror -c  $(SRCS) -I $(LIB_H)
 		@ar rcs libft.a $(OBJS) $(PRINTF_OBJS)

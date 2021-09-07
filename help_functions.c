@@ -6,11 +6,33 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:12:19 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 13:25:09 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+char	**add_exec_to_arr(char **arr, char *executable)
+{
+	int		arr_len;
+	char	**new_arr;
+	int		i;
+
+	arr_len = 0;
+	while (arr[arr_len] != NULL)
+		arr_len++;
+	new_arr = (char **)malloc(sizeof(char *) * (arr_len + 1));
+	i = 0;
+	new_arr[0] = ft_strdup(executable);
+	while (arr[i] != NULL)
+	{
+		new_arr[i + 1] = ft_strdup(arr[i]);
+		free(arr[i++]);
+	}
+	free(arr);
+	new_arr[i + 1] = NULL;
+	return (new_arr);
+}
 
 void	update_path_array(t_shell *data)
 {

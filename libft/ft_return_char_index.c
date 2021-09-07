@@ -6,14 +6,14 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:39:56 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/31 17:00:32 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 11:52:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 #include <stdio.h>
 
-int		ft_return_char_index(char *str, char c, char startpoint)
+int	ft_return_char_index(char *str, char c, char startpoint)
 {
 	size_t	i;
 

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:30:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 12:07:11 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	main(void)
 	// REMEMBER TO FREE COPY OF ENVIRON
 	get_paths_to_array(&data);
 	// REMEMBER TO FREE PATH ARRAY
-	write(1, "myshell> ", 9);
-	fork_and_child(&data);
+	write(1, "minishell> ", 11);
+	while_loop_input(&data);
+//	fork_and_child(&data);
 	return (0);
 }

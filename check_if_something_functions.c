@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:12:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 13:20:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 	char	*path_and_exec;
 
 	data->i = 0;
+	data->original_exec = NULL;
 	while (data->path_array[data->i] != NULL)
 	{
 		path = ft_strjoin(data->path_array[data->i], "/");
@@ -73,6 +74,7 @@ char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 		if (lstat(path_and_exec, &b) == 0 && b.st_mode & S_IXUSR
 			&& S_ISREG(b.st_mode))
 		{
+			data->original_exec = ft_strdup(if_exec);
 			free_two(if_exec, path);
 			return (path_and_exec);
 		}

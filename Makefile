@@ -6,11 +6,11 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/09/02 16:54:47 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/07 12:04:49 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 21sh
+NAME = minishell
 
 SRCS = main.c read_input.c lexer.c built_in.c echo_functions.c \
 	help_functions.c check_if_something_functions.c setenv_functions.c \
@@ -19,14 +19,26 @@ SRCS = main.c read_input.c lexer.c built_in.c echo_functions.c \
 
 OBJS_DIR = objs
 
-OBJS = $(OBJS_DIR)/main.o $(OBJS_DIR)/read_input.o $(OBJS_DIR)/lexer.o \
-	$(OBJS_DIR)/built_in.o $(OBJS_DIR)/echo_functions.o \
-	$(OBJS_DIR)/help_functions.o $(OBJS_DIR)/check_if_something_functions.o \
-	$(OBJS_DIR)/setenv_functions.o $(OBJS_DIR)/unsetenv_functions.o \
-	$(OBJS_DIR)/check_quotes.o $(OBJS_DIR)/cd_start.o \
-	$(OBJS_DIR)/cd_input_check.o $(OBJS_DIR)/cd_finish.o \
-	$(OBJS_DIR)/check_input.o
-	
+OBJS = $(addprefix $(OBJS_DIR)/, main.o read_input.o lexer.o built_in.o \
+	echo_functions.o help_functions.o check_if_something_functions.o \
+	setenv_functions.o unsetenv_functions.o check_quotes.o cd_start.o \
+	cd_input_check.o cd_finish.o check_input.o)
+
+LIBFT_OBJS = $(addprefix libft/, ft_putchar.o ft_putstr.o ft_atoi.o \
+	ft_strlen.o ft_strcmp.o ft_putnbr.o ft_strdup.o ft_strcpy.o ft_strncpy.o \
+	ft_strclr.o ft_strcat.o ft_strncmp.o ft_putendl.o ft_strlcat.o ft_bzero.o \
+	ft_strncat.o ft_strchr.o ft_strrchr.o ft_isalpha.o ft_isdigit.o \
+	ft_isascii.o ft_isprint.o ft_strstr.o ft_strnstr.o ft_tolower.o \
+	ft_toupper.o ft_isalnum.o ft_memset.o ft_memcpy.o ft_memccpy.o \
+	ft_memchr.o ft_memcmp.o ft_memmove.o ft_strequ.o ft_strnequ.o \
+	ft_memalloc.o ft_memdel.o ft_strnew.o ft_strdel.o ft_strtrim.o \
+	ft_strjoin.o ft_striter.o ft_striteri.o ft_strsplit.o ft_strsub.o \
+	ft_strmap.o ft_strmapi.o ft_itoa.o ft_putchar_fd.o ft_putstr_fd.o \
+	ft_putendl_fd.o ft_putnbr_fd.o ft_lstnew.o ft_lstadd.o ft_lstdelone.o \
+	ft_lstdel.o ft_lstiter.o ft_lstmap.o ft_check_int_len.o ft_islower.o \
+	ft_isupper.o ft_isspace.o ft_strndup.o get_next_line.o major_bit.o \
+	minor_bit.o free_two.o ft_putarr.o ft_arrdup.o ft_arrnew.o \
+	ft_strstr_after.o ft_strjoin_three.o free_arr.o ft_return_char_index.o)
 
 INCLUDES = includes/minishell.h
 
@@ -38,7 +50,7 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 	make -C libft/
 	@echo "Sources to objects done"
 	gcc $(CFLAGS) -o $@ $(OBJS) -I $(INCLUDES) libft/libft.a
-	@echo "Compiling 21sh done"
+	@echo "Compiling minishell done"
 
 $(OBJS_DIR)/%.o: %.c
 	gcc $(CFLAGS) -c $< -o $@
