@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 13:19:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:28:22 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,21 @@ void	update_path_array(t_shell *data);
 
 void	while_loop_input(t_shell *data);
 void	fork_and_child(t_shell *data, char *executable, char **buf_arr);
+char	*skip_all_whitespaces_and_dup_new_str(char *str);
+void	execve_command(t_shell *data, char **arg_arr, char *executable);
+void	free_fork_and_child(t_shell *data, char *executable, char *args,
+		char **arg_arr);
 char	**add_exec_to_arr(char **arr, char *executable);
 
 void	loop_input_to_string(char *buf);
 char	check_quotes_for_input(char *buf);
 void	loop_more_quotes(char *buf, char quote);
-char	**split_input_to_array(char *buf);
-void	check_input_array(char **buf_arr);
+char	**split_input_to_array(char *buf, int i, int y, int x);
+void	check_input_array(char **buf_arr, int y, int x);
 
 char	*check_if_built_in(char **buf_arr);
-char	*check_if_executable(char **buf_arr, t_shell *data);
-char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data);
+char	*check_if_executable(char **buf_arr, t_shell *data, int len);
+char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data, int i);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
 
@@ -63,6 +67,8 @@ int		check_cd_arguments(char *args, t_shell *data);
 void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 			char *org_input);
 char	*get_current_dir(void);
+void	clean_quotes_from_dir_name(char *d);
+char	*tilde_dir_name(char *dir_name, t_shell *data);
 void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 			char *org_input);
 
@@ -75,10 +81,12 @@ int		check_if_var_is_in_array(char *variable, char **copy_of_environ);
 char	*print_text_after_pipe_or_semicolon(char *echo_arg, int quote);
 char	*print_quotes(char *echo_arg, char **copy_of_environ, int q_num,
 			char quote);
-char	*print_dollar(char **environ, char *echo_arg);
+char	*print_dollar(char **environ, char *echo_arg, char *temp);
 
 void	remove_one_string_in_array(char **array, int row);
-char	*return_string_before_given_char(char *str, char c);
 void	change_to_uppercase(char *str);
+void	check_if_null(void *ptr);
+char	*skip_whitespace_begin_and_end(char *s);
+
 
 #endif

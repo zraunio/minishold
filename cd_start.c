@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:09:52 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:41:59 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,50 +82,6 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 	}
 }
 
-void	clean_quotes_from_dir_name(char *d)
-{
-	int		i;
-	size_t	len;
-	char	*tmp;
-
-	tmp = NULL;
-	if (d == NULL)
-		return ;
-	i = 0;
-	len = ft_strlen(d);
-	if ((d[0] == '"' && d[len - 1] == '"') || (d[0] == '\'' && d[len - 1]
-			== '\''))
-	{
-		tmp = ft_strndup(d + 1, len - 2);
-		ft_memset((void *)d, 0, len);
-		ft_strcpy(d, tmp);
-		free(tmp);
-	}
-}
-
-char	*tilde_dir_name(char *dir_name, t_shell *data)
-{
-	int		i;
-	char	*new_dir;
-	char	*home;
-	char	*end;
-
-	i = check_if_var_is_in_array("HOME", data->copy_of_environ);
-	if (i == -1)
-		return (NULL);
-	home = ft_strstr_after(data->copy_of_environ[i], "HOME=");
-	if (ft_strequ(dir_name, "~"))
-		return (ft_strdup(home));
-	else
-	{
-		end = ft_strdup(dir_name + 1);
-		new_dir = ft_strjoin(home, end);
-		free(end);
-		return (new_dir);
-	}
-	return (NULL);
-}
-
 /*
 ** Returns the dir where we want to enter depending on what was given as input.
 **
@@ -184,14 +140,12 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 void	cd_function_start(char *args, t_shell *data)
 {
 	char	**cd_args_arr;
-	int		check;
 	int		i;
 	char	*current_dir;
 	char	*new_dir;
 
 	args += 2;
-	check = check_cd_arguments(args, data);
-	if (check == -1)
+	if (check_cd_arguments(args, data) == -1)
 		return ;
 	cd_args_arr = ft_strsplit(args, ' ');
 	if (cd_args_arr == NULL)

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 13:25:09 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:13:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,6 @@ void	remove_one_string_in_array(char **array, int row)
 	}
 	free(array[row]);
 	array[row] = NULL;
-}
-
-char	*return_string_before_given_char(char *str, char c)
-{
-	int		i;
-
-	i = 0;
-	if (c == '\0')
-		return (ft_strdup(str));
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-			return (ft_strndup(str, i));
-		i++;
-	}
-	return (NULL);
 }
 
 void	change_to_uppercase(char *str)

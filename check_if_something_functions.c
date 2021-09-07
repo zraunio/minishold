@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 13:20:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:57:52 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,16 @@ char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 	return (NULL);
 }
 
-char	*check_if_executable(char **arr, t_shell *data)
+char	*check_if_executable(char **arr, t_shell *data, int len)
 {
 	struct stat	b;
 	char		*if_exec;
-	int			len;
 	char		*path_and_exec;
 
 	data->i = 0;
 	update_path_array(data);
 	while (ft_isspace(arr[0][data->i]) && arr[0][data->i] != '\0')
 		data->i++;
-	len = 0;
 	while (!ft_isspace(arr[0][data->i + len]) && arr[0][data->i + len] != '\0')
 		len++;
 	if_exec = return_string_before_given_char(arr[0] + data->i,

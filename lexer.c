@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 13:54:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:19:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,21 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 ** different functions. 
 */
 
-char	**split_input_to_array(char *buf)
+char	**split_input_to_array(char *buf, int i, int y, int x)
 {
 	char	**buf_arr;
-	int		i;
-	int		y;
-	int		x;
 
 	buf_arr = ft_arrnew(50, 500);
-	i = 0;
-	x = 0;
-	y = 0;
 	while (buf[i] == ' ' && buf[i] != '\0')
 		i++;
 	while (buf[i] != '\0')
 	{
 		if (buf[i] == ';')
 		{
-			y = semicolon_input(buf + i, buf_arr, x, y);
+			y = semicolon_input(buf + i++, buf_arr, x, y);
 			if (y == -1)
 				return (NULL);
 			x = 0;
-			i++;
 			while (buf[i] == ' ' && buf[i] != '\0')
 				i++;
 		}

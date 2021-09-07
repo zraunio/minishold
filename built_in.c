@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 15:36:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:26:08 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	my_echo(char *echo_arg, t_shell *data)
 				data->i++;
 			if (echo_arg[data->i] == '$')
 				echo_arg = print_dollar(data->copy_of_environ, echo_arg
-						+ data->i + 1);
+						+ data->i + 1, NULL);
 			else if ((echo_arg[data->i] == '"' && (data->quote == 2
 						|| data->quote == 0)) || (echo_arg[data->i] == '\''
 					&& (data->quote == 1 || data->quote == 0)))
@@ -64,9 +64,10 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 		if (am_of_quotes % 2 != 0)
 			loop_double_quotes(args[0], am_of_quotes, data);
 		data->n_flag = 0;
-		tmp = check_echo_flags_and_skip_whitespaces(args[0], data);
-		if (tmp != NULL)
-			my_echo(tmp, data);
+		tmp = check_echo_flags_and_skip_whitespaces(args[0], data, 0);
+		if (tmp == NULL)
+			return ((void)write(1, "\n", 1));
+		my_echo(tmp, data);
 	}
 	else if (built_in[0] == 's')
 		set_environment_variable(data, args[0]);

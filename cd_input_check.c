@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:59:34 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:08:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:55:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ static int	check_cd_last_space(char *args, t_shell *data)
 ** and return 1.
 */
 
+static int	cd_flags_error(char *args, t_shell *data)
+{
+	ft_printf("cd: string not in pwd: ");
+	write(1, args, data->i + 1);
+	data->i = 0;
+	write(1, "\n", 1);
+	return (-1);
+}
+
 static int	check_cd_flags(char *args, t_shell *data)
 {
 	while (args[data->i] == '-' && args[data->i] != '\0')
@@ -59,12 +68,7 @@ static int	check_cd_flags(char *args, t_shell *data)
 		else if (args[data->i] == 'P')
 			data->p_flag = 1;
 		else
-		{
-			ft_printf("cd: string not in pwd: ");
-			write(1, args, data->i + 1);
-			write(1, "\n", 1);
-			return (-1);
-		}
+			return (cd_flags_error(args, data));
 		data->i++;
 	}
 	if (data->l_flag == 0 && data->p_flag == 0)

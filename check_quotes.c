@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:15:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/01 17:37:41 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:20:39 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	loop_double_quotes(char *args, int am_of_quotes, t_shell *data)
 		ft_memset((void *)buf, 0, 500);
 		buf[0] = '\n';
 		loop_input_to_string(buf + 1);
-		buf_arr = split_input_to_array(buf);
+		buf_arr = split_input_to_array(buf, 0, 0, 0);
 		ft_strcat(args, buf_arr[0]);
 		am_of_quotes = check_amount_of_quotes(args, data);
 	}

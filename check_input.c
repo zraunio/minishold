@@ -6,25 +6,20 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:57:35 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:28:44 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data)
+char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data,
+		int i)
 {
-	int i;
-
-	i = 0;
 	while (ft_isspace(input[0]) && input[0] != '\0')
 		input++;
 	input += 4;
 	if (input[0] == '\0')
-	{
-		write(1, "\n", 1);
 		return (NULL);
-	}
 	i = 0;
 	while (input[i] == ' ' && input[i] != '\0')
 		i++;
@@ -73,15 +68,15 @@ static void	change_input_row(char **buf_arr, int y, int x, char quote)
 	free_two((void *)end, (void *)tmp);
 }
 
-void	check_input_array(char **buf_arr)
+void	check_input_array(char **buf_arr, int y, int x)
 {
-	int		y;
-	int		x;
 	char	quote;
-	
-	y = 0;
-	x = 0;
+	char	*check;
+
 	quote = 'a';
+	check = return_string_before_given_char(buf_arr[0], ' ');
+	if (ft_strequ("echo", check))
+		return ;
 	while (buf_arr[y] != NULL)
 	{
 		while (buf_arr[y][x] != '\0')
@@ -128,7 +123,7 @@ char	check_quotes_for_input(char *buf)
 
 void	loop_more_quotes(char *buf, char quote)
 {
-	char *extra_buf;
+	char	*extra_buf;
 
 	extra_buf = (char *)malloc(sizeof(char) * 100);
 	if (extra_buf == NULL)

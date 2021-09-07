@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 12:07:11 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:36:38 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 ** be found with the paths (for example command ls would be found in /bin/).
 */
 
-void get_paths_to_array(t_shell *data)
+void	get_paths_to_array(t_shell *data)
 {
 	int		i;
 
@@ -112,11 +112,8 @@ int	main(void)
 	t_shell	data;
 
 	get_copy_of_environment_variables(&data);
-	// REMEMBER TO FREE COPY OF ENVIRON
 	get_paths_to_array(&data);
-	// REMEMBER TO FREE PATH ARRAY
 	write(1, "minishell> ", 11);
 	while_loop_input(&data);
-//	fork_and_child(&data);
 	return (0);
 }

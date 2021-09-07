@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/09/07 12:04:49 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/07 15:44:14 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,16 @@ NAME = minishell
 SRCS = main.c read_input.c lexer.c built_in.c echo_functions.c \
 	help_functions.c check_if_something_functions.c setenv_functions.c \
 	unsetenv_functions.c check_quotes.c cd_start.c \
-	cd_input_check.c cd_finish.c check_input.c
+	cd_input_check.c cd_finish.c check_input.c fork.c free_or_null.c \
+	cd_dir_name.c
 
 OBJS_DIR = objs
 
 OBJS = $(addprefix $(OBJS_DIR)/, main.o read_input.o lexer.o built_in.o \
 	echo_functions.o help_functions.o check_if_something_functions.o \
 	setenv_functions.o unsetenv_functions.o check_quotes.o cd_start.o \
-	cd_input_check.o cd_finish.o check_input.o)
+	cd_input_check.o cd_finish.o check_input.o fork.o free_or_null.o \
+	cd_dir_name.o)
 
 LIBFT_OBJS = $(addprefix libft/, ft_putchar.o ft_putstr.o ft_atoi.o \
 	ft_strlen.o ft_strcmp.o ft_putnbr.o ft_strdup.o ft_strcpy.o ft_strncpy.o \
