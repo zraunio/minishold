@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:12:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 	{
 		free(value);
 		free(var);
-		return (remove_one_string_in_array(data->copy_of_environ, i));
+		return (remove_one_string_in_array(data->environ, i));
 	}
-	free(data->copy_of_environ[i]);
-	data->copy_of_environ[i] = ft_strnew((size_t)ft_strlen(var)
+	free(data->environ[i]);
+	data->environ[i] = ft_strnew((size_t)ft_strlen(var)
 			+ (size_t)ft_strlen(value) + 1 + 1);
 	ii = 0;
 	x = 0;
 	while (var[ii] != '\0')
-		data->copy_of_environ[i][x++] = var[ii++];
-	data->copy_of_environ[i][x++] = '=';
+		data->environ[i][x++] = var[ii++];
+	data->environ[i][x++] = '=';
 	ii = 0;
 	while (value[ii] != '\0')
-		data->copy_of_environ[i][x++] = value[ii++];
-	data->copy_of_environ[i][x] = '\0';
+		data->environ[i][x++] = value[ii++];
+	data->environ[i][x] = '\0';
 	free(value);
 	free(var);
 }
@@ -81,7 +81,7 @@ void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 	char	**new_arr;
 
 	y = data->num_of_variables + 1;
-	new_arr = new_arr_with_extra_line(data->copy_of_environ, y);
+	new_arr = new_arr_with_extra_line(data->environ, y);
 	len = (int)ft_strlen(var) + (int)ft_strlen(value) + 1;
 	new_arr[--y] = (char *)malloc(sizeof(char) * (len + 1));
 	i = 0;
@@ -95,7 +95,7 @@ void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 	new_arr[y++][x] = '\0';
 	new_arr[y] = NULL;
 	data->num_of_variables = y;
-	data->copy_of_environ = ft_arrdup(new_arr);
+	data->environ = ft_arrdup(new_arr);
 	free(value);
 	free(var);
 }
@@ -106,17 +106,17 @@ void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 **
 */
 
-int	check_if_var_is_in_array(char *variable, char **copy_of_environ)
+int	check_if_var_is_in_array(char *variable, char **environ)
 {
 	int	i;
 
 	change_to_uppercase(variable);
 	i = 0;
-	while (copy_of_environ[i] != NULL)
+	while (environ[i] != NULL)
 	{
-		if (ft_strstr(copy_of_environ[i], variable) != NULL)
+		if (ft_strstr(environ[i], variable) != NULL)
 		{
-			if (copy_of_environ[i][(int)ft_strlen(variable)] == '=')
+			if (environ[i][(int)ft_strlen(variable)] == '=')
 				return (i);
 		}
 		i++;
@@ -144,7 +144,7 @@ void	set_environment_variable(t_shell *data, char *args)
 	args += 7;
 	change_flag = 1;
 	if (args[0] == '\0')
-		return (ft_putarr(data->copy_of_environ));
+		return (ft_putarr(data->environ));
 	variable = return_string_before_given_char(args, ' ');
 	if (variable == NULL)
 		return ;
@@ -164,7 +164,7 @@ void	set_environment_variable(t_shell *data, char *args)
 		if (!ft_isdigit((int)args[0]) || (ft_isdigit((int)args[0]) && args[1] != '\0'))
 			return (free_two((void *)variable, (void *)value));
 	}
-	var_index = check_if_var_is_in_array(variable, data->copy_of_environ);
+	var_index = check_if_var_is_in_array(variable, data->environ);
 	if (var_index == -1)
 		return (add_new_var_to_environ(data, variable, value));
 	else if (var_index != -1 && args[0] != '0')

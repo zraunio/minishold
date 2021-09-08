@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 17:28:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 typedef struct s_shell
 {
-	char	**copy_of_environ;
+	char	**environ;
 	char	**path_array;
 	int		num_of_variables;
 	int		quote;
@@ -35,7 +35,7 @@ typedef struct s_shell
 	char	*original_exec;
 }				t_shell;
 
-void	get_copy_of_environment_variables(t_shell *data);
+void	get_environment_variables(t_shell *data);
 void	get_paths_to_array(t_shell *data);
 void	update_path_array(t_shell *data);
 
@@ -76,12 +76,15 @@ void	set_environment_variable(t_shell *data, char *args);
 void	unset_environment_variable(t_shell *data, char *args);
 void	add_new_var_to_environ(t_shell *data, char *var, char *value);
 void	change_old_var_value(t_shell *data, char *var, char *value, int i);
-int		check_if_var_is_in_array(char *variable, char **copy_of_environ);
+int		check_if_var_is_in_array(char *variable, char **environ);
 
-char	*print_text_after_pipe_or_semicolon(char *echo_arg, int quote);
-char	*print_quotes(char *echo_arg, char **copy_of_environ, int q_num,
+char	*print_text(char *echo_arg, int quote);
+char	*print_quotes(char *echo_arg, char **environ, int q_num,
 			char quote);
 char	*print_dollar(char **environ, char *echo_arg, char *temp);
+void	write_echo_output(char *echo_arg, int output_len, int in_or_out,
+		int quote);
+void	my_echo(char *echo_arg, t_shell *data);
 
 void	remove_one_string_in_array(char **array, int row);
 void	change_to_uppercase(char *str);

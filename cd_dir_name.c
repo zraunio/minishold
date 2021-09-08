@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:40:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 15:40:33 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ char	*tilde_dir_name(char *dir_name, t_shell *data)
 	char	*home;
 	char	*end;
 
-	i = check_if_var_is_in_array("HOME", data->copy_of_environ);
+	i = check_if_var_is_in_array("HOME", data->environ);
 	if (i == -1)
 		return (NULL);
-	home = ft_strstr_after(data->copy_of_environ[i], "HOME=");
+	home = ft_strstr_after(data->environ[i], "HOME=");
 	if (ft_strequ(dir_name, "~"))
 		return (ft_strdup(home));
 	else

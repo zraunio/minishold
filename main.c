@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 15:36:38 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ void	get_paths_to_array(t_shell *data)
 	int		i;
 
 	i = 0;
-	while (data->copy_of_environ[i] != NULL)
+	while (data->environ[i] != NULL)
 	{
-		if (data->copy_of_environ[i][0] == 'P')
+		if (data->environ[i][0] == 'P')
 		{
-			if (data->copy_of_environ[i][1] == 'A'
-				&& data->copy_of_environ[i][2] == 'T'
-				&& data->copy_of_environ[i][3]
-				== 'H' && data->copy_of_environ[i][5] != '\0')
+			if (data->environ[i][1] == 'A'
+				&& data->environ[i][2] == 'T'
+				&& data->environ[i][3]
+				== 'H' && data->environ[i][5] != '\0')
 			{
-				data->path_array = ft_strsplit(*(data->copy_of_environ + i) + 5,
+				data->path_array = ft_strsplit(*(data->environ + i) + 5,
 						':');
 				if (data->path_array != NULL)
 					return ;
@@ -75,7 +75,7 @@ void	get_paths_to_array(t_shell *data)
 ** Also we set prev_dirs array to NULL.
 */
 
-void	get_copy_of_environment_variables(t_shell *data)
+void	get_environment_variables(t_shell *data)
 {
 	extern char	**environ;
 	int			num_of_vars;
@@ -87,15 +87,15 @@ void	get_copy_of_environment_variables(t_shell *data)
 	path_array = NULL;
 	while (environ[num_of_vars] != NULL)
 		num_of_vars++;
-	data->copy_of_environ = (char **)malloc(sizeof(char *) * (num_of_vars + 1));
-	if (data->copy_of_environ == NULL)
+	data->environ = (char **)malloc(sizeof(char *) * (num_of_vars + 1));
+	if (data->environ == NULL)
 		exit(1);
 	while (i < num_of_vars)
 	{
-		data->copy_of_environ[i] = ft_strdup(environ[i]);
+		data->environ[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	data->copy_of_environ[num_of_vars] = NULL;
+	data->environ[num_of_vars] = NULL;
 	data->num_of_variables = num_of_vars;
 	data->prev_dirs = NULL;
 }
@@ -111,7 +111,7 @@ int	main(void)
 {
 	t_shell	data;
 
-	get_copy_of_environment_variables(&data);
+	get_environment_variables(&data);
 	get_paths_to_array(&data);
 	write(1, "minishell> ", 11);
 	while_loop_input(&data);

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 17:13:45 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:27:42 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**add_exec_to_arr(char **arr, char *executable)
 	arr_len = 0;
 	while (arr[arr_len] != NULL)
 		arr_len++;
-	new_arr = (char **)malloc(sizeof(char *) * (arr_len + 1));
+	new_arr = (char **)malloc(sizeof(char *) * (arr_len + 1 + 1));
 	i = 0;
 	new_arr[0] = ft_strdup(executable);
 	while (arr[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 17:25:57 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/25 18:40:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	unset_environment_variable(t_shell *data, char *args)
 	if (args[0] == '\0')
 		return ;
 	variable = ft_strdup(args);
-	var_index = check_if_var_is_in_array(variable, data->copy_of_environ);
+	var_index = check_if_var_is_in_array(variable, data->environ);
 	if (var_index != -1)
-		remove_one_string_in_array(data->copy_of_environ, var_index);
+		remove_one_string_in_array(data->environ, var_index);
 	i = 0;
-	while (data->copy_of_environ[i] != NULL)
+	while (data->environ[i] != NULL)
 		i++;
 	data->num_of_variables = i;
 	free(variable);

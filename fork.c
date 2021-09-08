@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 15:57:29 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	execve_command(t_shell *data, char **arg_arr,
 	if (child_pid == 0)
 	{
 		arg_arr = add_exec_to_arr(arg_arr, executable);
-		if (execve(executable, arg_arr, data->copy_of_environ) == -1)
+		if (execve(executable, arg_arr, data->environ) == -1)
 			ft_printf("chilpid 0");
 	}
 	else if (child_pid < 0)
@@ -53,7 +53,7 @@ char	*skip_whitespace_begin_and_end(char *s)
 		len--;
 	new_str = (char *)malloc(sizeof(char) * (len - i + 1));
 	if (new_str == NULL)
-		return (NULL);
+		exit (1);
 	y = 0;
 	while (i < len && len > 0)
 		new_str[y++] = s[i++];

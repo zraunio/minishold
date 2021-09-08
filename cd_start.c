@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 15:41:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 	if (new_dir == NULL)
 	{
 		var = ft_strdup("OLDPWD");
-		i = check_if_var_is_in_array(var, data->copy_of_environ);
+		i = check_if_var_is_in_array(var, data->environ);
 		if (i == -1)
 			add_new_var_to_environ(data, var, current_dir);
 		else
@@ -61,13 +61,13 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 		return ;
 	}
 	var = ft_strdup("OLDPWD");
-	i = check_if_var_is_in_array(var, data->copy_of_environ);
+	i = check_if_var_is_in_array(var, data->environ);
 	if (i == -1)
 		add_new_var_to_environ(data, var, current_dir);
 	else
 		change_old_var_value(data, var, current_dir, i);
 	var = ft_strdup("PWD");
-	i = check_if_var_is_in_array(var, data->copy_of_environ);
+	i = check_if_var_is_in_array(var, data->environ);
 	if (i == -1)
 		add_new_var_to_environ(data, var, new_dir);
 	else
@@ -75,8 +75,8 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 	if (data->previous_dir_in_cd)
 	{
 		var = ft_strdup("PWD");
-		i = check_if_var_is_in_array(var, data->copy_of_environ);
-		ft_printf("%s\n", data->copy_of_environ[i] + 4);
+		i = check_if_var_is_in_array(var, data->environ);
+		ft_printf("%s\n", data->environ[i] + 4);
 		data->previous_dir_in_cd = 0;
 		free(var);
 	}
@@ -94,10 +94,10 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 
 	if (dir_name == NULL)
 	{
-		i = check_if_var_is_in_array("HOME", data->copy_of_environ);
+		i = check_if_var_is_in_array("HOME", data->environ);
 		if (i == -1)
 			return (NULL);
-		new_dir = ft_strstr_after(data->copy_of_environ[i], "HOME=");
+		new_dir = ft_strstr_after(data->environ[i], "HOME=");
 		return (ft_strdup(new_dir));
 	}
 	else if (ft_strequ(dir_name, "~") || dir_name[0] == '~')
@@ -114,10 +114,10 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 	}
 	else if (ft_strequ(dir_name, "-"))
 	{
-		i = check_if_var_is_in_array("OLDPWD", data->copy_of_environ);
+		i = check_if_var_is_in_array("OLDPWD", data->environ);
 		if (i == -1)
 			return (NULL);
-		new_dir = ft_strstr_after(data->copy_of_environ[i], "OLDPWD=");
+		new_dir = ft_strstr_after(data->environ[i], "OLDPWD=");
 		data->previous_dir_in_cd = 1;
 		return (ft_strdup(new_dir));
 	}

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 11:01:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/05/20 13:17:52 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:34:04 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	ft_counting_words(const char *s, char c)
 	{
 		if (i == 0 && s[i] != c)
 			wrds++;
-		if (s[i] != c && s[i - 1] == c)
+		if (i > 0 && s[i] != c && s[i - 1] == c)
 			wrds++;
 		i++;
 	}

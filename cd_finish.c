@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/04 16:06:00 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:09:50 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*find_dot_dot(char *new_dir)
 		if (new_dir[i] == '/' && new_dir[i + 1] == '.' && new_dir[i + 2] == '.')
 		{
 			new_dir = replace_dot_dot(new_dir, i);
-			ft_printf("new_dir |%s|\n", new_dir);
 			if (ft_strequ(new_dir, "/"))
 				return (new_dir);
 			i = -1;
@@ -53,7 +52,6 @@ char	*find_dot_dot(char *new_dir)
 	}
 	return (new_dir);
 }
-// HERE WE NEED THE THING THAT CUTS EXTRA DOTS AWAY
 
 char	*check_new_dir_slash(char *current_dir, char *new_dir,
 	t_shell *data)
@@ -65,7 +63,7 @@ char	*check_new_dir_slash(char *current_dir, char *new_dir,
 	tmp = NULL;
 	if (new_dir[0] != '/')
 	{
-		i = check_if_var_is_in_array("CDPATH", data->copy_of_environ);
+		i = check_if_var_is_in_array("CDPATH", data->environ);
 		if (i == -1)
 		{
 			if (current_dir[((int)ft_strlen(current_dir) - 1)] != '/')

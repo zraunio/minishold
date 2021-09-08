@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 17:19:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:50:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**split_input_to_array(char *buf, int i, int y, int x)
 {
 	char	**buf_arr;
 
-	buf_arr = ft_arrnew(50, 500);
+	buf_arr = ft_arrnew(500, 500);
 	while (buf[i] == ' ' && buf[i] != '\0')
 		i++;
 	while (buf[i] != '\0')
@@ -105,6 +105,9 @@ char	**split_input_to_array(char *buf, int i, int y, int x)
 		buf_arr[y][x++] = buf[i++];
 	}
 	buf_arr[y++][x] = '\0';
+	buf_arr[y] = (char *)malloc(sizeof(char) * 500);
+	if (buf_arr[y] == NULL)
+		exit (1);
 	buf_arr[y] = NULL;
 	return (buf_arr);
 }
