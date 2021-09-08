@@ -6,11 +6,29 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:53:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 19:06:44 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+void	execute_built_in_2(char *built_in, t_shell *data, char **args)
+{
+	if (built_in[0] == 's')
+	{
+		if (built_in[6] == '\0')
+			return ;
+		set_environment_variable(data, args[0]);
+	}
+	else if (built_in[0] == 'u')
+	{
+		if (built_in[8] == '\0')
+			return ;
+		unset_environment_variable(data, args[0]);
+	}
+	else
+		ft_putarr(data->environ);
+}
 
 /*
 ** We know now which built_in we are gonna execute, so here we are going
@@ -41,10 +59,6 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 			return ((void)write(1, "\n", 1));
 		my_echo(tmp, data);
 	}
-	else if (built_in[0] == 's')
-		set_environment_variable(data, args[0]);
-	else if (built_in[0] == 'u')
-		unset_environment_variable(data, args[0]);
 	else
-		ft_putarr(data->environ);
+		return (execute_built_in_2(built_in, data, args));
 }

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 16:53:42 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 18:30:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,30 @@ char	*set_buf_and_get_input(void)
 	return (buf);
 }
 
+char	*skip_whitespaces_beginning(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (str[i] != '\0' && ft_isspace(str[i]))
+		i++;
+	if (str[i] == '\0' || i == 0)
+		return (str);
+	tmp = ft_strdup(str + i);
+	free(str);
+	str = ft_strdup(tmp);
+	free(tmp);
+	return (str);
+}
+
 void	work_with_input(t_shell *data, char **buf_arr)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	check_input_array(buf_arr, 0, 0);
+	buf_arr[0] = skip_whitespaces_beginning(buf_arr[0]);
 	tmp = check_if_built_in(buf_arr);
 	if (tmp != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 19:06:52 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,29 @@ int	check_if_var_is_in_array(char *variable, char **environ)
 	return (-1);
 }
 
+char	*check_setenv_int(char *args, char *variable, char *value)
+{
+	int	i;
+
+	args += (int)ft_strlen(value) + 1;
+	i = 0;
+	if (args[i] == '-' && args[i + 1] != '\0' && ft_isdigit(args[i + 1]))
+		i++;
+	while (args[i] != '\0' && ft_isdigit(args[i]))
+		i++;
+	if (args[i] != '\0')
+	{
+		while (args[i] != '\0' && ft_isspace(args[i]))
+			i++;
+		if (args[i] != '\0')
+		{
+			free_two((void *)variable, (void *)value);
+			return (NULL);
+		}
+	}
+	return (args);
+}
+
 /*
 ** Library setenv function:
 **    int setenv(const char *name, const char *value, int overwrite);
@@ -139,13 +162,9 @@ void	set_environment_variable(t_shell *data, char *args)
 	int		var_index;
 	char	*variable;
 	char	*value;
-	int		change_flag;
 
-	args += 7;
-	change_flag = 1;
-	if (args[0] == '\0')
-		return (ft_putarr(data->environ));
-	variable = return_string_before_given_char(args, ' ');
+	args += 6;
+	variable = return_string_before_given_char(++args, ' ');
 	if (variable == NULL)
 		return ;
 	if (ft_strchr(variable, '=') != NULL)
@@ -155,19 +174,13 @@ void	set_environment_variable(t_shell *data, char *args)
 	if (value == NULL)
 		value = ft_strdup(args);
 	else
-	{
-		args += (int)ft_strlen(value) + 1;
-//		ADD HERE SOMETHING,  THAT CHECKS, IF THE LAST GIVEN INPUT IS
-//		FOR CERTAIN SOME INT (CAN BE ANYTHING BETWEEN -2147483648 AND +2147483648)
-//		SO IT NEEDS TO RECOGNISE ALSO -, +, AND A LOT OF NUMBERS. NOT ONLY ONE.
-//		NOW IT RECOGNISES ONLY ONE NUMBER.
-		if (!ft_isdigit((int)args[0]) || (ft_isdigit((int)args[0]) && args[1] != '\0'))
-			return (free_two((void *)variable, (void *)value));
-	}
+		args = check_setenv_int(args, variable, value);
+	if (args == NULL)
+		return ;
 	var_index = check_if_var_is_in_array(variable, data->environ);
 	if (var_index == -1)
 		return (add_new_var_to_environ(data, variable, value));
-	else if (var_index != -1 && args[0] != '0')
+	else if (args[0] != '0')
 		return (change_old_var_value(data, variable, value, var_index));
 	free_two((void *)variable, (void *)value);
 }
