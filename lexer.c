@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:50:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:51:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,6 @@ char	**split_input_to_array(char *buf, int i, int y, int x)
 		buf_arr[y][x++] = buf[i++];
 	}
 	buf_arr[y++][x] = '\0';
-	buf_arr[y] = (char *)malloc(sizeof(char) * 500);
-	if (buf_arr[y] == NULL)
-		exit (1);
 	buf_arr[y] = NULL;
 	return (buf_arr);
 }

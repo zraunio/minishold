@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/19 13:31:46 by ehelmine          #+#    #+#              #
-#    Updated: 2021/09/08 11:12:43 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/08 16:38:07 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ LIBFT_OBJS = $(LIBFT_SRCS:%.c=%.o)
 
 INCLUDES = includes/ft_printf.h
 
-CFLAGS = -fsanitize=address -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:53:24 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	execve_command(t_shell *data, char **arg_arr,
 		while (tpid > 0)
 			tpid = waitpid(child_pid, &child_status, 0);
 	}
+	free_arr((void **)arg_arr);
 }
 
 char	*skip_whitespace_begin_and_end(char *s)
@@ -110,11 +111,10 @@ void	fork_and_child(t_shell *data, char *executable, char **buf_arr)
 
 	i = 0;
 	i += ft_strlen(data->original_exec);
-	data->original_exec = NULL;
 	args = skip_all_whitespaces_and_dup_new_str(*(buf_arr) + i);
 	arg_arr = NULL;
 	if (args != NULL)
 		arg_arr = ft_strsplit(args, ' ');
 	execve_command(data, arg_arr, executable);
-	free_fork_and_child(data, executable, args, arg_arr);
+	free_fork_and_child(data, executable, args);
 }

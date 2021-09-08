@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 13:01:03 by ehelmine          #+#    #+#              #
-#    Updated: 2021/09/08 11:12:36 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/08 16:37:58 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,8 @@ LIB_H = includes/libft.h
 all: $(NAME)
 
 $(NAME): 
-		@gcc -fsanitize=address -g -Wall -Wextra -Werror -c  $(PRINTF_SRCS) -I $(PRINT_H)
-		@gcc -fsanitize=address -g -Wall -Wextra -Werror -c  $(SRCS) -I $(LIB_H)
+		@gcc -g -Wall -Wextra -Werror -c  $(PRINTF_SRCS) -I $(PRINT_H)
+		@gcc -g -Wall -Wextra -Werror -c  $(SRCS) -I $(LIB_H)
 		@ar rcs libft.a $(OBJS) $(PRINTF_OBJS)
 
 clean:

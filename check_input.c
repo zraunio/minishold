@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 11:17:45 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:43:27 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,15 @@ void	check_input_array(char **buf_arr, int y, int x)
 
 	quote = 'a';
 	check = return_string_before_given_char(buf_arr[0], ' ');
+	if (check == NULL)
+		check = ft_strdup(buf_arr[0]);
 	if (ft_strequ("echo", check))
+	{
+		free(check);
 		return ;
+	}
+	if (check != NULL)
+		free(check);
 	while (buf_arr[y] != NULL)
 	{
 		while (buf_arr[y][x] != '\0')

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:47:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	while_loop_input(t_shell *data);
 void	fork_and_child(t_shell *data, char *executable, char **buf_arr);
 char	*skip_all_whitespaces_and_dup_new_str(char *str);
 void	execve_command(t_shell *data, char **arg_arr, char *executable);
-void	free_fork_and_child(t_shell *data, char *executable, char *args,
-		char **arg_arr);
+void	free_fork_and_child(t_shell *data, char *executable, char *args);
 char	**add_exec_to_arr(char **arr, char *executable);
 
 void	loop_input_to_string(char *buf);

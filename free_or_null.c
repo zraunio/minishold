@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:27:23 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 15:37:00 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:46:42 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ void	check_if_null(void *ptr)
 		exit (1);
 }
 
-void	free_fork_and_child(t_shell *data, char *executable, char *args,
-			char **arg_arr)
+void	free_fork_and_child(t_shell *data, char *executable, char *args)
 {
-	if (arg_arr != NULL)
-		free_arr((void **)arg_arr);
 	if (data->original_exec != NULL)
 	{
 		free(data->original_exec);
