@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 12:18:22 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 13:01:54 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:15:50 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	my_echo_loop(char *arg, t_shell *data, int visit)
 {
 	while (arg[data->i] != '\0')
 	{
-		ft_printf("arg |%s| data->quote %i\n", arg, data->quote);
 		while (arg[data->i] == ' ')
 			data->i++;
 		if (arg[data->i] == '$')
