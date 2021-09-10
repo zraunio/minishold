@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 16:51:36 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:55:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,11 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 	return (y);
 }
 
-/*
-** We have input, that has been read to char *buf.
-** Here we split that *buf to an array. First we skip
-** spaces. When we encounter either '|' or ';', we go
-** check what comes after that character to
-** different functions. 
-*/
-
-char	**split_input_to_array(char *buf, int i, int y, int x)
+char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
 {
-	char	**buf_arr;
+	int	x;
 
-	buf_arr = ft_arrnew(500, 500);
-	while (buf[i] == ' ' && buf[i] != '\0')
-		i++;
+	x = 0;
 	while (buf[i] != '\0')
 	{
 		if (buf[i] == ';')
@@ -94,7 +84,7 @@ char	**split_input_to_array(char *buf, int i, int y, int x)
 			if (y == -1)
 				return (NULL);
 			x = 0;
-			while (buf[i] == ' ' && buf[i] != '\0')
+			while (ft_isspace(buf[i]) == ' ' && buf[i] != '\0')
 				i++;
 		}
 		else if (buf[i] == '|')
@@ -107,4 +97,22 @@ char	**split_input_to_array(char *buf, int i, int y, int x)
 	buf_arr[y++][x] = '\0';
 	buf_arr[y] = NULL;
 	return (buf_arr);
+}
+
+/*
+** We have input, that has been read to char *buf.
+** Here we split that *buf to an array. First we skip
+** spaces. When we encounter either '|' or ';', we go
+** check what comes after that character to
+** different functions. 
+*/
+
+char	**split_input_to_array(char *buf, int i)
+{
+	char	**buf_arr;
+
+	buf_arr = ft_arrnew(500, 500);
+	while (ft_isspace(buf[i]) && buf[i] != '\0')
+		i++;
+	return (input_to_array_loop(buf, i, buf_arr, 0));
 }

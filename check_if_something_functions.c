@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 15:03:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:47:00 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 
 	data->i = 0;
 	update_path_array(data);
-	while (ft_isspace(arr[0][data->i]) && arr[0][data->i] != '\0')
-		data->i++;
 	while (!ft_isspace(arr[0][data->i + len]) && arr[0][data->i + len] != '\0')
 		len++;
 	if_exec = return_string_before_given_char(arr[0] + data->i,
@@ -120,7 +118,8 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 {
 	struct stat	b;
 	char		*path_and_exec;
-	
+
+	update_path_array(data);
 	if (lstat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
 	{
 		data->original_exec = ft_strdup(if_exec);
@@ -133,5 +132,5 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 		free(if_exec);
 		return (NULL);
 	}
-	return (path_and_exec);	
+	return (path_and_exec);
 }

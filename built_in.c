@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 12:02:14 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:19:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	execute_built_in_2(char *built_in, t_shell *data, char **args)
 
 void	execute_built_in(char *built_in, t_shell *data, char **args)
 {
-//	int		am_of_quotes;
 	char	*tmp;
 
 	if (built_in[0] == 'e' && built_in[1] == 'x')
@@ -56,10 +55,6 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 		cd_function_start(args[0], data);
 	else if (built_in[0] == 'e' && built_in[1] == 'c')
 	{
-	/*	data->quote = 0;
-		am_of_quotes = check_amount_of_quotes(args[0], data);
-		if (am_of_quotes % 2 != 0)
-			loop_double_quotes(args[0], am_of_quotes, data);*/
 		data->n_flag = 0;
 		tmp = check_echo_flags_and_skip_whitespaces(args[0], data, 0);
 		if (tmp == NULL)

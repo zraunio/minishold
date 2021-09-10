@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 15:01:01 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:54:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	while_loop_input(t_shell *data)
 	while (1)
 	{
 		buf = set_buf_and_get_input();
-		buf_arr = split_input_to_array(buf, 0, 0, 0);
+		buf_arr = split_input_to_array(buf, 0);
 		if (buf_arr != NULL)
 			work_with_input(data, buf_arr);
 		free(buf);

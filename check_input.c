@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 15:04:01 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 17:02:53 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,12 @@ int	check_command_with_quotes(char *command, t_shell *data)
 	char	*check;
 
 	arr = (char **)malloc(sizeof(char *) * 2);
-	check = NULL;
+	arr[0] = NULL;
 	if (command[0] == '"')
-		check = return_string_before_given_char(command + 1, '"');
+		arr[0] = return_string_before_given_char(command + 1, '"');
 	else if (command[0] == '\'')
-		check = return_string_before_given_char(command + 1, '\'');
-	arr[0] = ft_strdup(check);
+		arr[0] = return_string_before_given_char(command + 1, '\'');
 	arr[1] = NULL;
-	free(check);
 	if (ft_strequ("cd", arr[0]) || ft_strequ("exit", arr[0])
 		|| ft_strequ("env", arr[0]) || ft_strequ("unsetenv", arr[0])
 		|| ft_strequ("setenv", arr[0]) || ft_strequ("echo", arr[0]))
@@ -99,27 +97,11 @@ int	check_command_with_quotes(char *command, t_shell *data)
 	return (1);
 }
 
-int	check_input_array(char **buf_arr, int y, int x, t_shell *data)
+void	check_input_array_loop(char **buf_arr, int x, int y)
 {
 	char	quote;
-	char	*check;
 
 	quote = 'a';
-	if (buf_arr[0][0] == '"' || buf_arr[0][0] == '\'')
-	{
-		if (check_command_with_quotes(buf_arr[0], data) == 0)
-			return (0);
-	}
-	check = return_string_before_whitespace(buf_arr[0]);
-	if (check == NULL)
-		check = ft_strdup(buf_arr[0]);
-	if (ft_strequ("echo", check))
-	{
-		free(check);
-		return (1);
-	}
-	if (check != NULL)
-		free(check);
 	while (buf_arr[y] != NULL)
 	{
 		while (buf_arr[y][x] != '\0')
@@ -135,57 +117,27 @@ int	check_input_array(char **buf_arr, int y, int x, t_shell *data)
 		}
 		y++;
 		x = 0;
+	}	
+}
+
+int	check_input_array(char **buf_arr, int y, int x, t_shell *data)
+{
+	char	*check;
+
+	if (buf_arr[0][0] == '"' || buf_arr[0][0] == '\'')
+	{
+		if (check_command_with_quotes(buf_arr[0], data) == 0)
+			return (0);
 	}
+	check = return_string_before_whitespace(buf_arr[0]);
+	if (check == NULL)
+		check = ft_strdup(buf_arr[0]);
+	if (ft_strequ("echo", check))
+	{
+		free(check);
+		return (1);
+	}
+	free(check);
+	check_input_array_loop(buf_arr, x, y);
 	return (1);
-}
-
-char	check_quotes_for_input(char *buf)
-{
-	int		i;
-	char	quote;
-
-	i = 0;
-	quote = 'a';
-	while (buf[i] != '\0')
-	{
-		if ((buf[i] == '"' || buf[i] == '\'') && buf[i - 1] != '\\')
-		{
-			quote = buf[i++];
-			while (buf[i] != quote && buf[i] != '\0')
-			{
-				if (buf[i] == '\\' && buf[i + 1] == quote)
-					i += 2;
-				else
-					i++;
-			}
-			if (buf[i] == '\0')
-				return (quote);
-			else if (buf[i] == quote)
-				quote = 'a';
-		}
-		i++;
-	}
-	return (quote);
-}
-
-void	loop_more_quotes(char *buf, char quote)
-{
-	char	*extra_buf;
-
-	extra_buf = (char *)malloc(sizeof(char) * 100);
-	if (extra_buf == NULL)
-		exit (1);
-	while (quote != 'a')
-	{
-		if (quote == '"')
-			write(1, "dquote> ", 8);
-		else
-			write(1, "quote> ", 7);
-		ft_memset((void *)extra_buf, 0, 100);
-		extra_buf[0] = '\n';
-		loop_input_to_string(extra_buf + 1);
-		ft_strcat(buf, extra_buf);
-		quote = check_quotes_for_input(buf);
-	}
-	free(extra_buf);
 }

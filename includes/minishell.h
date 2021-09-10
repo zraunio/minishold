@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 15:01:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 17:07:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**add_exec_to_arr(char **arr, char *executable);
 void	loop_input_to_string(char *buf);
 char	check_quotes_for_input(char *buf);
 void	loop_more_quotes(char *buf, char quote);
-char	**split_input_to_array(char *buf, int i, int y, int x);
+char	**split_input_to_array(char *buf, int i);
 int	check_input_array(char **buf_arr, int y, int x, t_shell *data);
 
 char	*check_if_built_in(char **buf_arr);
@@ -75,6 +75,7 @@ void	unset_environment_variable(t_shell *data, char *args);
 void	add_new_var_to_environ(t_shell *data, char *var, char *value);
 void	change_old_var_value(t_shell *data, char *var, char *value, int i);
 int		check_if_var_is_in_array(char *variable, char **environ);
+char	*check_setenv_int(char *args, char *variable, char *value);
 
 char	*print_text(char *echo_arg, int quote);
 char	*print_quotes(char *echo_arg, char **environ, int q_num,
