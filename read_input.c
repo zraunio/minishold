@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 18:30:41 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 15:01:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,21 @@ void	work_with_input(t_shell *data, char **buf_arr)
 	char	*tmp;
 
 	tmp = NULL;
-	check_input_array(buf_arr, 0, 0);
 	buf_arr[0] = skip_whitespaces_beginning(buf_arr[0]);
-	tmp = check_if_built_in(buf_arr);
-	if (tmp != NULL)
+	if (check_input_array(buf_arr, 0, 0, data) != 0)
 	{
-		execute_built_in(tmp, data, buf_arr);
-		free(tmp);
-		tmp = NULL;
+		tmp = check_if_built_in(buf_arr);
+		if (tmp != NULL)
+		{
+			execute_built_in(tmp, data, buf_arr);
+			free(tmp);
+			tmp = NULL;
+		}
+		else
+			tmp = check_if_executable(buf_arr, data, 0);
+		if (tmp != NULL)
+			fork_and_child(data, tmp, buf_arr);
 	}
-	else
-		tmp = check_if_executable(buf_arr, data, 0);
-	if (tmp != NULL)
-		fork_and_child(data, tmp, buf_arr);
 	free_arr((void **)buf_arr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 13:54:08 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 15:04:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,55 @@ static void	change_input_row(char **buf_arr, int y, int x, char quote)
 	free_two((void *)end, (void *)tmp);
 }
 
-void	check_input_array(char **buf_arr, int y, int x)
+int	check_command_with_quotes(char *command, t_shell *data)
+{
+	char	**arr;
+	char	*check;
+
+	arr = (char **)malloc(sizeof(char *) * 2);
+	check = NULL;
+	if (command[0] == '"')
+		check = return_string_before_given_char(command + 1, '"');
+	else if (command[0] == '\'')
+		check = return_string_before_given_char(command + 1, '\'');
+	arr[0] = ft_strdup(check);
+	arr[1] = NULL;
+	free(check);
+	if (ft_strequ("cd", arr[0]) || ft_strequ("exit", arr[0])
+		|| ft_strequ("env", arr[0]) || ft_strequ("unsetenv", arr[0])
+		|| ft_strequ("setenv", arr[0]) || ft_strequ("echo", arr[0]))
+	{
+		free_arr((void **)arr);
+		return (1);
+	}
+	check = check_if_exec_with_quotes(arr[0], data);
+	if (check == NULL)
+	{
+		free(arr);
+		return (0);
+	}
+	free(check);
+	return (1);
+}
+
+int	check_input_array(char **buf_arr, int y, int x, t_shell *data)
 {
 	char	quote;
 	char	*check;
 
 	quote = 'a';
-	check = return_string_before_given_char(buf_arr[0], ' ');
+	if (buf_arr[0][0] == '"' || buf_arr[0][0] == '\'')
+	{
+		if (check_command_with_quotes(buf_arr[0], data) == 0)
+			return (0);
+	}
+	check = return_string_before_whitespace(buf_arr[0]);
 	if (check == NULL)
 		check = ft_strdup(buf_arr[0]);
 	if (ft_strequ("echo", check))
 	{
 		free(check);
-		return ;
+		return (1);
 	}
 	if (check != NULL)
 		free(check);
@@ -100,6 +136,7 @@ void	check_input_array(char **buf_arr, int y, int x)
 		y++;
 		x = 0;
 	}
+	return (1);
 }
 
 char	check_quotes_for_input(char *buf)

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:13:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 17:16:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:29:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,7 @@ void				free_arr(void **arr);
 int					ft_return_char_index(char *str, char c, char startpoint);
 
 char				*return_string_before_given_char(char *str, char c);
+
+char				*return_string_before_whitespace(char *str);
 
 #endif

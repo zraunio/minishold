@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 13:25:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 15:01:23 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ void	loop_input_to_string(char *buf);
 char	check_quotes_for_input(char *buf);
 void	loop_more_quotes(char *buf, char quote);
 char	**split_input_to_array(char *buf, int i, int y, int x);
-void	check_input_array(char **buf_arr, int y, int x);
+int	check_input_array(char **buf_arr, int y, int x, t_shell *data);
 
 char	*check_if_built_in(char **buf_arr);
 char	*check_if_executable(char **buf_arr, t_shell *data, int len);
 char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data, int i);
+char	*check_if_exec_with_quotes(char *if_exec, t_shell *data);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
 

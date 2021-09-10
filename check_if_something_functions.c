@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 11:32:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 15:03:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,24 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 		return (NULL);
 	}
 	return (path_and_exec);
+}
+
+char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
+{
+	struct stat	b;
+	char		*path_and_exec;
+	
+	if (lstat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
+	{
+		data->original_exec = ft_strdup(if_exec);
+		return (if_exec);
+	}
+	path_and_exec = pair_path_and_exec(if_exec, data, b);
+	if (path_and_exec == NULL)
+	{
+		ft_printf("zsh: command not found: %s\n", if_exec);
+		free(if_exec);
+		return (NULL);
+	}
+	return (path_and_exec);	
 }
