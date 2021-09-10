@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 12:09:23 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:17:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:02:34 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int	write_echo_slash_output(char *echo_arg, int i, int in_or_out)
 		i++;
 		if (echo_arg[i + 1] == ' ')
 			write(1, &echo_arg[i++], 1);
+	}
+	else
+	{
+		i++;
+		write(1, &echo_arg[i++], 1);
 	}
 	return (i);
 }

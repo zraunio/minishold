@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 12:01:58 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 13:52:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ char	*print_text(char *echo_arg, int quote)
 	i = 0;
 	while (echo_arg[i] != '\0')
 	{
-		if (echo_arg[i] == '"' || echo_arg[i] == '\'' || echo_arg[i] == '$')
+		if (echo_arg[i] == '$')
+			break ;
+		if ((echo_arg[i] == '"' || echo_arg[i] == '\'') && echo_arg[i - 1] != '\\')
 			break ;
 		i++;
 	}
