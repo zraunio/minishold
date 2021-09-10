@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 16:47:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 13:25:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_shell
 	int		len_of_dir;
 	int		previous_dir_in_cd;
 	char	*original_exec;
+	int		visit;
 }				t_shell;
 
 void	get_environment_variables(t_shell *data);
@@ -57,9 +58,6 @@ char	*check_if_executable(char **buf_arr, t_shell *data, int len);
 char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data, int i);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
-
-int		check_amount_of_quotes(char *args, t_shell *data);
-void	loop_double_quotes(char *args, int am_of_quotes, t_shell *data);
 
 void	cd_function_start(char *args, t_shell *data);
 int		check_cd_arguments(char *args, t_shell *data);

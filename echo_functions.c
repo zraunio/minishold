@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:42:45 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 12:01:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,6 @@ char	*print_quotes(char *echo_arg, char **environ, int q_num,
 	int	i;
 
 	i = 0;
-	if (echo_arg[i + 1] == '\0')
-	{
-		if ((quote == '"' && echo_arg[i] == '"' && q_num != 1)
-			|| (quote == '\'' && echo_arg[i] == '\'' && q_num != 2))
-			write(1, "\n", 1);
-		return (echo_arg + 1);
-	}
 	while (echo_arg[i] != '\0')
 	{
 		if (echo_arg[i] == '$')
@@ -74,9 +67,7 @@ char	*print_quotes(char *echo_arg, char **environ, int q_num,
 				return (echo_arg);
 			i = -1;
 		}
-		else if ((quote == '"' && echo_arg[i] == '"' && q_num == 2
-				&& echo_arg[i - 1] != '\\') || (quote == '\''
-				&& echo_arg[i] == '\'' && q_num == 1))
+		else if (echo_arg[i] == quote)
 			break ;
 		i++;
 	}

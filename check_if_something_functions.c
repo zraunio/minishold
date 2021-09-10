@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 18:43:15 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/10 11:32:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ int	only_slashes_and_dots(char *command)
 
 	i = 0;
 	if (ft_strequ(command, "."))
-	{
 		ft_printf(".: not enough arguments\n");
-		free(command);
-		return (-1);
-	}
-	while (command[i] != '\0')
+	else if (ft_strequ(command, ".."))
+		ft_printf("minishell: ..: command not found\n");
+	else
 	{
-		if (command[i] != '.' && command[i] != '/')
-			return (1);
-		i++;
+		while (command[i] != '\0')
+		{
+			if (command[i] != '.' && command[i] != '/')
+				return (1);
+			i++;
+		}
 	}
 	free(command);
 	return (-1);
