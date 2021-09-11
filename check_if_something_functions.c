@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 17:58:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 18:00:38 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 	path_and_exec = pair_path_and_exec(if_exec, data, b);
 	if (path_and_exec == NULL)
 	{
-		ft_printf("zsh: command not found: %s\n", if_exec);
+		ft_printf("minishell: command not found: %s\n", if_exec);
 		free(if_exec);
 		return (NULL);
 	}
@@ -130,7 +130,7 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 	path_and_exec = pair_path_and_exec(if_exec, data, b);
 	if (path_and_exec == NULL)
 	{
-		ft_printf("zsh: command not found: %s\n", if_exec);
+		ft_printf("minishell: command not found: %s\n", if_exec);
 		free(if_exec);
 		return (NULL);
 	}
