@@ -6,84 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 15:06:35 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 19:40:02 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-
-static void	change_pwd(t_shell *data, char *new_dir)
-{
-	char	*var;
-	int		i;
-
-	var = ft_strdup("PWD");
-	i = check_if_var_is_in_array(var, data->environ);
-	if (i == -1)
-		add_new_var_to_environ(data, var, new_dir);
-	else
-		change_old_var_value(data, var, new_dir, i);
-	if (data->previous_dir_in_cd)
-	{
-		var = ft_strdup("PWD");
-		i = check_if_var_is_in_array(var, data->environ);
-		ft_printf("%s\n", data->environ[i] + 4);
-		data->previous_dir_in_cd = 0;
-		free(var);
-	}
-}
-
-/*
-**	int chdir(const char *pathname);
-**	Makes pathname your new working directory.
-**
-**	Returned value
-**	If successful, chdir() changes the working directory and returns 0.
-**	If unsuccessful, chdir() does not change the working directory, returns -1,
-**	and sets errno to one of the following values:
-**
-**
-**	char *getcwd(char *buffer, size_t size);
-**	Determines the path name of the working directory and stores it in buffer.
-**	size = The number of characters in the buffer area.
-**	buffer = The name of the buffer that will be used to hold
-**	the path name of the working directory. Buffer must be big enough to hold
-** the working directory name, plus a terminating NULL to mark the end of the
-** name.
-**	Returned value
-**	If successful, getcwd() returns a pointer to the buffer.
-**	
-**	If unsuccessful, getcwd() returns a NULL pointer and sets errno (different
-** values).
-*/
-
-void	change_directories(t_shell *data, char *new_dir, char *current_dir,
-		char *org_input)
-{
-	int		i;
-	char	*var;
-	int		ret;
-
-	if (new_dir != NULL)
-	{
-		ret = chdir(new_dir);
-		if (ret == -1)
-		{
-			free_two((void *)new_dir, (void *)current_dir);
-			ft_printf("cd: no such file or directory: %s\n", org_input);
-			return ;
-		}
-	}
-	var = ft_strdup("OLDPWD");
-	i = check_if_var_is_in_array(var, data->environ);
-	if (i == -1)
-		add_new_var_to_environ(data, var, current_dir);
-	else
-		change_old_var_value(data, var, current_dir, i);
-	if (new_dir == NULL)
-		return ;
-	change_pwd(data, new_dir);
-}
 
 /*
 ** Returns the dir where we want to enter depending on what was given as input.
@@ -156,8 +83,7 @@ void	cd_function_start(char *args, t_shell *data, int i)
 	if (check_cd_arguments(args, data) == -1)
 		return ;
 	cd_args_arr = ft_strsplit(args, ' ');
-	if (cd_args_arr == NULL)
-		exit (1);
+	check_if_null_arr((void **)cd_args_arr);
 	while (cd_args_arr[i] != NULL)
 	{
 		if (cd_args_arr[i][0] != '-')
@@ -167,6 +93,7 @@ void	cd_function_start(char *args, t_shell *data, int i)
 	current_dir = get_current_dir();
 	if (current_dir == NULL)
 		return (free_arr((void **)cd_args_arr));
+	compare_current_dir_to_prev(current_dir, data);
 	clean_quotes_from_dir_name(cd_args_arr[i]);
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
 	if (new_dir != NULL)

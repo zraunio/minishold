@@ -6,13 +6,19 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:27:23 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 16:46:42 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 19:32:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	check_if_null(void *ptr)
+void	check_if_null_arr(void **arr)
+{
+	if (arr == NULL)
+		exit (1);
+}
+
+void	check_if_null_ptr(void *ptr)
 {
 	if (ptr == NULL)
 		exit (1);

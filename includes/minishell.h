@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 15:06:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 19:45:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_shell
 	int		x;
 	int		len_of_dir;
 	int		previous_dir_in_cd;
+	char	*prev_dir;
 	char	*original_exec;
 	int		visit;
 }				t_shell;
@@ -51,11 +52,12 @@ void	loop_input_to_string(char *buf);
 char	check_quotes_for_input(char *buf);
 void	loop_more_quotes(char *buf, char quote);
 char	**split_input_to_array(char *buf, int i);
-int	check_input_array(char **buf_arr, int y, int x, t_shell *data);
+int		check_input_array(char **buf_arr, int y, int x, t_shell *data);
 
 char	*check_if_built_in(char **buf_arr);
 char	*check_if_executable(char **buf_arr, t_shell *data, int len);
-char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data, int i);
+char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data,
+			int i);
 char	*check_if_exec_with_quotes(char *if_exec, t_shell *data);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
@@ -69,6 +71,8 @@ void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 char	*get_current_dir(void);
 void	clean_quotes_from_dir_name(char *d);
 char	*tilde_dir_name(char *dir_name, t_shell *data);
+char	*check_symlink_name(char *new_dir, char *current_dir);
+void	compare_current_dir_to_prev(char *current_dir, t_shell *data);
 void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 			char *org_input);
 
@@ -84,13 +88,13 @@ char	*print_quotes(char *echo_arg, char **environ, int q_num,
 			char quote);
 char	*print_dollar(char **environ, char *echo_arg, char *temp);
 void	write_echo_output(char *echo_arg, int output_len, int in_or_out,
-		int quote);
+			int quote);
 void	my_echo(char *echo_arg, t_shell *data);
 
 void	remove_one_string_in_array(char **array, int row);
 void	change_to_uppercase(char *str);
-void	check_if_null(void *ptr);
+void	check_if_null_ptr(void *ptr);
+void	check_if_null_arr(void **arr);
 char	*skip_whitespace_begin_and_end(char *s);
-
 
 #endif
