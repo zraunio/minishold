@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 17:58:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 23:43:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	update_path_array(t_shell *data)
 		while (data->path_array[i] != NULL)
 		{
 			len = ft_strlen(data->path_array[i]);
-			free(data->path_array[i]);
 			ft_memset((void *)data->path_array[i++], 0, len);
 		}
 		free(data->path_array);

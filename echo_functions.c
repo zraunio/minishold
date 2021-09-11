@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 15:16:45 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 23:45:13 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*print_dollar(char **environ, char *echo_arg, char *temp)
 	ft_memdel((void *)&temp);
 	if (echo_arg[len] == '"')
 		len++;
-	if (environ[i] == NULL && echo_arg[len - 1] == '"')
+	if (i == -1 && echo_arg[len - 1] == '"')
 		write(1, " ", 1);
 	return (echo_arg + len);
 }
