@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 19:03:09 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/25 19:03:34 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 17:53:14 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_putarr(char **arr)
 	int	i;
 
 	i = 0;
+	if (arr == NULL)
+		return ;
 	while (arr[i] != NULL)
 	{
 		x = 0;

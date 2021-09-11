@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:28:05 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/03 16:50:08 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 17:49:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_arr(void **arr)
 
 	i = 0;
 	while (arr[i] != NULL)
-		free(arr[i++]);
+		ft_memdel((void *)&arr[i++]);
 	free(arr);
 	arr = NULL;
 }
