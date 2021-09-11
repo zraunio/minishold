@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 16:19:46 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 15:06:12 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 	if (built_in[0] == 'e' && built_in[1] == 'x')
 		exit (0);
 	else if (built_in[0] == 'c')
-		cd_function_start(args[0], data);
+	{
+		cd_function_start(args[0] + 2, data, 0);
+		data->previous_dir_in_cd = 0;
+	}
 	else if (built_in[0] == 'e' && built_in[1] == 'c')
 	{
 		data->n_flag = 0;

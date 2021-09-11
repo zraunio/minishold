@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 17:07:33 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 15:06:35 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,27 +147,27 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 ** we define i = 1 so we work with different row.
 */
 
-void	cd_function_start(char *args, t_shell *data)
+void	cd_function_start(char *args, t_shell *data, int i)
 {
 	char	**cd_args_arr;
-	int		i;
 	char	*current_dir;
 	char	*new_dir;
 
-	args += 2;
 	if (check_cd_arguments(args, data) == -1)
 		return ;
 	cd_args_arr = ft_strsplit(args, ' ');
 	if (cd_args_arr == NULL)
 		exit (1);
-	i = 0;
-	if (data->l_flag || data->p_flag)
-		i = 1;
+	while (cd_args_arr[i] != NULL)
+	{
+		if (cd_args_arr[i][0] != '-')
+			break ;
+		i++;
+	}
 	current_dir = get_current_dir();
 	if (current_dir == NULL)
 		return (free_arr((void **)cd_args_arr));
 	clean_quotes_from_dir_name(cd_args_arr[i]);
-	data->previous_dir_in_cd = 0;
 	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
 	if (new_dir != NULL)
 		cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);

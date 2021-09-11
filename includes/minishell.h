@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 17:07:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 15:06:22 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
 
-void	cd_function_start(char *args, t_shell *data);
+void	cd_function_start(char *args, t_shell *data, int i);
 int		check_cd_arguments(char *args, t_shell *data);
+int		cd_flags_error(char *args, t_shell *data);
+int		check_cd_last_space(char *args, t_shell *data);
 void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 			char *org_input);
 char	*get_current_dir(void);

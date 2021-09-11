@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:46:40 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 17:09:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 15:16:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,17 @@ char	*print_dollar(char **environ, char *echo_arg, char *temp)
 
 	i = 0;
 	if (echo_arg[i] == '\0')
-	{
 		write(1, "$", 1);
-		return (echo_arg);
-	}
-	if (echo_arg[i] == ' ')
+	if (echo_arg[i] == ' ' || echo_arg[i] == '\0')
 		return (echo_arg);
 	while (echo_arg[i] != ' ' && echo_arg[i] != '"' && echo_arg[i] != '\n'
 		&& echo_arg[i] != '\0')
 		i++;
 	temp = ft_strndup(echo_arg, i);
-	change_to_uppercase(temp);
-	i = 0;
 	len = ft_strlen(temp);
-	while (environ[i] != NULL)
-	{
-		if (ft_strstr(environ[i], temp) != NULL)
-		{
-			ft_putstr(environ[i] + ft_strlen(temp) + 1);
-			break ;
-		}
-		i++;
-	}
+	i = check_if_var_is_in_array(temp, environ);
+	if (i != -1)
+		ft_putstr(environ[i] + len + 1);
 	ft_memdel((void *)&temp);
 	if (echo_arg[len] == '"')
 		len++;

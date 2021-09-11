@@ -6,34 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:59:34 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/07 16:55:41 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/11 14:50:35 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-
-/*
-** i marks the place we were after while loop. X is in the beginning zero.
-** If args points to space, we loop through spaces (because it is fine to have
-** multiple spaces in the end of cd argument). If after spaces we are at '\0',
-** everything's fine and we return 1. Otherwise our argument is kind of ruined,
-** and we are gonna output error message and return -1.
-*/
-
-static int	check_cd_last_space(char *args, t_shell *data)
-{
-	while (args[data->i + data->x] == ' ' && args[data->i + data->x] != '\0')
-		data->x++;
-	if (args[data->i + data->x] == '\0')
-		return (1);
-	else
-	{
-		ft_printf("cd: string not in pwd: ");
-		write(1, args + (data->i - data->len_of_dir), data->len_of_dir);
-		write(1, "\n", 1);
-		return (-1);
-	}	
-}
 
 /*
 ** We loop through all dashes if there's a lot. Then we check if the next
@@ -42,37 +19,57 @@ static int	check_cd_last_space(char *args, t_shell *data)
 ** and return 1.
 */
 
-static int	cd_flags_error(char *args, t_shell *data)
+static int	check_cd_flag_end_of_input(char *args, t_shell *data)
 {
-	ft_printf("cd: string not in pwd: ");
-	write(1, args, data->i + 1);
-	data->i = 0;
-	write(1, "\n", 1);
-	return (-1);
+	int	i;
+
+	i = 0;
+	data->i++;
+	while (args[data->i] != '\0' && ft_isspace(args[data->i]))
+		data->i++;
+	if (args[data->i] != '\0')
+		return (cd_flags_error(args, data));
+	return (1);
 }
 
-static int	check_cd_flags(char *args, t_shell *data)
+static int	check_cd_flags_loop(char *args, t_shell *data)
 {
-	while (args[data->i] == '-' && args[data->i] != '\0')
-		data->i++;
-	if (args[data->i] == '\0')
+	while (args[data->i] != '\0')
 	{
-		if (data->i > 2)
-			return (-1);
-		return (1);
-	}
-	while (args[data->i] != ' ' && args[data->i] != '\0')
-	{
-		if (args[data->i] == 'L')
-			data->l_flag = 1;
-		else if (args[data->i] == 'P')
+		if (args[data->i] == 'P')
 			data->p_flag = 1;
+		else if (args[data->i] == 'L')
+			data->l_flag = 1;
+		else if (args[data->i] == ' ' && (args[data->i - 1] == 'P'
+				|| args[data->i - 1] == 'L'))
+			break ;
 		else
 			return (cd_flags_error(args, data));
 		data->i++;
 	}
-	if (data->l_flag == 0 && data->p_flag == 0)
-		return (-1);
+	return (1);
+}
+
+static int	check_cd_flags(char *args, t_shell *data)
+{
+	int	len;
+
+	len = 0;
+	while (args[data->i] != '\0')
+	{
+		while (ft_isspace(args[data->i]) && args[data->i] != '\0')
+			data->i++;
+		if (args[data->i] == '-')
+		{
+			data->i++;
+			if (args[data->i] == ' ' || args[data->i] == '-')
+				return (check_cd_flag_end_of_input(args, data));
+			if (check_cd_flags_loop(args, data) == -1)
+				return (-1);
+		}
+		else if (!ft_isspace(args[data->i]))
+			return (1);
+	}
 	return (1);
 }
 
@@ -80,7 +77,7 @@ static int	check_cd_flags(char *args, t_shell *data)
 ** Initialize some values to zero.
 */
 
-static void	set_cd_values_to_zero(t_shell *data)
+void	set_cd_values_to_zero(t_shell *data)
 {
 	data->l_flag = 0;
 	data->p_flag = 0;
