@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 18:00:38 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/14 11:37:14 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ char	*check_if_built_in(char **buf_arr)
 	if_built_in = return_string_before_given_char(buf_arr[0] + i,
 			buf_arr[0][i + len]);
 	if (if_built_in == NULL)
-	{
-		ft_printf("didnt find character\n");
 		if_built_in = ft_strdup(buf_arr[0]);
-	}
 	if (ft_strequ("cd", if_built_in) || ft_strequ("exit", if_built_in)
 		|| ft_strequ("env", if_built_in) || ft_strequ("unsetenv", if_built_in)
 		|| ft_strequ("setenv", if_built_in) || ft_strequ("echo", if_built_in))

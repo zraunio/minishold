@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/09/11 23:40:48 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/14 11:14:24 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ LIBFT_OBJS = $(addprefix libft/, ft_putchar.o ft_putstr.o ft_atoi.o \
 
 INCLUDES = includes/minishell.h
 
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror
 
 all: $(NAME)
 

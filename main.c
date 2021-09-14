@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 19:25:27 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/14 11:41:54 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	get_paths_to_array(t_shell *data)
 	int		i;
 
 	i = 0;
+	data->path_array = NULL;
 	while (data->environ[i] != NULL)
 	{
 		if (data->environ[i][0] == 'P')
