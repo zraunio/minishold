@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:27:03 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 14:01:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,32 @@ static void	work_with_input(t_shell *data, char **buf_arr)
 		if (tmp != NULL)
 			fork_and_child(data, tmp, buf_arr);
 	}
-	free_arr((void **)buf_arr);
 }
 
 void	while_loop_input(t_shell *data)
 {
 	char	*buf;
 	char	**buf_arr;
+	int		len;
+	int		i;
 
 	while (1)
 	{
 		buf = set_buf_and_get_input();
 		buf_arr = split_input_to_array(buf, 0);
 		if (buf_arr != NULL)
-			work_with_input(data, buf_arr);
+		{
+			i = 0;
+			len = 0;
+			while (buf_arr[len] != NULL)
+				len++;
+			while (i < len)
+			{
+				work_with_input(data, buf_arr + i);
+				i += 2;
+			}
+			free_arr((void **)buf_arr);
+		}
 		free(buf);
 		ft_putstr("minishell> ");
 	}
