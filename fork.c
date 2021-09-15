@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:25:14 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:12:09 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static void	execve_command(t_shell *data, char **arg_arr,
 	{
 		arg_arr = add_exec_to_arr(arg_arr, executable);
 		if (execve(executable, arg_arr, data->environ) == -1)
-			ft_printf("chilpid 0");
+			ft_printf("error with execve\n");
 	}
 	else if (child_pid < 0)
-		ft_printf("childpid <0");
+		ft_printf("fork error\n");
 	else
 	{
 		tpid = waitpid(child_pid, &child_status, 0);
