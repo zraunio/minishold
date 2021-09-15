@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:06:43 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:43:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*cd_get_next_dir_2(t_shell *data, char *dir_name)
 		return (ft_strdup(dir_name));
 }
 
-char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
+static char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 {
 	char	*new_dir;
 	int		i;

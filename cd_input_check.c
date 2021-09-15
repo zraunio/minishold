@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:59:34 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 12:58:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:23:13 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	check_cd_flags(char *args, t_shell *data)
 ** Initialize some values to zero.
 */
 
-void	set_cd_values_to_zero(t_shell *data)
+static void	set_cd_values_to_zero(t_shell *data)
 {
 	data->l_flag = 0;
 	data->p_flag = 0;

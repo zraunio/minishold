@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:08:48 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:48:08 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,11 @@ typedef struct s_shell
 	int		visit;
 }				t_shell;
 
-void	get_environment_variables(t_shell *data);
 void	get_paths_to_array(t_shell *data);
 void	update_path_array(t_shell *data);
 
 void	while_loop_input(t_shell *data);
 void	fork_and_child(t_shell *data, char *executable, char **buf_arr);
-char	*skip_all_whitespaces_and_dup_new_str(char *str);
-void	execve_command(t_shell *data, char **arg_arr, char *executable);
 void	free_fork_and_child(t_shell *data, char *executable, char *args);
 char	**add_exec_to_arr(char **arr, char *executable);
 
@@ -94,6 +91,5 @@ void	remove_one_string_in_array(char **array, int row);
 void	change_to_uppercase(char *str);
 void	check_if_null_ptr(void *ptr);
 void	check_if_null_arr(void **arr);
-char	*skip_whitespace_begin_and_end(char *s);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 15:06:12 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:45:03 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	execute_built_in_2(char *built_in, t_shell *data, char **args)
+static void	execute_built_in_2(char *built_in, t_shell *data, char **args)
 {
 	int	i;
 

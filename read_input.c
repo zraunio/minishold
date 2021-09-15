@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/14 11:35:15 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:27:03 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	loop_input_to_string(char *buf)
 	buf[i - 1] = '\0';
 }
 
-char	*set_buf_and_get_input(void)
+static char	*set_buf_and_get_input(void)
 {
 	char	quote;
 	char	*buf;
@@ -54,7 +54,7 @@ char	*set_buf_and_get_input(void)
 	return (buf);
 }
 
-char	*skip_whitespaces_beginning(char *str)
+static char	*skip_whitespaces_beginning(char *str)
 {
 	int		i;
 	char	*tmp;
@@ -71,7 +71,7 @@ char	*skip_whitespaces_beginning(char *str)
 	return (str);
 }
 
-void	work_with_input(t_shell *data, char **buf_arr)
+static void	work_with_input(t_shell *data, char **buf_arr)
 {
 	char	*tmp;
 

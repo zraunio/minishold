@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 18:08:25 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 19:36:16 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:51:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	change_pwd(t_shell *data, char *new_dir)
 	char	*var;
 	int		i;
 
+	if (new_dir == NULL)
+		return ;
 	var = ft_strdup("PWD");
 	i = check_if_var_is_in_array(var, data->environ);
 	if (i == -1)
@@ -62,15 +64,18 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 {
 	int		i;
 	char	*var;
-	int		ret;
 
 	if (new_dir != NULL)
 	{
-		ret = chdir(new_dir);
-		if (ret == -1)
+		if (chdir(new_dir) == -1)
 		{
 			free_two((void *)new_dir, (void *)current_dir);
 			ft_printf("cd: no such file or directory: %s\n", org_input);
+			if (data->prev_dir != NULL)
+			{
+				free(data->prev_dir);
+				data->prev_dir = NULL;
+			}
 			return ;
 		}
 	}
@@ -80,8 +85,6 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 		add_new_var_to_environ(data, var, current_dir);
 	else
 		change_old_var_value(data, var, current_dir, i);
-	if (new_dir == NULL)
-		return ;
 	change_pwd(data, new_dir);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 17:06:47 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:27:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 	free(var);
 }
 
-char	**new_arr_with_extra_line(char **old_arr, int rows)
+static char	**new_arr_with_extra_line(char **old_arr, int rows)
 {
 	char	**new_arr;
 	int		y;

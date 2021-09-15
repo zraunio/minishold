@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 18:00:48 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:26:33 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** And that's why we return 1, 'cause we just continue inside the while loop.
 */
 
-int	pipe_input(char *buf, char **buf_arr, int x, int y)
+static int	pipe_input(char *buf, char **buf_arr, int x, int y)
 {
 	if (buf[1] == ';' || buf[1] == '|')
 	{
@@ -45,7 +45,7 @@ int	pipe_input(char *buf, char **buf_arr, int x, int y)
 ** next row and go back returning 1.
 */
 
-int	semicolon_input(char *buf, char **buf_arr, int x, int y)
+static int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 {
 	if (buf[1] == ';' || buf[1] == '|')
 	{
@@ -71,7 +71,7 @@ int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 	return (y);
 }
 
-char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
+static char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
 {
 	int	x;
 

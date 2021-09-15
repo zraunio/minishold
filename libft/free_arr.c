@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 16:28:05 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 17:49:29 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:39:05 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ void	free_arr(void **arr)
 	size_t	i;
 
 	i = 0;
-	while (arr[i] != NULL)
-		ft_memdel((void *)&arr[i++]);
-	free(arr);
+	if (arr != NULL)
+	{
+		while (arr[i] != NULL)
+			free(arr[i++]);
+		free(arr);
+	}
 	arr = NULL;
 }

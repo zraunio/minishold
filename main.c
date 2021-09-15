@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:07:29 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:26:39 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	get_paths_to_array(t_shell *data)
 ** Also we set prev_dirs array to NULL.
 */
 
-void	get_environment_variables(t_shell *data)
+static void	get_environment_variables(t_shell *data)
 {
 	extern char	**environ;
 	int			num_of_vars;

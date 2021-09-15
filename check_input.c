@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/14 11:35:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:24:03 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	change_input_row(char **buf_arr, int y, int x, char quote)
 	free_two((void *)end, (void *)tmp);
 }
 
-int	check_command_with_quotes(char *command, t_shell *data)
+static int	check_command_with_quotes(char *command, t_shell *data)
 {
 	char	**arr;
 	char	*check;
@@ -97,7 +97,7 @@ int	check_command_with_quotes(char *command, t_shell *data)
 	return (1);
 }
 
-void	check_input_array_loop(char **buf_arr, int x, int y)
+static void	check_input_array_loop(char **buf_arr, int x, int y)
 {
 	char	quote;
 

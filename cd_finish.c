@@ -6,13 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 19:43:42 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:22:50 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-char	*replace_dot_dot(char *new_dir, int i)
+static char	*replace_dot_dot(char *new_dir, int i)
 {
 	char	*tmp_new;
 	int		last_slash_index;
@@ -34,7 +34,7 @@ char	*replace_dot_dot(char *new_dir, int i)
 	return (new_dir);
 }
 
-char	*find_dot_dot(char *new_dir)
+static char	*find_dot_dot(char *new_dir)
 {
 	int		i;
 
@@ -53,7 +53,7 @@ char	*find_dot_dot(char *new_dir)
 	return (new_dir);
 }
 
-char	*check_new_dir_slash(char *current_dir, char *new_dir,
+static char	*check_new_dir_slash(char *current_dir, char *new_dir,
 	t_shell *data)
 {
 	int		i;
@@ -81,7 +81,7 @@ char	*check_new_dir_slash(char *current_dir, char *new_dir,
 	return (tmp);
 }
 
-char	*remove_dup_characters_from_str(char *str, char c)
+static char	*remove_dup_characters_from_str(char *str, char c)
 {
 	int		i;
 	size_t	x;

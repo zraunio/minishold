@@ -6,13 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 16:53:24 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:25:14 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	execve_command(t_shell *data, char **arg_arr,
+static void	execve_command(t_shell *data, char **arg_arr,
 		char *executable)
 {
 	pid_t	tpid;
@@ -37,7 +37,7 @@ void	execve_command(t_shell *data, char **arg_arr,
 	free_arr((void **)arg_arr);
 }
 
-char	*skip_whitespace_begin_and_end(char *s)
+static char	*skip_whitespace_begin_and_end(char *s)
 {
 	int		y;
 	int		i;
@@ -62,7 +62,7 @@ char	*skip_whitespace_begin_and_end(char *s)
 	return (new_str);
 }	
 
-char	*allocate_arg(char *new_str, int i, int space_len)
+static char	*allocate_arg(char *new_str, int i, int space_len)
 {
 	char	*begin;
 	char	*end;
@@ -76,7 +76,7 @@ char	*allocate_arg(char *new_str, int i, int space_len)
 	return (ret_str);
 }
 
-char	*skip_all_whitespaces_and_dup_new_str(char *str)
+static char	*skip_all_whitespaces_and_dup_new_str(char *str)
 {
 	int		i;
 	int		space_len;
