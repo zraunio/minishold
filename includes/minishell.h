@@ -6,13 +6,12 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 19:45:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:08:48 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include <unistd.h>
 # include <sys/types.h>
 # include "../libft/includes/libft.h"
 # include "../libft/ft_printf/includes/ft_printf.h"

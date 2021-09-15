@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 19:40:02 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:06:43 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,29 @@ char	*cd_get_next_dir(t_shell *data, char *dir_name, char *current_dir)
 
 void	cd_function_start(char *args, t_shell *data, int i)
 {
-	char	**cd_args_arr;
+	char	**ag_ar;
 	char	*current_dir;
 	char	*new_dir;
 
 	if (check_cd_arguments(args, data) == -1)
 		return ;
-	cd_args_arr = ft_strsplit(args, ' ');
-	check_if_null_arr((void **)cd_args_arr);
-	while (cd_args_arr[i] != NULL)
+	ag_ar = ft_strsplit(args, ' ');
+	check_if_null_arr((void **)ag_ar);
+	while (ag_ar[i] != NULL)
 	{
-		if (cd_args_arr[i][0] != '-')
+		if (ag_ar[i][0] != '-' || (ag_ar[i][0] == '-' && ag_ar[i][1] == '\0'))
 			break ;
 		i++;
 	}
 	current_dir = get_current_dir();
 	if (current_dir == NULL)
-		return (free_arr((void **)cd_args_arr));
+		return (free_arr((void **)ag_ar));
 	compare_current_dir_to_prev(current_dir, data);
-	clean_quotes_from_dir_name(cd_args_arr[i]);
-	new_dir = cd_get_next_dir(data, cd_args_arr[i], current_dir);
+	clean_quotes_from_dir_name(ag_ar[i]);
+	new_dir = cd_get_next_dir(data, ag_ar[i], current_dir);
 	if (new_dir != NULL)
-		cd_function_finish(current_dir, new_dir, data, cd_args_arr[i]);
+		cd_function_finish(current_dir, new_dir, data, ag_ar[i]);
 	else
 		free(current_dir);
-	free_arr((void **)cd_args_arr);
+	free_arr((void **)ag_ar);
 }
