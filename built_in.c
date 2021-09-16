@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:57:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:45:03 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/15 17:29:15 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ void	execute_built_in(char *built_in, t_shell *data, char **args)
 		data->n_flag = 0;
 		tmp = check_echo_flags_and_skip_whitespaces(args[0], data, 0);
 		if (tmp == NULL)
-			return ((void)write(1, "\n", 1));
+		{
+			if (!data->n_flag)
+				write(1, "\n", 1);
+			return ;
+		}
 		my_echo(tmp, data);
 	}
 	else
