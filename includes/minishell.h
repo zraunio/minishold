@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:48:08 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/16 13:21:59 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	clean_quotes_from_dir_name(char *d);
 char	*tilde_dir_name(char *dir_name, t_shell *data);
 char	*check_symlink_name(char *new_dir, char *current_dir);
 void	compare_current_dir_to_prev(char *current_dir, t_shell *data);
+int		check_dir_rights(char *new_dir, char *current_dir, t_shell *data,
+			char *org_input);
 void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 			char *org_input);
 

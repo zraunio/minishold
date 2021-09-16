@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:22:50 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/16 13:21:37 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 	if (data->prev_dir != NULL)
 		free(data->prev_dir);
 	data->prev_dir = ft_strdup(new_dir);
-	change_directories(data, new_dir, current_dir, org_input);
+	if (check_dir_rights(new_dir, current_dir, data, org_input) == 1)
+		change_directories(data, new_dir, current_dir, org_input);
 }
