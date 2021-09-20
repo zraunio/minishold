@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/20 12:23:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:55:10 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,26 @@ int	check_if_echo(char *str)
 	int	quotes;
 
 	quotes = check_quotes_with_semicolon(str);
-	if (quotes == 0 || quotes % 2 == 0)
-		return (-1);
 	if (str[0] == 'e' && str[1] == 'c' && str[2] == 'h' && str[3] == 'o'
 		&& ft_isspace(str[4]))
-		return (1);
-	if ((str[0] == '\'' && str[5] == '\'') || (str[0] == '\"' && str[5]
+	{
+		if (quotes % 2 != 0)
+			return (1);
+		return (-1);
+	}
+	else if ((str[0] == '\'' && str[5] == '\'') || (str[0] == '\"' && str[5]
 			== '\"'))
 	{
 		if (str[1] == 'e' && str[2] == 'c' && str[3] == 'h' && str[4] == 'o'
 			&& ft_isspace(str[6]))
-			return (1);
+		{
+			if (quotes % 2 != 0)
+				return (1);
+			return (-1);
+		}
 	}
+	else if (quotes % 2 != 0)
+		return (1);
 	return (-1);
 }
 
