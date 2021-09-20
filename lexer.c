@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:26:33 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:02:10 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,21 @@ static int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 	return (y);
 }
 
+int	check_if_echo(char *str)
+{
+	if (str[0] == 'e' && str[1] == 'c' && str[2] == 'h' && str[3] == 'o'
+		&& ft_isspace(str[4]))
+		return (1);
+	if ((str[0] == '\'' && str[5] == '\'') || (str[0] == '\"' && str[5]
+			== '\"'))
+	{
+		if (str[1] == 'e' && str[2] == 'c' && str[3] == 'h' && str[4] == 'o'
+			&& ft_isspace(str[6]))
+			return (1);
+	}
+	return (-1);
+}
+
 static char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
 {
 	int	x;
@@ -80,18 +95,19 @@ static char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
 	{
 		if (buf[i] == ';')
 		{
-			y = semicolon_input(buf + i++, buf_arr, x, y);
-			if (y == -1)
-				return (NULL);
-			x = 0;
-			while (ft_isspace(buf[i]) == ' ' && buf[i] != '\0')
-				i++;
+			if (check_if_echo(buf_arr[y]) == -1)
+			{
+				y = semicolon_input(buf + i++, buf_arr, x, y);
+				if (y == -1)
+					return (NULL);
+				x = 0;
+				while (ft_isspace(buf[i]) == ' ' && buf[i] != '\0')
+					i++;
+			}
 		}
 		else if (buf[i] == '|')
-		{
 			if (pipe_input(buf + i, buf_arr, x, y) == -1)
 				return (NULL);
-		}
 		buf_arr[y][x++] = buf[i++];
 	}
 	buf_arr[y++][x] = '\0';
