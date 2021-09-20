@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/16 13:21:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:13:47 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	remove_one_string_in_array(char **array, int row);
 void	change_to_uppercase(char *str);
 void	check_if_null_ptr(void *ptr);
 void	check_if_null_arr(void **arr);
+int		check_quotes_with_semicolon(char *str);
 
 #endif

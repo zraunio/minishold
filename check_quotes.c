@@ -6,11 +6,38 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 17:02:06 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 17:02:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:16:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+int	check_quotes_with_semicolon(char *str)
+{
+	int		quotes;
+	char	c;
+	int		i;
+
+	quotes = 0;
+	i = 0;
+	c = 'a';
+	while (str[i] != '\0')
+	{
+		if ((str[i] == '\"' || str[i] == '\'') && str[i - 1] != '\\')
+		{
+			c = str[i];
+			quotes++;
+			while (str[i] != c && str[i] != '\0')
+				i++;
+			if (str[i] == '\0')
+				return (quotes);
+			else if (str[i] == c)
+				c = 'a';
+		}
+		i++;
+	}	
+	return (quotes);
+}
 
 char	check_quotes_for_input(char *buf)
 {
