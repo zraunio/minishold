@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   cd.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 16:09:22 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/21 09:48:47 by zraunio          ###   ########.fr       */
+/*   Created: 2021/09/21 09:41:42 by zraunio           #+#    #+#             */
+/*   Updated: 2021/09/21 11:13:21 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-#define ECHO_H
+#ifndef CD_H
+#define CD_H
 
 # include "../libft/incl/libft.h"
-#include "minishell.h"
+# include "minishell.h"
 
+int		cd_args_check(char *args, t_shell *data);
+void	dir_compare(char *curr_dir, t_shell *data);
+void	cd_into_dir(char *curr_dir, char *new_dir, t_shell *data, char *orig);
+char	*get_current_dir(void);
+void	quotes_trim(char *dir);
 /*
-** helper functions for different functionalities
+** rewrite of the cd command
 */
-char	*dollar_write(char *out, char **env);
-char	*quote_write(char *out, char **env, size_t n, char q);
-char	*echo_write(char *out, size_t len, size_t in_or_out, size_t n);
-/*
-** rewrite of the echo command:
-** handles Dollar $, quotes, and ~
-*/
-void	ft_echo(char *str, char **env);
+void	ft_cd(char *args, t_shell *data, size_t i);
+
 #endif
