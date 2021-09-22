@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 16:40:24 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 18:25:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,32 +110,32 @@ int	check_if_echo(char *str, int len)
 	return (-1);
 }
 
-static char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
+static char	**input_to_array_loop(char *buf, int i, char **buf_arr,
+	int in[2])
 {
-	int	x;
-
-	x = 0;
 	while (buf[i] != '\0')
 	{
 		if (buf[i] == ';')
 		{
-			if (check_if_echo(buf_arr[y], x) == -1)
+			if (check_if_echo(buf_arr[in[0]], in[1]) == -1)
 			{
-				y = semicolon_input(buf + i++, buf_arr, x, y);
-				if (y == -1)
+				in[0] = semicolon_input(buf + i++, buf_arr, in[1], in[0]);
+				if (in[0] == -1)
 					return (NULL);
-				x = 0;
+				if (buf[i] == '\0')
+					break ;
+				in[1] = 0;
 				while (ft_isspace(buf[i]) == ' ' && buf[i] != '\0')
 					i++;
 			}
 		}
 		else if (buf[i] == '|')
-			if (pipe_input(buf + i, buf_arr, x, y) == -1)
+			if (pipe_input(buf + i, buf_arr, in[1], in[0]) == -1)
 				return (NULL);
-		buf_arr[y][x++] = buf[i++];
+		buf_arr[in[0]][in[1]++] = buf[i++];
 	}
-	buf_arr[y++][x] = '\0';
-	buf_arr[y] = NULL;
+	buf_arr[in[0]++][in[1]] = '\0';
+	buf_arr[in[0]] = NULL;
 	return (buf_arr);
 }
 
@@ -150,9 +150,12 @@ static char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
 char	**split_input_to_array(char *buf, int i)
 {
 	char	**buf_arr;
+	int		index[2];
 
 	buf_arr = ft_arrnew(500, 500);
 	while (ft_isspace(buf[i]) && buf[i] != '\0')
 		i++;
-	return (input_to_array_loop(buf, i, buf_arr, 0));
+	index[0] = 0;
+	index[1] = 0;
+	return (input_to_array_loop(buf, i, buf_arr, index));
 }
