@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/20 12:13:47 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:41:23 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_fork_and_child(t_shell *data, char *executable, char *args);
 char	**add_exec_to_arr(char **arr, char *executable);
 
 void	loop_input_to_string(char *buf);
-char	check_quotes_for_input(char *buf);
+char	check_quotes_for_input(char *buf, int i);
 void	loop_more_quotes(char *buf, char quote);
 char	**split_input_to_array(char *buf, int i);
 int		check_input_array(char **buf_arr, int y, int x, t_shell *data);
@@ -63,16 +63,16 @@ int		check_cd_arguments(char *args, t_shell *data);
 int		cd_flags_error(char *args, t_shell *data);
 int		check_cd_last_space(char *args, t_shell *data);
 void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
-			char *org_input);
+			char *orig_input);
 char	*get_current_dir(void);
 void	clean_quotes_from_dir_name(char *d);
 char	*tilde_dir_name(char *dir_name, t_shell *data);
 char	*check_symlink_name(char *new_dir, char *current_dir);
 void	compare_current_dir_to_prev(char *current_dir, t_shell *data);
 int		check_dir_rights(char *new_dir, char *current_dir, t_shell *data,
-			char *org_input);
+			char *orig_input);
 void	change_directories(t_shell *data, char *new_dir, char *current_dir,
-			char *org_input);
+			char *orig_input);
 
 void	set_environment_variable(t_shell *data, char *args);
 void	unset_environment_variable(t_shell *data, char *args);
@@ -93,6 +93,6 @@ void	remove_one_string_in_array(char **array, int row);
 void	change_to_uppercase(char *str);
 void	check_if_null_ptr(void *ptr);
 void	check_if_null_arr(void **arr);
-int		check_quotes_with_semicolon(char *str);
+int		check_quotes_with_semicolon(char *str, int len);
 
 #endif

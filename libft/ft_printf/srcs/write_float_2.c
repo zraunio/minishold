@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 21:03:30 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/05/03 03:31:50 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:41:31 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	write_float_8(t_val *all, int x, int i)
 
 void	write_float_7(t_val *all)
 {
-	if (all->big_l == 1 && all->org_precision == 1 && (int)all->d_num == 5)
+	if (all->big_l == 1 && all->orig_precision == 1 && (int)all->d_num == 5)
 	{
 		if (all->end_i == 0 || all->end_i == 1 || all->end_i == 5
 			|| all->end_i == 8 || all->end_i == 7)

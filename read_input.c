@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 15:22:49 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:46:13 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*set_buf_and_get_input(void)
 	check_if_null_ptr((void *)buf);
 	ft_memset((void *)buf, 0, 500);
 	loop_input_to_string(buf);
-	quote = check_quotes_for_input(buf);
+	quote = check_quotes_for_input(buf, 0);
 	if (quote != 'a')
 		loop_more_quotes(buf, quote);
 	return (buf);

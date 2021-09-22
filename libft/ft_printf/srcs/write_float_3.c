@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 21:04:23 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/05/03 16:12:06 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:41:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static int	write_float_output_2(t_val *all, int i)
 	while (all->begin_str[ii] != '\0')
 		all->str[i++] = all->begin_str[ii++];
 	all->str[i] = '\0';
-	if (all->org_precision != 0 || all->hash_flag == 1)
+	if (all->orig_precision != 0 || all->hash_flag == 1)
 		all->str[i++] = '.';
-	if (all->org_precision != 0)
+	if (all->orig_precision != 0)
 	{
 		x = ft_strlen(all->end_str);
-		while (x < all->org_precision)
+		while (x < all->orig_precision)
 		{
 			all->str[i++] = '0';
 			x++;
@@ -119,7 +119,7 @@ void	write_float_8_second(t_val *all)
 		else
 		{
 			all->am_of_decimals = 1;
-			all->precision = all->org_precision + 1;
+			all->precision = all->orig_precision + 1;
 			while (all->precision != 0)
 			{
 				all->am_of_decimals *= 5;

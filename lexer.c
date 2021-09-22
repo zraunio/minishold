@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/20 14:55:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:40:24 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ static int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 ** If we want to split, return -1 and if we don't want to, return 1.
 */
 
-int	check_if_echo(char *str)
+int	check_if_echo(char *str, int len)
 {
 	int	quotes;
 
-	quotes = check_quotes_with_semicolon(str);
+	quotes = check_quotes_with_semicolon(str, len);
 	if (str[0] == 'e' && str[1] == 'c' && str[2] == 'h' && str[3] == 'o'
 		&& ft_isspace(str[4]))
 	{
@@ -119,7 +119,7 @@ static char	**input_to_array_loop(char *buf, int i, char **buf_arr, int y)
 	{
 		if (buf[i] == ';')
 		{
-			if (check_if_echo(buf_arr[y]) == -1)
+			if (check_if_echo(buf_arr[y], x) == -1)
 			{
 				y = semicolon_input(buf + i++, buf_arr, x, y);
 				if (y == -1)

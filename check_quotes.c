@@ -6,13 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 17:02:06 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 15:26:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 17:21:12 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int	check_quotes_with_semicolon(char *str)
+int	check_quotes_with_semicolon(char *str, int len)
 {
 	int		quotes;
 	char	c;
@@ -21,15 +21,16 @@ int	check_quotes_with_semicolon(char *str)
 	quotes = 0;
 	i = 0;
 	c = 'a';
-	while (str[i] != '\0')
+	while (i < len)
 	{
-		if ((str[i] == '\"' || str[i] == '\'') && str[i - 1] != '\\')
+		if ((i > 0 && (str[i] == '\"' || str[i] == '\'') && str[i - 1] != '\\')
+			|| (i == 0 && (str[i] == '"' || str[i] == '\'')))
 		{
 			c = str[i];
 			quotes++;
-			while (str[i] != c && str[i] != '\0')
+			while (str[i] != c && i < len)
 				i++;
-			if (str[i] == '\0')
+			if (i == len)
 				return (quotes);
 			else if (str[i] == c)
 				c = 'a';
@@ -39,12 +40,10 @@ int	check_quotes_with_semicolon(char *str)
 	return (quotes);
 }
 
-char	check_quotes_for_input(char *buf)
+char	check_quotes_for_input(char *buf, int i)
 {
-	int		i;
 	char	quote;
 
-	i = 0;
 	quote = 'a';
 	while (buf[i] != '\0')
 	{
@@ -86,7 +85,7 @@ void	loop_more_quotes(char *buf, char quote)
 		extra_buf[0] = '\n';
 		loop_input_to_string(extra_buf + 1);
 		ft_strcat(buf, extra_buf);
-		quote = check_quotes_for_input(buf);
+		quote = check_quotes_for_input(buf, 0);
 	}
 	free(extra_buf);
 }

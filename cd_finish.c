@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/16 13:21:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:39:42 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static char	*remove_dup_characters_from_str(char *str, char c)
 }
 
 void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
-	char *org_input)
+	char *orig_input)
 {
 	char	*tmp;
 
@@ -127,6 +127,6 @@ void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 	if (data->prev_dir != NULL)
 		free(data->prev_dir);
 	data->prev_dir = ft_strdup(new_dir);
-	if (check_dir_rights(new_dir, current_dir, data, org_input) == 1)
-		change_directories(data, new_dir, current_dir, org_input);
+	if (check_dir_rights(new_dir, current_dir, data, orig_input) == 1)
+		change_directories(data, new_dir, current_dir, orig_input);
 }

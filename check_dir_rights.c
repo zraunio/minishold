@@ -6,14 +6,14 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 13:03:36 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/16 13:22:20 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:40:06 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
 int	check_dir_rights(char *new_dir, char *current_dir, t_shell *data,
-	char *org_input)
+	char *orig_input)
 {
 	struct stat	b;
 	int			i;
@@ -25,7 +25,7 @@ int	check_dir_rights(char *new_dir, char *current_dir, t_shell *data,
 		return (1);
 	else
 	{
-		ft_printf("cd: permission denied: %s\n", org_input);
+		ft_printf("cd: permission denied: %s\n", orig_input);
 		free_two((void *)new_dir, (void *)current_dir);
 		if (data->prev_dir != NULL)
 		{

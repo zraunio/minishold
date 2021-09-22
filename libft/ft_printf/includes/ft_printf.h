@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:31:32 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/07/02 15:59:44 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:41:02 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_val
 	int				extra_zero;
 	double			am_of_decimals;
 	double			yy;
-	int				org_precision;
+	int				orig_precision;
 	int				ii;
 	int				y;
 }					t_val;
