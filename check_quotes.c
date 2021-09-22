@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 17:02:06 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/20 12:16:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:26:17 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	check_quotes_for_input(char *buf)
 	quote = 'a';
 	while (buf[i] != '\0')
 	{
-		if ((buf[i] == '"' || buf[i] == '\'') && buf[i - 1] != '\\')
+		if ((i > 0 && (buf[i] == '"' || buf[i] == '\'') && buf[i - 1] != '\\')
+			|| (i == 0 && (buf[i] == '"' || buf[i] == '\'')))
 		{
 			quote = buf[i++];
 			while (buf[i] != quote && buf[i] != '\0')

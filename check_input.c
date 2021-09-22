@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:24:03 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:04:08 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data,
 	i = 0;
 	while (ft_isspace(input[i]) && input[i] != '\0')
 		i++;
-	if (input[i] == '-' && input[i + 1] == 'n')
+	while (input[i] == '-' && input[i + 1] == 'n')
 	{
 		input += i + 1;
 		i = 0;
