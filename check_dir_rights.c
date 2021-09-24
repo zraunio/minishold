@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 13:03:36 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 15:40:06 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:22:39 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,23 @@ int	check_dir_rights(char *new_dir, char *current_dir, t_shell *data,
 
 	i = lstat(new_dir, &b);
 	if (i == -1)
+	{
+		if (ft_strequ(orig_input, "-"))
+		{
+			ft_printf("cd: no such file or directory: %s\n", new_dir);
+			free_two((void *)new_dir, (void *)current_dir);
+			ft_memdel((void *)&data->prev_dir);
+			return (-1);
+		}
 		return (1);
+	}
 	if (i == 0 && b.st_mode & S_IXUSR)
 		return (1);
 	else
 	{
 		ft_printf("cd: permission denied: %s\n", orig_input);
 		free_two((void *)new_dir, (void *)current_dir);
-		if (data->prev_dir != NULL)
-		{
-			free(data->prev_dir);
-			data->prev_dir = NULL;
-		}
+		ft_memdel((void *)&data->prev_dir);
 		return (-1);
 	}
 }

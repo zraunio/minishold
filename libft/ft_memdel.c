@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 15:15:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/05/20 13:16:13 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:21:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	ft_memdel(void **ap)
 {
-	free(*ap);
-	*ap = NULL;
+	if (*ap != NULL)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
 	return ;
 }
