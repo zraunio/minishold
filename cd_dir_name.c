@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:40:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 12:34:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	clean_quotes_from_dir_name(char *d)
 		tmp = ft_strndup(d + 1, len - 2);
 		ft_memset((void *)d, 0, len);
 		ft_strcpy(d, tmp);
-		free(tmp);
+		ft_memdel((void *)&tmp);
 	}
 }
 
@@ -50,7 +50,7 @@ char	*tilde_dir_name(char *dir_name, t_shell *data)
 	{
 		end = ft_strdup(dir_name + 1);
 		new_dir = ft_strjoin(home, end);
-		free(end);
+		ft_memdel((void *)&end);
 		return (new_dir);
 	}
 	return (NULL);

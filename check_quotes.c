@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 17:02:06 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 17:21:12 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:37:00 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ void	loop_more_quotes(char *buf, char quote)
 		ft_strcat(buf, extra_buf);
 		quote = check_quotes_for_input(buf, 0);
 	}
-	free(extra_buf);
+	ft_memdel((void *)&extra_buf);
 }

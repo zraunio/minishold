@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 18:18:48 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:35:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static char	*skip_whitespaces_beginning(char *str)
 	if (str[i] == '\0' || i == 0)
 		return (str);
 	tmp = ft_strdup(str + i);
-	free(str);
+	ft_memdel((void *)&str);
 	str = ft_strdup(tmp);
-	free(tmp);
+	ft_memdel((void *)&tmp);
 	return (str);
 }
 
@@ -83,8 +83,7 @@ static void	work_with_input(t_shell *data, char **buf_arr)
 		if (tmp != NULL)
 		{
 			execute_built_in(tmp, data, buf_arr);
-			free(tmp);
-			tmp = NULL;
+			ft_memdel((void *)&tmp);
 		}
 		else
 			tmp = check_if_executable(buf_arr, data, 0);
@@ -117,7 +116,7 @@ void	while_loop_input(t_shell *data)
 			}
 			free_arr((void **)buf_arr);
 		}
-		free(buf);
+		ft_memdel((void *)&buf);
 		ft_putstr("minishell> ");
 	}
 }

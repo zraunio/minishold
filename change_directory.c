@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 18:08:25 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 15:39:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	change_pwd(t_shell *data, char *new_dir)
 		i = check_if_var_is_in_array(var, data->environ);
 		ft_printf("%s\n", data->environ[i] + 4);
 		data->previous_dir_in_cd = 0;
-		free(var);
+		ft_memdel((void *)&var);
 	}
 }
 
@@ -71,11 +71,7 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 		{
 			free_two((void *)new_dir, (void *)current_dir);
 			ft_printf("cd: no such file or directory: %s\n", orig_input);
-			if (data->prev_dir != NULL)
-			{
-				free(data->prev_dir);
-				data->prev_dir = NULL;
-			}
+			ft_memdel((void *)&data->prev_dir);
 			return ;
 		}
 	}
@@ -97,14 +93,14 @@ static char	*get_new_symlink_dir(char *new_dir, char *current_dir)
 	chdir(current_dir);
 	if (ft_strequ(tmp_current, new_dir))
 	{
-		free(tmp_current);
+		ft_memdel((void *)&tmp_current);
 		return (NULL);
 	}
 	else
 	{
-		free(new_dir);
+		ft_memdel((void *)&new_dir);
 		new_dir = ft_strdup(tmp_current);
-		free(tmp_current);
+		ft_memdel((void *)&tmp_current);
 		return (new_dir);
 	}	
 }

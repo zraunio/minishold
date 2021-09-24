@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:27:29 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:36:33 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 
 	if (ft_strcmp(value, "NULL") == 0)
 	{
-		free(value);
-		free(var);
+		free_two((void *)value, (void *)var);
 		return (remove_one_string_in_array(data->environ, i));
 	}
-	free(data->environ[i]);
+	ft_memdel((void *)&data->environ[i]);
 	data->environ[i] = ft_strnew((size_t)ft_strlen(var)
 			+ (size_t)ft_strlen(value) + 1 + 1);
 	ii = 0;
@@ -47,8 +46,7 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 	while (value[ii] != '\0')
 		data->environ[i][x++] = value[ii++];
 	data->environ[i][x] = '\0';
-	free(value);
-	free(var);
+	free_two((void *)value, (void *)var);
 }
 
 static char	**new_arr_with_extra_line(char **old_arr, int rows)
@@ -96,8 +94,7 @@ void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 	new_arr[y] = NULL;
 	data->num_of_variables = y;
 	data->environ = ft_arrdup(new_arr);
-	free(value);
-	free(var);
+	free_two((void *)value, (void *)var);
 }
 
 /*

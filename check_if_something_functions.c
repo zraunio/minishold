@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 17:41:39 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:36:06 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*check_if_built_in(char **buf_arr)
 		|| ft_strequ("env", if_built_in) || ft_strequ("unsetenv", if_built_in)
 		|| ft_strequ("setenv", if_built_in) || ft_strequ("echo", if_built_in))
 		return (if_built_in);
-	free(if_built_in);
+	ft_memdel((void *)&if_built_in);
 	return (NULL);
 }
 
@@ -54,7 +54,7 @@ int	only_slashes_and_dots(char *command)
 			i++;
 		}
 	}
-	free(command);
+	ft_memdel((void *)&command);
 	return (-1);
 }
 
@@ -107,7 +107,7 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 	if (path_and_exec == NULL)
 	{
 		ft_printf("minishell: command not found: %s\n", if_exec);
-		free(if_exec);
+		ft_memdel((void *)&if_exec);
 		return (NULL);
 	}
 	return (path_and_exec);
@@ -128,7 +128,7 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 	if (path_and_exec == NULL)
 	{
 		ft_printf("minishell: command not found: %s\n", if_exec);
-		free(if_exec);
+		ft_memdel((void *)&if_exec);
 		return (NULL);
 	}
 	return (path_and_exec);

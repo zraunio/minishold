@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 09:58:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static char	*replace_dot_dot(char *new_dir, int i)
 		return (ft_strdup("/"));
 	}
 	tmp_new2 = ft_strndup(tmp_new, last_slash_index);
-	free(tmp_new);
+	ft_memdel((void *)&tmp_new);
 	tmp_new = ft_strjoin(tmp_new2, new_dir + i + 3);
 	free_two((void *)tmp_new2, (void *)new_dir);
 	new_dir = ft_strdup(tmp_new);
-	free(tmp_new);
+	ft_memdel((void *)&tmp_new);
 	return (new_dir);
 }
 
@@ -48,10 +48,10 @@ static char	*find_dot_dot(char *new_dir)
 			tmp = ft_strndup(new_dir, i);
 			if (lstat(tmp, &buf) != 0)
 			{
-				free(tmp);
+				ft_memdel((void *)&tmp);
 				return (new_dir);
 			}
-			free(tmp);
+			ft_memdel((void *)&tmp);
 			new_dir = replace_dot_dot(new_dir, i);
 			if (ft_strequ(new_dir, "/"))
 				return (new_dir);
@@ -79,14 +79,14 @@ static char	*check_new_dir_slash(char *current_dir, char *new_dir,
 				tmp = ft_strjoin_three(current_dir, "/", new_dir);
 			else
 				tmp = ft_strjoin(current_dir, new_dir);
-			free(new_dir);
+			ft_memdel((void *)&new_dir);
 			return (tmp);
 		}
 		else
 			ft_printf("we should try cdpath variable\n");
 	}
 	tmp = ft_strdup(new_dir);
-	free(new_dir);
+	ft_memdel((void *)&new_dir);
 	return (tmp);
 }
 
@@ -107,7 +107,7 @@ static char	*remove_dup_characters_from_str(char *str, char c)
 			while (str[i + 1 + x] == c && str[i + 1 + x] != '\0')
 				x++;
 			end = ft_strdup(str + i + 1 + x);
-			free(str);
+			ft_memdel((void *)&str);
 			str = ft_strjoin(begin, end);
 			free_two((void *)begin, (void *)end);
 			i = -1;
@@ -131,10 +131,9 @@ void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 	if (tmp != NULL)
 	{
 		new_dir = ft_strdup(tmp);
-		free(tmp);
+		ft_memdel((void *)&tmp);
 	}
-	if (data->prev_dir != NULL)
-		free(data->prev_dir);
+	ft_memdel((void *)&data->prev_dir);
 	data->prev_dir = ft_strdup(new_dir);
 	if (check_dir_rights(new_dir, current_dir, data, orig_input) == 1)
 		change_directories(data, new_dir, current_dir, orig_input);

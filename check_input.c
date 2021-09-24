@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 15:04:08 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int	check_command_with_quotes(char *command, t_shell *data)
 		free(arr);
 		return (0);
 	}
-	free(check);
+	ft_memdel((void *)&check);
 	return (1);
 }
 
@@ -134,10 +134,10 @@ int	check_input_array(char **buf_arr, int y, int x, t_shell *data)
 		check = ft_strdup(buf_arr[0]);
 	if (ft_strequ("echo", check))
 	{
-		free(check);
+		ft_memdel((void *)&check);
 		return (1);
 	}
-	free(check);
+	ft_memdel((void *)&check);
 	check_input_array_loop(buf_arr, x, y);
 	return (1);
 }

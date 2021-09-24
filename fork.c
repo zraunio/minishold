@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 15:12:09 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*allocate_arg(char *new_str, int i, int space_len)
 
 	begin = ft_strndup(new_str, i);
 	end = ft_strdup(new_str + i + space_len);
-	free(new_str);
+	ft_memdel((void *)&new_str);
 	ret_str = ft_strjoin_three(begin, " ", end);
 	free_two((void *)begin, (void *)end);
 	return (ret_str);

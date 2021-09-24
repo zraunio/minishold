@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 17:25:57 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/08 19:06:57 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:36:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	unset_environment_variable(t_shell *data, char *args)
 	while (data->environ[i] != NULL)
 		i++;
 	data->num_of_variables = i;
-	free(variable);
+	ft_memdel((void *)&variable);
 	return ;
 }
