@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:26:16 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 14:41:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/25 00:19:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*return_string_before_whitespace(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (!ft_isspace(str[i]))
+		if (ft_isspace(str[i]))
 			return (ft_strndup(str, i));
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/25 01:09:08 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	execve_command(t_shell *data, char **arg_arr,
 	else
 	{
 		tpid = waitpid(child_pid, &child_status, 0);
-		while (tpid > 0)
-			tpid = waitpid(child_pid, &child_status, 0);
+		if (tpid == -1)
+			ft_printf("waitpid fail\n");
 	}
 	free_arr((void **)arg_arr);
 }

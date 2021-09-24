@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:35:41 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/25 00:50:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	loop_input_to_string(char *buf)
 		if (c == '\n')
 			break ;
 		x = read(0, &c, 1);
+	}
+	if (x == 0)
+	{
+		buf[i] = '\0';
+		ft_putstr(buf);
+		exit (0);
 	}
 	buf[i - 1] = '\0';
 }
@@ -91,6 +97,20 @@ static void	work_with_input(t_shell *data, char **buf_arr)
 			fork_and_child(data, tmp, buf_arr);
 	}
 }
+
+/*
+** We are in a while (1) -loop until we either get "exit" as input,
+** or ctrl + c -keys are used together.
+** Set_buf_and_get_input and we get a pointer to char *buf,
+** that holds all input (except last newline).
+** Split_input_to_array splits input to array (character ';' changes row)
+** and checks if it is valid or not.
+** If buf_arr isn't NULL (so input is valid), we check len of buf_arr,
+** and then we work with the given input in work_with_input. After that
+** function is done, we i += 2, so that we skip the next row that might have
+** the ';' character, and we go work with next input row.
+** After all is executed we free **buf_arr, memdel *buf and output minishell>.
+*/
 
 void	while_loop_input(t_shell *data)
 {

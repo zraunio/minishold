@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/25 00:20:00 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	check_input_array(char **buf_arr, int y, int x, t_shell *data)
 	check = return_string_before_whitespace(buf_arr[0]);
 	if (check == NULL)
 		check = ft_strdup(buf_arr[0]);
-	if (ft_strequ("echo", check))
+	if (ft_strequ("echo", check) == 1)
 	{
 		ft_memdel((void *)&check);
 		return (1);
