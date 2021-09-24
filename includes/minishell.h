@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/21 10:54:39 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/22 10:28:39 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <sys/types.h>
 # include "../libft/incl/libft.h"
 // # include "echo.h"
-// #include "cd.h"
+// # include "cd.h"
+// # include "setenv.h"
 # include <sys/stat.h>
 
 typedef struct s_shell
@@ -67,7 +68,7 @@ void	set_environment_variable(t_shell *data, char *args);
 void	unset_environment_variable(t_shell *data, char *args);
 void	add_new_var_to_environ(t_shell *data, char *var, char *value);
 void	change_old_var_value(t_shell *data, char *var, char *value, int i);
-int		check_if_var_is_in_array(char *variable, char **copy_of_environ);
+int		check_if_array(char *var, char **env);
 char	*check_setenv_int(char *args, char *variable, char *value);
 
 char	*print_text_after_pipe_or_semicolon(char *echo_arg, int quote);

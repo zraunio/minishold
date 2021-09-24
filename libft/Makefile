@@ -137,6 +137,7 @@ _STR_SRC = str/ft_strcat.c \
 		str/ft_strrev.c \
 		str/ft_strndup.c \
 		str/ft_strchrstr.c \
+		str/ft_strchr_index.c \
 
 _TREE_SRC = trees/ft_add_node.c \
 		trees/ft_new_node.c \
