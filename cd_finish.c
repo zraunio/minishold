@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/22 15:39:42 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/24 09:58:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,22 @@ static char	*replace_dot_dot(char *new_dir, int i)
 
 static char	*find_dot_dot(char *new_dir)
 {
-	int		i;
+	int			i;
+	char		*tmp;
+	struct stat	buf;
 
 	i = 0;
 	while (new_dir[i] != '\0')
 	{
 		if (new_dir[i] == '/' && new_dir[i + 1] == '.' && new_dir[i + 2] == '.')
 		{
+			tmp = ft_strndup(new_dir, i);
+			if (lstat(tmp, &buf) != 0)
+			{
+				free(tmp);
+				return (new_dir);
+			}
+			free(tmp);
 			new_dir = replace_dot_dot(new_dir, i);
 			if (ft_strequ(new_dir, "/"))
 				return (new_dir);
