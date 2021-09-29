@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/25 00:20:00 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:10:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	check_command_with_quotes(char *command, t_shell *data)
 		|| ft_strequ("env", arr[0]) || ft_strequ("unsetenv", arr[0])
 		|| ft_strequ("setenv", arr[0]) || ft_strequ("echo", arr[0]))
 	{
-		free_arr((void **)arr);
+		free_arr((void *)&arr);
 		return (1);
 	}
 	check = check_if_exec_with_quotes(arr[0], data);

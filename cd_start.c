@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 15:14:39 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:36:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:10:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	cd_function_start(char *args, t_shell *data, int i)
 	}
 	current_dir = get_current_dir();
 	if (current_dir == NULL)
-		return (free_arr((void **)ag_ar));
+		return (free_arr((void *)&ag_ar));
 	compare_current_dir_to_prev(current_dir, data);
 	clean_quotes_from_dir_name(ag_ar[i]);
 	new_dir = cd_get_next_dir(data, ag_ar[i], current_dir);
@@ -100,5 +100,5 @@ void	cd_function_start(char *args, t_shell *data, int i)
 		cd_function_finish(current_dir, new_dir, data, ag_ar[i]);
 	else
 		ft_memdel((void *)&current_dir);
-	free_arr((void **)ag_ar);
+	free_arr((void *)&ag_ar);
 }

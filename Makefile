@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 12:59:07 by ehelmine          #+#    #+#              #
-#    Updated: 2021/09/23 17:46:22 by ehelmine         ###   ########.fr        #
+#    Updated: 2021/09/29 18:17:14 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS = main.c read_input.c lexer.c built_in.c echo_functions.c \
 	unsetenv_functions.c cd_start.c check_quotes.c \
 	cd_input_check.c cd_finish.c check_input.c fork.c free_or_null.c \
 	cd_dir_name.c echo_output.c echo_start.c setenv_help.c \
-	cd_flags_errors.c change_directory.c check_dir_rights.c
+	cd_flags_errors.c change_directory.c check_dir_rights.c \
+	error_message_for_exec.c
 
 OBJS_DIR = objs
 
@@ -26,7 +27,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, main.o read_input.o lexer.o built_in.o \
 	setenv_functions.o unsetenv_functions.o cd_start.o check_quotes.o \
 	cd_input_check.o cd_finish.o check_input.o fork.o free_or_null.o \
 	cd_dir_name.o echo_output.o echo_start.o setenv_help.o cd_flags_errors.o \
-	change_directory.o check_dir_rights.o)
+	change_directory.o check_dir_rights.o error_message_for_exec.o)
 
 LIBFT_OBJS = $(addprefix libft/, ft_putchar.o ft_putstr.o ft_atoi.o \
 	ft_strlen.o ft_strcmp.o ft_putnbr.o ft_strdup.o ft_strcpy.o ft_strncpy.o \

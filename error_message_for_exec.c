@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_arr.c                                         :+:      :+:    :+:   */
+/*   error_message_for_exec.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/30 16:28:05 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/29 14:29:16 by ehelmine         ###   ########.fr       */
+/*   Created: 2021/09/29 16:32:24 by ehelmine          #+#    #+#             */
+/*   Updated: 2021/09/29 17:15:37 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "includes/minishell.h"
 
-void	free_arr(void ***arr)
+char	*error_message_not_exec(char *if_exec)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (*arr != NULL)
+	while (if_exec[i] != '\0')
 	{
-		while ((*arr)[i] != NULL)
-			ft_memdel((void **)&(*arr)[i++]);
-		free(*arr);
+		if (if_exec[i] == '/')
+		{
+			ft_printf("minishell: permission denied: %s\n", if_exec);
+			break ;
+		}
+		i++;
 	}
-	*arr = NULL;
+	if (if_exec[i] == '\0')
+		ft_printf("minishell: command not found: %s\n", if_exec);
+	ft_memdel((void *)&if_exec);
+	return (NULL);
 }

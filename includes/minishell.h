@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/25 01:08:58 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:07:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data,
 char	*check_if_exec_with_quotes(char *if_exec, t_shell *data);
 
 void	execute_built_in(char *built_in, t_shell *data, char **args);
+char	*error_message_not_exec(char *if_exec);
 
 void	cd_function_start(char *args, t_shell *data, int i);
 int		check_cd_arguments(char *args, t_shell *data);

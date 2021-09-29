@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:02:38 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/25 00:50:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:10:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	while_loop_input(t_shell *data)
 				work_with_input(data, buf_arr + i);
 				i += 2;
 			}
-			free_arr((void **)buf_arr);
+			free_arr((void *)&buf_arr);
 		}
 		ft_memdel((void *)&buf);
 		ft_putstr("minishell> ");

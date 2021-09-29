@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/25 01:09:08 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:10:49 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	execve_command(t_shell *data, char **arg_arr,
 		if (tpid == -1)
 			ft_printf("waitpid fail\n");
 	}
-	free_arr((void **)arg_arr);
+	free_arr((void *)&arg_arr);
 }
 
 static char	*skip_whitespace_begin_and_end(char *s)

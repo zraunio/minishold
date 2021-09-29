@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:36:06 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:51:33 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,7 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 	}
 	path_and_exec = pair_path_and_exec(if_exec, data, b);
 	if (path_and_exec == NULL)
-	{
-		ft_printf("minishell: command not found: %s\n", if_exec);
-		ft_memdel((void *)&if_exec);
-		return (NULL);
-	}
+		return (error_message_not_exec(if_exec));
 	return (path_and_exec);
 }
 
@@ -126,10 +122,6 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 	}
 	path_and_exec = pair_path_and_exec(if_exec, data, b);
 	if (path_and_exec == NULL)
-	{
-		ft_printf("minishell: command not found: %s\n", if_exec);
-		ft_memdel((void *)&if_exec);
-		return (NULL);
-	}
+		return (error_message_not_exec(if_exec));
 	return (path_and_exec);
 }

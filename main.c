@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:14:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 13:26:39 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:59:56 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(void)
 	get_environment_variables(&data);
 	get_paths_to_array(&data);
 	data.prev_dir = NULL;
+	data.previous_dir_in_cd = 0;
 	write(1, "minishell> ", 11);
 	while_loop_input(&data);
 	return (0);
