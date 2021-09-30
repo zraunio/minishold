@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 14:16:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:48:14 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 	char	*path_and_exec;
 
 	data->i = 0;
-	data->original_exec = NULL;
 	if (data->path_array == NULL)
 		return (NULL);
 	while (data->path_array[data->i] != NULL)
@@ -74,7 +73,8 @@ char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 		if (stat(path_and_exec, &b) == 0 && b.st_mode & S_IXUSR
 			&& (S_ISREG(b.st_mode)))
 		{
-			data->original_exec = ft_strdup(if_exec);
+			if (data->original_exec == NULL)
+				data->original_exec = ft_strdup(if_exec);
 			free_two((void *)&if_exec, (void *)&path);
 			return (path_and_exec);
 		}
@@ -100,7 +100,8 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 	if (stat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode)
 		&& ft_strchr(if_exec, '/') != NULL)
 	{
-		data->original_exec = ft_strdup(if_exec);
+		if (data->original_exec == NULL)
+			data->original_exec = ft_strdup(if_exec);
 		return (if_exec);
 	}
 	path_and_exec = pair_path_and_exec(if_exec, data, b);
@@ -115,10 +116,14 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 	char		*path_and_exec;
 
 	update_path_array(data);
-	if (stat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
+	if (stat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode)
+		&& ft_strchr(if_exec, '/') != NULL)
 	{
-		data->original_exec = ft_strdup(if_exec);
-		return (if_exec);
+		if (data->original_exec == NULL)
+			data->original_exec = ft_strdup(if_exec);
+		path_and_exec = ft_strdup(if_exec);
+		ft_memdel((void *)&if_exec);
+		return (path_and_exec);
 	}
 	path_and_exec = pair_path_and_exec(if_exec, data, b);
 	if (path_and_exec == NULL)

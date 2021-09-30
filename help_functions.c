@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 12:22:23 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:39:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**add_exec_to_arr(char **arr, char *executable)
 	while (arr[i] != NULL)
 	{
 		new_arr[i + 1] = ft_strdup(arr[i]);
-		free(arr[i++]);
+		ft_memdel((void *)&arr[i++]);
 	}
 	free(arr);
 	new_arr[i + 1] = NULL;
@@ -42,7 +42,7 @@ void	update_path_array(t_shell *data)
 	if (data->path_array != NULL)
 	{
 		while (data->path_array[i] != NULL)
-			free(data->path_array[i++]);
+			ft_memdel((void *)&data->path_array[i++]);
 		free(data->path_array);
 	}
 	data->i = 0;
@@ -72,13 +72,12 @@ void	remove_one_string_in_array(char **array, int row)
 {
 	while (array[row + 1] != NULL)
 	{
-		free(array[row]);
+		ft_memdel((void *)&array[row]);
 		array[row] = ft_strnew((int)ft_strlen(array[row + 1]));
 		ft_strcpy(array[row], array[row + 1]);
 		row++;
 	}
-	free(array[row]);
-	array[row] = NULL;
+	ft_memdel((void *)&array[row]);
 }
 
 void	change_to_uppercase(char *str)

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 19:02:36 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/08/26 12:10:19 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:38:03 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_arrdup(char **arr)
 		copy_of_arr[i] = ft_strdup(arr[i]);
 		if (copy_of_arr[i] == NULL)
 			exit (1);
-		free(arr[i++]);
+		ft_memdel((void *)&arr[i++]);
 	}
 	free(arr);
 	copy_of_arr[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:41:42 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/25 00:12:53 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:36:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	pipe_input(char *buf, char **buf_arr, int x, int y)
 		ft_printf("minishell: parse error near `%.2s'\n", buf);
 		x = 0;
 		while (x <= y)
-			free(buf_arr[x++]);
+			ft_memdel((void *)&buf_arr[x++]);
 		free(buf_arr);
 		return (-1);
 	}
@@ -52,7 +52,7 @@ static int	semicolon_input(char *buf, char **buf_arr, int x, int y)
 		ft_printf("minishell: parse error near `%.2s'\n", buf);
 		x = 0;
 		while (x <= y)
-			free(buf_arr[x++]);
+			ft_memdel((void *)&buf_arr[x++]);
 		free(buf_arr);
 		return (-1);
 	}

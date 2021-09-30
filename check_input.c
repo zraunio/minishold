@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 14:19:36 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:50:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,9 @@ static int	check_command_with_quotes(char *command, t_shell *data)
 		return (1);
 	}
 	check = check_if_exec_with_quotes(arr[0], data);
+	free(arr);
 	if (check == NULL)
-	{
-		free(arr);
 		return (0);
-	}
 	ft_memdel((void *)&check);
 	return (1);
 }

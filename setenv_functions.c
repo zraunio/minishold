@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 14:17:45 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:37:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	**new_arr_with_extra_line(char **old_arr, int rows)
 	while (old_arr[y] != NULL)
 	{
 		new_arr[y] = ft_strdup(old_arr[y]);
-		free(old_arr[y++]);
+		ft_memdel((void *)&old_arr[y++]);
 	}
 	free(old_arr);
 	return (new_arr);
@@ -118,7 +118,7 @@ void	set_environment_variable(t_shell *data, char *args)
 	if (variable == NULL)
 		return ;
 	if (ft_strchr(variable, '=') != NULL)
-		return (free(variable));
+		return (ft_memdel((void *)&variable));
 	args += (int)ft_strlen(variable) + 1;
 	value = return_string_before_given_char(args, ' ');
 	if (value == NULL)
