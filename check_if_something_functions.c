@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:49:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/29 16:51:33 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:16:10 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ char	*pair_path_and_exec(char *if_exec, t_shell *data, struct stat b)
 	{
 		path = ft_strjoin(data->path_array[data->i], "/");
 		path_and_exec = ft_strjoin(path, if_exec);
-		if (lstat(path_and_exec, &b) == 0 && b.st_mode & S_IXUSR
-			&& S_ISREG(b.st_mode))
+		if (stat(path_and_exec, &b) == 0 && b.st_mode & S_IXUSR
+			&& (S_ISREG(b.st_mode)))
 		{
 			data->original_exec = ft_strdup(if_exec);
-			free_two(if_exec, path);
+			free_two((void *)&if_exec, (void *)&path);
 			return (path_and_exec);
 		}
-		free_two(path, path_and_exec);
+		free_two((void *)&path, (void *)&path_and_exec);
 		data->i++;
 	}
 	return (NULL);
@@ -90,7 +90,6 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 	char		*if_exec;
 	char		*path_and_exec;
 
-	data->i = 0;
 	update_path_array(data);
 	while (!ft_isspace(arr[0][data->i + len]) && arr[0][data->i + len] != '\0')
 		len++;
@@ -98,7 +97,8 @@ char	*check_if_executable(char **arr, t_shell *data, int len)
 			arr[0][data->i + len]);
 	if (only_slashes_and_dots(if_exec) == -1)
 		return (NULL);
-	if (lstat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
+	if (stat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode)
+		&& ft_strchr(if_exec, '/') != NULL)
 	{
 		data->original_exec = ft_strdup(if_exec);
 		return (if_exec);
@@ -115,7 +115,7 @@ char	*check_if_exec_with_quotes(char *if_exec, t_shell *data)
 	char		*path_and_exec;
 
 	update_path_array(data);
-	if (lstat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
+	if (stat(if_exec, &b) == 0 && b.st_mode & S_IXUSR && S_ISREG(b.st_mode))
 	{
 		data->original_exec = ft_strdup(if_exec);
 		return (if_exec);

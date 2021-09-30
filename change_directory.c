@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 18:08:25 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/29 18:00:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:15:26 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	change_directories(t_shell *data, char *new_dir, char *current_dir,
 	{
 		if (chdir(new_dir) == -1)
 		{
-			free_two((void *)new_dir, (void *)current_dir);
+			free_two((void *)&new_dir, (void *)&current_dir);
 			ft_printf("cd: no such file or directory: %s\n", orig_input);
 			ft_memdel((void *)&data->prev_dir);
 			return ;

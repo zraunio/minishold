@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:37:36 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:15:19 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static char	*replace_dot_dot(char *new_dir, int i)
 	last_slash_index = ft_return_char_index(tmp_new, '/', 'e');
 	if (last_slash_index == 0)
 	{
-		free_two((void *)tmp_new, (void *)new_dir);
+		free_two((void *)&tmp_new, (void *)&new_dir);
 		return (ft_strdup("/"));
 	}
 	tmp_new2 = ft_strndup(tmp_new, last_slash_index);
 	ft_memdel((void *)&tmp_new);
 	tmp_new = ft_strjoin(tmp_new2, new_dir + i + 3);
-	free_two((void *)tmp_new2, (void *)new_dir);
+	free_two((void *)&tmp_new2, (void *)&new_dir);
 	new_dir = ft_strdup(tmp_new);
 	ft_memdel((void *)&tmp_new);
 	return (new_dir);
@@ -109,7 +109,7 @@ static char	*remove_dup_characters_from_str(char *str, char c)
 			end = ft_strdup(str + i + 1 + x);
 			ft_memdel((void *)&str);
 			str = ft_strjoin(begin, end);
-			free_two((void *)begin, (void *)end);
+			free_two((void *)&begin, (void *)&end);
 			i = -1;
 		}
 		i++;

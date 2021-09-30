@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/29 14:10:46 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:19:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static void	change_input_row(char **buf_arr, int y, int x, char quote)
 	tmp = ft_strjoin_three(begin, middle, end);
 	ft_memset((void *)buf_arr[y], 0, ft_strlen(buf_arr[y]));
 	ft_strcpy(buf_arr[y], tmp);
-	free_two((void *)begin, (void *)middle);
-	free_two((void *)end, (void *)tmp);
+	free_two((void *)&begin, (void *)&middle);
+	free_two((void *)&end, (void *)&tmp);
 }
 
 static int	check_command_with_quotes(char *command, t_shell *data)

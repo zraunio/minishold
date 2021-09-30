@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 17:06:21 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/10 17:06:44 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:17:51 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*check_setenv_int(char *args, char *variable, char *value)
 			i++;
 		if (args[i] != '\0')
 		{
-			free_two((void *)variable, (void *)value);
+			free_two((void *)&variable, (void *)&value);
 			return (NULL);
 		}
 	}

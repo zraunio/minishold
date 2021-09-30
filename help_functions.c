@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/14 11:47:46 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:22:23 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	update_path_array(t_shell *data)
 			free(data->path_array[i++]);
 		free(data->path_array);
 	}
+	data->i = 0;
 	get_paths_to_array(data);
 }
 

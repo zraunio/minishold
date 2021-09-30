@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/29 14:10:49 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:16:32 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*allocate_arg(char *new_str, int i, int space_len)
 	end = ft_strdup(new_str + i + space_len);
 	ft_memdel((void *)&new_str);
 	ret_str = ft_strjoin_three(begin, " ", end);
-	free_two((void *)begin, (void *)end);
+	free_two((void *)&begin, (void *)&end);
 	return (ret_str);
 }
 

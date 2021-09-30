@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 18:12:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/24 22:36:33 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:17:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 
 	if (ft_strcmp(value, "NULL") == 0)
 	{
-		free_two((void *)value, (void *)var);
+		free_two((void *)&value, (void *)&var);
 		return (remove_one_string_in_array(data->environ, i));
 	}
 	ft_memdel((void *)&data->environ[i]);
@@ -46,7 +46,7 @@ void	change_old_var_value(t_shell *data, char *var, char *value,
 	while (value[ii] != '\0')
 		data->environ[i][x++] = value[ii++];
 	data->environ[i][x] = '\0';
-	free_two((void *)value, (void *)var);
+	free_two((void *)&value, (void *)&var);
 }
 
 static char	**new_arr_with_extra_line(char **old_arr, int rows)
@@ -94,7 +94,7 @@ void	add_new_var_to_environ(t_shell *data, char *var, char *value)
 	new_arr[y] = NULL;
 	data->num_of_variables = y;
 	data->environ = ft_arrdup(new_arr);
-	free_two((void *)value, (void *)var);
+	free_two((void *)&value, (void *)&var);
 }
 
 /*
@@ -132,5 +132,5 @@ void	set_environment_variable(t_shell *data, char *args)
 		return (add_new_var_to_environ(data, variable, value));
 	else if (args[0] != '0')
 		return (change_old_var_value(data, variable, value, var_index));
-	free_two((void *)variable, (void *)value);
+	free_two((void *)&variable, (void *)&value);
 }
