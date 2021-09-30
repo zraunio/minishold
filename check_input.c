@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:53:11 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 14:50:26 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:02:19 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,29 @@
 char	*check_echo_flags_and_skip_whitespaces(char *input, t_shell *data,
 		int i)
 {
-	while (ft_isspace(input[0]) && input[0] != '\0')
-		input++;
-	input += 4;
-	if (input[0] == '\0')
-		return (NULL);
-	i = 0;
 	while (ft_isspace(input[i]) && input[i] != '\0')
 		i++;
-	while (input[i] == '-' && input[i + 1] == 'n')
+	input += i;
+	i = 0;
+	while (input[i] == '-')
 	{
-		input += i + 1;
-		i = 0;
-		while (input[0] == 'n' && input[0] != '\0')
-			input++;
-		if (input[0] == '\0' || ft_isspace(input[0]))
+		i++;
+		while (input[i] == 'n' && input[i] != '\0')
+			i++;
+		if (input[i] == '\0' || ft_isspace(input[i]))
 		{
 			data->n_flag = 1;
-			if (input[0] == '\0')
+			if (input[i] == '\0')
 				return (NULL);
-			while (ft_isspace(input[0]) && input[0] != '\0')
-				input++;
+			if (i > 0 && input[i - 1] == '-')
+				return (input + i - 1);
+			while (ft_isspace(input[i]) && input[i] != '\0')
+				i++;
+			if (input[i] != '-')
+				break ;
 		}
+		else
+			return (input);
 	}
 	return (input + i);
 }
