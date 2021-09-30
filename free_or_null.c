@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_or_null.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:27:23 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/11 19:32:56 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:51:14 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ void	check_if_null_ptr(void *ptr)
 
 void	free_fork_and_child(t_shell *data, char *executable, char *args)
 {
-	if (data->original_exec != NULL)
-	{
-		free(data->original_exec);
-		data->original_exec = NULL;
-	}
-	if (args != NULL)
-		free(args);
-	free(executable);
+	ft_memdel((void *)&data->original_exec);
+	free_two((void *)args, (void *)executable);
 }

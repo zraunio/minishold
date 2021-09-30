@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes_trim.c                                      :+:      :+:    :+:   */
+/*   tilde_dir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/21 10:46:04 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 11:18:18 by zraunio          ###   ########.fr       */
+/*   Created: 2021/09/30 11:16:11 by zraunio           #+#    #+#             */
+/*   Updated: 2021/09/30 11:16:54 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cd.h"
 
-void	quotes_trim(char *dir)
+char	*tilde_dir(char *dir_name, t_shell *data)
 {
-	size_t	i;
-	size_t	len;
-	char	*tmp;
+	int		i;
+	char	*new_dir;
+	char	*home;
+	char	*end;
 
-	tmp = NULL;
-	if (dir == NULL)
-		return ;
-	i = 0;
-	len = ft_strlen(dir);
-	if ((dir[0] == '"' && dir[len - 1] == '"') || (dir[0] == '\'' && dir[len - 1] == '\''))
+	i = check_if_var_is_in_array("HOME", data->environ);
+	if (i == -1)
+		return (NULL);
+	home = ft_strstr_after(data->environ[i], "HOME=");
+	if (ft_strequ(dir_name, "~"))
+		return (ft_strdup(home));
+	else
 	{
-		tmp = ft_strndup(dir + 1, len - 2);
-		ft_memset((void *)dir, 0, len);
-		ft_strcpy(dir, tmp);
-		ft_memdel((void *)&tmp);
+		end = ft_strdup(dir_name + 1);
+		new_dir = ft_strjoin(home, end);
+		ft_memdel((void *)&end);
+		return (new_dir);
 	}
+	return (NULL);
 }

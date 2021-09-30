@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:01:21 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/22 09:28:49 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:43:05 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ char				*ft_strrev(char *str);
 char				*ft_strndup(const char *s1, size_t n);
 int					ft_strchrstr(char *str, char c, char start);
 long long			ft_strchr_index(char *str, char c, char startpoint);
+char				*ft_strdup_chr(char *str, char c);
 /*
 ** binary trees
 */
@@ -181,8 +182,9 @@ size_t				ft_oradd_bit(size_t nb, size_t arr);
 /*
 ** two-dimentional arrays
 */
-void				ft_arr_free(char **arr);
+void				ft_arr_free(char ***arr);
 char				**ft_arrnew(size_t rows, size_t len);
 char				**ft_arrdup(char **arr);
 void				free_two(void *ptr1, void *ptr2);
+void				ft_arr_strdel(char **array, int row);
 #endif

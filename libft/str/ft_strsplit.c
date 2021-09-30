@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 14:07:07 by zraunio           #+#    #+#             */
-/*   Updated: 2021/05/18 15:13:13 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:34:51 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ char	**ft_strsplit(char const *s, char c)
 	count = ft_countwords(s, c);
 	words = split_string(s, c, count);
 	if (!words)
-		ft_arr_free(words);
+		ft_arr_free(&words);
 	return (words);
 }

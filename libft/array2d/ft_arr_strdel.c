@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_if_array.c                                   :+:      :+:    :+:   */
+/*   ft_arr_strdel.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 09:10:50 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 11:28:27 by zraunio          ###   ########.fr       */
+/*   Created: 2021/09/30 11:41:50 by zraunio           #+#    #+#             */
+/*   Updated: 2021/09/30 11:42:41 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../incl/libft.h"
 
-
-long long	check_if_array(char *var, char **env)
+void	ft_arr_strdel(char **array, int row)
 {
-	long long	i;
-
-	change_to_uppercase(var);
-	i = 0;
-	while (env[i] != NULL)
+	while (array[row + 1] != NULL)
 	{
-		if (ft_strstr(env[i], var) != NULL)
-		{
-			if (env[i][(int)ft_strlen(var)] == '=')
-				return (i);
-		}
-		i++;
+		ft_memdel((void *)&array[row]);
+		array[row] = ft_strnew((int)ft_strlen(array[row + 1]));
+		ft_strcpy(array[row], array[row + 1]);
+		row++;
 	}
-	return (-1);
+	free(array[row]);
+	array[row] = NULL;
 }

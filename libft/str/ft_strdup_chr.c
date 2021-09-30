@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_if_array.c                                   :+:      :+:    :+:   */
+/*   ft_strdup_chr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 09:10:50 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 11:28:27 by zraunio          ###   ########.fr       */
+/*   Created: 2021/09/30 11:31:20 by zraunio           #+#    #+#             */
+/*   Updated: 2021/09/30 11:32:27 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../incl/libft.h"
 
-
-long long	check_if_array(char *var, char **env)
+char	*ft_strdup_chr(char *str, char c)
 {
-	long long	i;
+	size_t		i;
 
-	change_to_uppercase(var);
 	i = 0;
-	while (env[i] != NULL)
+	if (c == '\0')
+		return (ft_strdup(str));
+	while (str[i] != '\0')
 	{
-		if (ft_strstr(env[i], var) != NULL)
-		{
-			if (env[i][(int)ft_strlen(var)] == '=')
-				return (i);
-		}
+		if (str[i] == c)
+			return (ft_strndup(str, i));
 		i++;
 	}
-	return (-1);
+	exit (1);
 }

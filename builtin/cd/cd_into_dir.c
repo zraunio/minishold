@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 10:58:21 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/22 09:38:53 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:04:38 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,32 @@ static char	*replace_dot_dot(char *new_dir, int i)
 		return (ft_strdup("/"));
 	}
 	tmp2 = ft_strndup(tmp, last_slash_index);
-	free(tmp);
+	ft_memdel((void *)&tmp2);
 	tmp = ft_strjoin(tmp2, new_dir + i + 3);
 	free_two((void *)tmp2, (void *)new_dir);
 	new_dir = ft_strdup(tmp);
-	free(tmp);
+	ft_memdel((void *)&tmp);
 	return (new_dir);
 }
 
 static char	*find_dot_dot(char *new_dir)
 {
 	long long	i;
+	char		*tmp;
+	struct stat	buf;
 
 	i = 0;
 	while (new_dir[i] != '\0')
 	{
 		if (new_dir[i] == '/' && new_dir[i + 1] == '.' && new_dir[i + 2] == '.')
 		{
+			tmp = ft_strndup(new_dir, i);
+			if (lstat(tmp, &buf) != 0)
+			{
+				ft_memdel((void *)&tmp);
+				return (new_dir);
+			}
+			ft_memdel((void *)&tmp);
 			new_dir = replace_dot_dot(new_dir, i);
 			if (ft_strequ(new_dir, "/"))
 				return (new_dir);
@@ -72,14 +81,14 @@ static char	*check_new_dir_slash(char *curr_dir, char *new_dir, t_shell *data)
 			}
 			else
 				tmp = ft_strjoin(curr_dir, new_dir);
-			free(new_dir);
+			ft_memdel((void *)&new_dir);
 			return (tmp);
 		}
 		else
 			ft_printf("try cdpath variable\n");
 	}
 	tmp = ft_strdup(new_dir);
-	free(new_dir);
+	ft_memdel((void *)&new_dir);
 	return (tmp);
 }
 

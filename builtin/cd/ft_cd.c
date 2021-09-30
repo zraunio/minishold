@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 09:44:41 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/21 11:12:17 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:12:29 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void	ft_cd(char *args, t_shell *data, size_t i)
 	if (new_dir != NULL)
 		cd_into_dir(curr_dir, new_dir, data, arr[i]);
 	else
-		free(curr_dir);
+		ft_memdel((void *)&curr_dir);
 	free_arr((void **)arr);
 }
