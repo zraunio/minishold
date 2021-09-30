@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:47:02 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 14:15:19 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:29:18 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,16 @@ void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 {
 	char	*tmp;
 
+	tmp = NULL;
 	new_dir = remove_dup_characters_from_str(new_dir, '/');
+	tmp = ft_strdup(new_dir);
+	ft_memdel((void *)&new_dir);
+	new_dir = cd_bad_dir(tmp, current_dir, data);
+	ft_memdel((void *)&tmp);
+	if (new_dir == NULL)
+		return ;
 	new_dir = check_new_dir_slash(current_dir, new_dir, data);
 	new_dir = find_dot_dot(new_dir);
-	tmp = NULL;
 	if (data->p_flag)
 		tmp = check_symlink_name(new_dir, current_dir);
 	if (tmp != NULL)

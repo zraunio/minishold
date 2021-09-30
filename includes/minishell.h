@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:17:31 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/29 17:07:46 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:26:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	cd_function_start(char *args, t_shell *data, int i);
 int		check_cd_arguments(char *args, t_shell *data);
 int		cd_flags_error(char *args, t_shell *data);
 int		check_cd_last_space(char *args, t_shell *data);
+char	*cd_bad_dir(char *tmp, char *cur, t_shell *data);
 void	cd_function_finish(char *current_dir, char *new_dir, t_shell *data,
 			char *orig_input);
 char	*get_current_dir(void);
@@ -95,5 +96,6 @@ void	change_to_uppercase(char *str);
 void	check_if_null_ptr(void *ptr);
 void	check_if_null_arr(void **arr);
 int		check_quotes_with_semicolon(char *str, int len, int i);
+int		only_slashes_and_dots(char *command);
 
 #endif
