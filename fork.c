@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:31:01 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/15 15:12:09 by ehelmine         ###   ########.fr       */
+/*   Updated: 2021/10/07 10:19:38 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	execve_command(t_shell *data, char **arg_arr,
 		while (tpid > 0)
 			tpid = waitpid(child_pid, &child_status, 0);
 	}
-	free_arr((void **)arg_arr);
+	free_arr((void *)&arg_arr);
 }
 
 static char	*skip_whitespace_begin_and_end(char *s)

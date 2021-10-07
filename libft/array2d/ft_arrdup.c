@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:04:12 by zraunio           #+#    #+#             */
-/*   Updated: 2021/08/31 16:05:51 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/10/07 10:37:49 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char	**ft_arrdup(char **arr)
 	{
 		arr_new[i] = ft_strdup(arr[i]);
 		if (arr_new[i] == NULL)
-			break ;
-		free(arr[i++]);
+			exit (1);
+		ft_memdel((void *)&arr[i++]);
 	}
 	free(arr);
 	arr_new[i] = NULL;

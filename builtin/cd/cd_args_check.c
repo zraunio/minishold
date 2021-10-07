@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 09:48:14 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/21 10:36:02 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/10/07 10:26:19 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ int	cd_args_check(char *args, t_shell *data)
 	}
 	if (args[data->i] == ' ')
 		check_cd_last_space(args, data);
-	
+	return (1);
+}

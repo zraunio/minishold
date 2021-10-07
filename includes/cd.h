@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 09:41:42 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 11:17:13 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/10/07 10:07:24 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*get_current_dir(void);
 void	quotes_trim(char *dir);
 int		check_dir_rights(char *new_dir, char *curr_dir, t_shell *data, char *orig);
 char	*tilde_dir(char *dir_name, t_shell *data);
+char	*cd_bad_dir(char *tmp, char *cur, t_shell *data);
 /*
 ** rewrite of the cd command
 */

@@ -6,11 +6,11 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 11:45:48 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 11:46:52 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/30 12:07:21 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/setenv.h"
+#include "../../includes/setenv.h"
 
 char	*env_check_int(char *args, char *var, char *value)
 {

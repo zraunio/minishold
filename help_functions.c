@@ -3,14 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   help_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zraunio <zraunio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:45:51 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/02 16:57:49 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/10/07 10:47:50 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+char	**add_exec_to_arr(char **arr, char *executable)
+{
+	size_t		len;
+	size_t		i;
+	char	**new_arr;
+
+	len = 0;
+	while (arr[len] != NULL)
+		len++;
+	new_arr = (char **)malloc(sizeof(char *) * (len + 1 + 1));
+	i = 0;
+	new_arr[0] = ft_strdup(executable);
+	while (arr[i] != NULL)
+	{
+		new_arr[i + 1] = ft_strdup(arr[i]);
+		ft_memdel((void *)&arr[i++]);
+	}
+	free(arr);
+	new_arr[i + 1] = NULL;
+	return (new_arr);
+}
+
+void	update_path_array(t_shell *data)
+{
+	size_t	i;
+
+	i = 0;
+	if (data->path_array != NULL)
+	{
+		while (data->path_array[i] != NULL)
+			ft_memdel((void *)&data->path_array[i++]);
+		free(data->path_array);
+	}
+	data->i = 0;
+	get_paths_to_array(data);
+}
 
 /*
 ** MAX_LEN of dir is 4096. Allocate memory, get current directory & return it.
@@ -35,46 +72,22 @@ void	remove_one_string_in_array(char **array, int row)
 {
 	while (array[row + 1] != NULL)
 	{
-		free(array[row]);
+		ft_memdel((void *)&array[row]);
 		array[row] = ft_strnew((int)ft_strlen(array[row + 1]));
 		ft_strcpy(array[row], array[row + 1]);
 		row++;
 	}
-	free(array[row]);
-	array[row] = NULL;
-}
-
-char	*return_string_before_given_character(char *str, char c)
-{
-	int		i;
-	char	*new_str;
-
-	i = 0;
-	if (c == '\0')
-	{
-		new_str = ft_strdup(str);
-		return (new_str);
-	}
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-		{
-			new_str = ft_strndup(str, i);
-			return (new_str);
-		}
-		i++;
-	}
-	return (NULL);
+	ft_memdel((void *)&array[row]);
 }
 
 void	change_to_uppercase(char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] >= 65 && str[i] <= 90)
+		if (ft_islower(str[i]))
 			str[i] -= 32;
 		i++;
 	}

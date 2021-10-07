@@ -6,13 +6,13 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 14:15:24 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 10:58:52 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/10/07 10:34:57 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/libft.h"
 
-void	ft_arr_free(char ***arr)
+void	free_arr(void ***arr)
 {
 	size_t	i;
 

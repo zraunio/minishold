@@ -6,11 +6,11 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 11:47:55 by zraunio           #+#    #+#             */
-/*   Updated: 2021/09/30 11:52:49 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/09/30 12:06:41 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/setenv.h"
+#include "../../includes/setenv.h"
 
 /*
 ** int setenv(const char *name, const char *value, int overwrite);

@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 14:27:23 by ehelmine          #+#    #+#             */
-/*   Updated: 2021/09/30 10:51:14 by zraunio          ###   ########.fr       */
+/*   Updated: 2021/10/07 10:42:59 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	check_if_null_ptr(void *ptr)
 void	free_fork_and_child(t_shell *data, char *executable, char *args)
 {
 	ft_memdel((void *)&data->original_exec);
-	free_two((void *)args, (void *)executable);
+	free_two((void *)&args, (void *)&executable);
 }
